@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+/*
+  Thème DUO CAPITAL
+  - brand : vert (navigation, identité, actions positives)
+  - danger : rouge (alertes, actions de sortie)
+  - ink / line / surface : textes, bordures et fonds neutres
+*/
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-brand-50: #eef8f1;
+  --color-brand-100: #dcf1e2;
+  --color-brand-200: #b6e2c3;
+  --color-brand-300: #84cc9c;
+  --color-brand-400: #3fcb69;
+  --color-brand-500: #1a9a47;
+  --color-brand-600: #0c8236;
+  --color-brand-700: #0b6a2e;
+  --color-brand-800: #095628;
+  --color-brand-900: #073f1d;
+
+  --color-danger-50: #fdecee;
+  --color-danger-500: #e11d2a;
+  --color-danger-600: #c8101d;
+
+  --color-ink: #111b2e;
+  --color-ink-soft: #5b6b7c;
+  --color-line: #d9e0dc;
+  --color-surface: #f6f9f7;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background-color: var(--color-surface);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/*
+  MODE SOMBRE — appliqué par <html data-theme="dark"> (voir services/settingsService.js : applyTheme).
+  Le thème vient des préférences enregistrées côté serveur pour chaque associé ; rien n'est lu dans le navigateur.
+
+  1) Jetons sémantiques : fond principal (surface), texte principal (ink), texte secondaire (ink-soft),
+     bordures (line), pastilles vertes / rouges pâles (brand-50/100/200, danger-50).
+  2) Les cartes, champs et fenêtres utilisent la classe « bg-white » : en sombre elle devient la couleur de carte.
+     Les éléments qui doivent rester blancs (curseur du ToggleSwitch, avatar de la barre latérale) n'utilisent pas
+     cette classe (valeur arbitraire) : ils ne sont pas touchés.
+  3) Les teintes Tailwind brutes (bleu, violet, orange, ambre, rouge) sont assombries / éclaircies par classe.
+  4) Recharts : axes, grille, infobulle et légende suivent les mêmes jetons.
+*/
+html[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-surface: #0b1220;
+  --color-ink: #e8eef6;
+  --color-ink-soft: #a3b3c6;
+  --color-line: #2b3952;
+
+  --color-brand-50: #10291c;
+  --color-brand-100: #163625;
+  --color-brand-200: #21513a;
+
+  --color-danger-50: #3a161b;
+
+  --color-card: #131d30;
+}
+
+@layer utilities {
+  /* :where() garde une spécificité faible : les variantes hover:/focus: de Tailwind restent prioritaires. */
+  :where(html[data-theme='dark']) .bg-white {
+    background-color: var(--color-card);
+  }
+  :where(html[data-theme='dark']) .bg-ink\/50 {
+    background-color: rgb(0 0 0 / 0.65);
+  }
+
+  :where(html[data-theme='dark']) .text-brand-600,
+  :where(html[data-theme='dark']) .text-brand-700,
+  :where(html[data-theme='dark']) .text-brand-800 {
+    color: #5fd48a;
+  }
+  :where(html[data-theme='dark']) .text-danger-500,
+  :where(html[data-theme='dark']) .text-danger-600 {
+    color: #ff7d86;
+  }
+  :where(html[data-theme='dark']) .text-blue-600,
+  :where(html[data-theme='dark']) .text-blue-700 {
+    color: #82b4ff;
+  }
+  :where(html[data-theme='dark']) .text-violet-600 {
+    color: #b9a1ff;
+  }
+  :where(html[data-theme='dark']) .text-orange-500 {
+    color: #ffaa63;
+  }
+  :where(html[data-theme='dark']) .text-amber-400,
+  :where(html[data-theme='dark']) .text-amber-700 {
+    color: #fbc04f;
+  }
+  :where(html[data-theme='dark']) .text-slate-600 {
+    color: var(--color-ink-soft);
+  }
+
+  :where(html[data-theme='dark']) .bg-blue-50 {
+    background-color: #11264a;
+  }
+  :where(html[data-theme='dark']) .bg-blue-100 {
+    background-color: #17356a;
+  }
+  :where(html[data-theme='dark']) .bg-violet-50 {
+    background-color: #241a44;
+  }
+  :where(html[data-theme='dark']) .bg-violet-100 {
+    background-color: #33265f;
+  }
+  :where(html[data-theme='dark']) .bg-orange-50 {
+    background-color: #3a2312;
+  }
+  :where(html[data-theme='dark']) .bg-orange-100 {
+    background-color: #4d2f18;
+  }
+  :where(html[data-theme='dark']) .bg-amber-50 {
+    background-color: #3a2d0e;
+  }
+  :where(html[data-theme='dark']) .bg-amber-100 {
+    background-color: #4d3b12;
+  }
+  :where(html[data-theme='dark']) .bg-red-100 {
+    background-color: #4a1b21;
+  }
+  :where(html[data-theme='dark']) .bg-slate-100 {
+    background-color: var(--color-line);
+  }
+
+  :where(html[data-theme='dark']) .border-blue-100 {
+    border-color: #1f3f78;
+  }
+  :where(html[data-theme='dark']) .border-violet-100 {
+    border-color: #40307a;
+  }
+  :where(html[data-theme='dark']) .border-orange-100 {
+    border-color: #5c3a1d;
+  }
+  :where(html[data-theme='dark']) .border-amber-200 {
+    border-color: #5c4817;
+  }
+  :where(html[data-theme='dark']) .border-red-100 {
+    border-color: #5c242b;
+  }
+}
+
+/* Recharts (présentation SVG : les attributs fill/stroke des composants cèdent devant ces règles). */
+html[data-theme='dark'] .recharts-cartesian-axis-tick-value {
+  fill: var(--color-ink);
+}
+html[data-theme='dark'] .recharts-cartesian-grid line {
+  stroke: var(--color-line);
+}
+html[data-theme='dark'] .recharts-cartesian-axis-line,
+html[data-theme='dark'] .recharts-cartesian-axis-tick-line {
+  stroke: var(--color-line);
+}
+html[data-theme='dark'] .recharts-label-list text[fill='#111b2e'] {
+  fill: var(--color-ink);
+}
+html[data-theme='dark'] .recharts-pie-sector path {
+  stroke: var(--color-card);
+}
+html[data-theme='dark'] .recharts-default-tooltip {
+  background-color: var(--color-card) !important;
+  border-color: var(--color-line) !important;
+}
+html[data-theme='dark'] .recharts-tooltip-label,
+html[data-theme='dark'] .recharts-tooltip-item {
+  color: var(--color-ink) !important;
+}
+html[data-theme='dark'] .recharts-legend-item-text {
+  color: var(--color-ink) !important;
+}
+html[data-theme='dark'] .recharts-tooltip-cursor {
+  fill: rgb(255 255 255 / 0.06);
+}
+
+/*
+  Icônes Font Awesome : règles minimales (le CSS automatique est désactivé, voir src/icons/index.jsx).
+  Dans la couche « base » : les classes Tailwind de taille (h-4 w-4, h-10 w-10…) l'emportent toujours.
+*/
+@layer base {
+  .svg-inline--fa {
+    box-sizing: content-box;
+    height: 1em;
+    overflow: visible;
+  }
+}

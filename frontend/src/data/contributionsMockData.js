@@ -1,0 +1,44 @@
+// DONNÉES TEMPORAIRES du module Cotisations (aucune API, aucune base de données).
+// Forme d'une cotisation : { id, associateId, amount (FCFA), date (« AAAA-MM-JJ »), description }.
+// Cohérence avec le Dashboard : 12 mois (déc. 2025 → nov. 2026) × 2 associés × 15 000 FCFA = 360 000 FCFA.
+
+const MOHAMED = 'mohamed-bakhoum'
+const CHEIKH = 'cheikh-sow'
+const DEFAULT_DESCRIPTION = 'Cotisation mensuelle'
+
+// [associé, montant, date, description]
+const CONTRIBUTION_ROWS = [
+  [MOHAMED, 15000, '2025-12-04', DEFAULT_DESCRIPTION],
+  [CHEIKH, 15000, '2025-12-06', DEFAULT_DESCRIPTION],
+  [MOHAMED, 15000, '2026-01-05', DEFAULT_DESCRIPTION],
+  [CHEIKH, 15000, '2026-01-05', DEFAULT_DESCRIPTION],
+  [MOHAMED, 15000, '2026-02-03', DEFAULT_DESCRIPTION],
+  [CHEIKH, 15000, '2026-02-05', DEFAULT_DESCRIPTION],
+  [MOHAMED, 15000, '2026-03-05', DEFAULT_DESCRIPTION],
+  [CHEIKH, 15000, '2026-03-09', 'Cotisation mensuelle (virement)'],
+  [MOHAMED, 15000, '2026-04-06', DEFAULT_DESCRIPTION],
+  [CHEIKH, 15000, '2026-04-05', DEFAULT_DESCRIPTION],
+  [MOHAMED, 15000, '2026-05-05', DEFAULT_DESCRIPTION],
+  [CHEIKH, 15000, '2026-05-07', DEFAULT_DESCRIPTION],
+  [MOHAMED, 15000, '2026-06-04', DEFAULT_DESCRIPTION],
+  [CHEIKH, 15000, '2026-06-05', DEFAULT_DESCRIPTION],
+  [MOHAMED, 15000, '2026-07-05', DEFAULT_DESCRIPTION],
+  [CHEIKH, 15000, '2026-07-06', DEFAULT_DESCRIPTION],
+  [MOHAMED, 15000, '2026-08-05', DEFAULT_DESCRIPTION],
+  [CHEIKH, 15000, '2026-08-05', DEFAULT_DESCRIPTION],
+  [MOHAMED, 15000, '2026-09-07', DEFAULT_DESCRIPTION],
+  [CHEIKH, 10000, '2026-09-03', 'Premier versement'],
+  [CHEIKH, 5000, '2026-09-20', 'Solde du mois'],
+  [MOHAMED, 15000, '2026-10-05', ''],
+  [CHEIKH, 15000, '2026-10-05', DEFAULT_DESCRIPTION],
+  [MOHAMED, 15000, '2026-11-05', DEFAULT_DESCRIPTION],
+  [CHEIKH, 15000, '2026-11-05', DEFAULT_DESCRIPTION],
+]
+
+export const contributionsMockData = CONTRIBUTION_ROWS.map(([associateId, amount, date, description], index) => ({
+  id: `contribution-${String(index + 1).padStart(3, '0')}`,
+  associateId,
+  amount,
+  date,
+  description,
+}))

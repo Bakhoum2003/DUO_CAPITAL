@@ -1,0 +1,18 @@
+# Dépendances
+node_modules/
+
+# Secrets : ne jamais envoyer .env dans Git (seul .env.example est versionné)
+.env
+.env.*
+!.env.example
+
+# Journaux, couverture de tests, caches
+*.log
+logs/
+coverage/
+.vitest-cache/
+
+# Sorties de build et fichiers système
+dist/
+.DS_Store
+Thumbs.db
