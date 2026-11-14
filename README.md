@@ -398,10 +398,10 @@ La vision est simple :
 
 **DUO CAPITAL**
 
-Projet conçu et développé par :
+Projet développé par :
 
 - Mohamed Bakhoum
-- Cheikh Sow
+
 
 Deux associés, un fonds commun, plusieurs opportunités commerciales et une vision partagée.
 
