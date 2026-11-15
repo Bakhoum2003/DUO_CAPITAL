@@ -38,23 +38,7 @@ Contrairement à une application conçue pour une seule activité commerciale, D
 
 ---
 
-## 👥 Les associés
 
-DUO CAPITAL fonctionne avec deux comptes associés.
-
-| Associé | Participation mensuelle |
-|---|---:|
-| Mohamed Bakhoum | 15 000 FCFA |
-| Cheikh Sow | 15 000 FCFA |
-| **Total mensuel** | **30 000 FCFA** |
-
-Chaque associé dispose de son propre compte et accède à l'espace de gestion commun.
-
-Les informations financières sont partagées entre les deux associés afin de garantir une vision commune de la situation du fonds.
-
-L'application ne prévoit pas d'inscription publique.
-
----
 
 # 🚀 Fonctionnalités principales
 
