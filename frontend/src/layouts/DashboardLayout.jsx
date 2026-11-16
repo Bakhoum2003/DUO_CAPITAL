@@ -3,12 +3,14 @@ import { Outlet, useLocation } from 'react-router-dom'
 import DashboardHeader from '../components/dashboard/DashboardHeader'
 import PwaNotices from '../components/pwa/PwaNotices'
 import LogoutConfirmDialog from '../components/dashboard/LogoutConfirmDialog'
+import MobileBottomNav from '../components/dashboard/MobileBottomNav'
 import Sidebar from '../components/dashboard/Sidebar'
-import { NAVIGATION_ITEMS } from '../constants/navigationItems'
+import { MOBILE_PRIMARY_ROUTES, NAVIGATION_ITEMS } from '../constants/navigationItems'
 import FormError from '../components/common/FormError'
 import useAuth from '../hooks/useAuth'
 import { ROUTES } from '../routes/routePaths'
 import { formatCompactDate, formatLongDate } from '../utils/formatters'
+import { isMenuActive, splitMobileNavigation } from '../utils/mobileNavigation'
 import { createLogoutRunner } from '../utils/logoutFlow'
 import { buildWelcomeTitle } from '../utils/welcomeMessage'
 
@@ -20,6 +22,7 @@ function DashboardLayout() {
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false)
   const runLogout = useMemo(() => createLogoutRunner(logout), [logout])
+  const { primary: mobilePrimaryItems } = useMemo(() => splitMobileNavigation(NAVIGATION_ITEMS, MOBILE_PRIMARY_ROUTES), [])
 
   useEffect(() => {
     if (!isSidebarOpen) return undefined
@@ -73,7 +76,7 @@ function DashboardLayout() {
           onOpenMenu={() => setIsSidebarOpen(true)}
         />
 
-        <main className="px-4 pb-10 pt-5 sm:px-6">
+        <main className="px-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] pt-5 sm:px-6 md:pb-10">
           <PwaNotices className="mb-4 space-y-2" />
           {logoutError && (
             <div className="mb-4">
@@ -83,6 +86,13 @@ function DashboardLayout() {
           <Outlet />
         </main>
       </div>
+
+      <MobileBottomNav
+        primaryItems={mobilePrimaryItems}
+        isMenuActive={isMenuActive(pathname, mobilePrimaryItems)}
+        isMenuOpen={isSidebarOpen}
+        onOpenMenu={() => setIsSidebarOpen(true)}
+      />
 
       {isLogoutDialogOpen && (
         <LogoutConfirmDialog

@@ -17,7 +17,7 @@ function DashboardHeader({
         onClick={onOpenMenu}
         aria-label="Ouvrir le menu"
         aria-controls="dashboard-sidebar"
-        className="rounded-lg p-2 text-ink transition hover:bg-surface focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/30 lg:hidden"
+        className="rounded-lg p-2 text-ink transition hover:bg-surface focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-500/30 max-md:hidden lg:hidden"
       >
         <BarsIcon className="h-6 w-6" aria-hidden="true" />
       </button>
