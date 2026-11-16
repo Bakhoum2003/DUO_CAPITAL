@@ -35,8 +35,8 @@ function PartnerTrackingSection({ partners }) {
             )}
           </article>
         ))}
-      </div>
-    </section>
+      </div> 
+      </section> 
   )
 }
 
