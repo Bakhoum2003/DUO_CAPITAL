@@ -378,17 +378,5 @@ La vision est simple :
 
 ---
 
-## 👨‍💻 Conception et développement
-
-**DUO CAPITAL**
-
-Projet développé par :
-
-- Mohamed Bakhoum
-
-
-Deux associés, un fonds commun, plusieurs opportunités commerciales et une vision partagée.
-
----
 
 *DUO CAPITAL — Construire ensemble, évoluer ensemble.*
