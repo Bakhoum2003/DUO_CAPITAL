@@ -4,16 +4,7 @@ import { getResultKind } from '../../utils/businessCalculations'
 import { formatCurrency, formatSignedAmount } from '../../utils/formatters'
 import SummaryCard from '../dashboard/SummaryCard'
 
-/**
- * Les quatre chiffres clés d'un business : total investi, dépenses, recettes, résultat financier.
- *
- * Props :
- * - initialInvestment : investissement initial (FCFA)
- * - totalInvested : investissement initial + investissements supplémentaires (FCFA)
- * - totalExpenses : total des dépenses (FCFA)
- * - totalRevenues : total des recettes (FCFA)
- * - result : bénéfice (positif) ou perte (négatif) (FCFA)
- */
+/** Les quatre chiffres clés d'un business : total investi, dépenses, recettes, résultat financier. */
 function BusinessFinancialCards({ initialInvestment, totalInvested, totalExpenses, totalRevenues, result }) {
   const resultKind = getResultKind(result)
 

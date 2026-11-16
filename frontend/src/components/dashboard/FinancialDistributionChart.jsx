@@ -9,12 +9,6 @@ const SEGMENT_COLORS = {
   red: '#e5242b',
 }
 
-/**
- * Graphique « Répartition de vos revenus » (anneau Recharts + légende), responsive.
- *
- * Props :
- * - segments : tableau { id, label, amount, color } (color : 'green' ou 'red', montant en FCFA)
- */
 function FinancialDistributionChart({ segments }) {
   const total = segments.reduce((sum, segment) => sum + segment.amount, 0)
 

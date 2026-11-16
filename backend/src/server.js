@@ -53,7 +53,6 @@ export async function startServer({ config, logger, database = defaultDatabase }
 
   let shutdownPromise = null
   function shutdown(reason = 'manual') {
-    // Un second signal pendant l'arrêt ne relance rien : une seule fermeture, une seule déconnexion.
     if (shutdownPromise) return shutdownPromise
 
     shutdownPromise = (async () => {
@@ -125,8 +124,6 @@ async function main() {
   }
 }
 
-// Le serveur ne se lance que lorsque ce fichier est exécuté directement (npm run dev / npm start),
-// jamais lorsqu'il est simplement importé par un test.
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main()
 }

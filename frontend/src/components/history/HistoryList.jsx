@@ -6,16 +6,6 @@ import HistoryFilters from './HistoryFilters'
 import HistoryMobileItem from './HistoryMobileItem'
 import HistoryTable from './HistoryTable'
 
-/**
- * Section « Mouvements » : filtres, tableau (ou cartes sur mobile) et états vides.
- *
- * Props :
- * - entries : mouvements à afficher (déjà filtrés et triés)
- * - totalCount : nombre de mouvements avant filtrage
- * - filters, onFilterChange, onResetFilters, hasActiveFilters, periodError : état des filtres (voir HistoryFilters)
- * - typeOptions, associateOptions, businessOptions : options des listes déroulantes
- * - onShowDetails : fonction appelée avec le mouvement dont on veut le détail
- */
 function HistoryList({
   entries,
   totalCount,

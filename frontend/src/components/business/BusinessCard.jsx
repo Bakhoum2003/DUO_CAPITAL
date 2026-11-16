@@ -7,19 +7,6 @@ import StatusBadge from '../common/StatusBadge'
 import BusinessCategoryIcon from './BusinessCategoryIcon'
 import ResultLabel from './ResultLabel'
 
-/**
- * Carte d'un business dans la liste. Toute la carte est un lien vers la page de détails.
- *
- * Props :
- * - to : adresse de la page de détails
- * - name : nom du business
- * - category : valeur de catégorie (choisit l'icône et le libellé)
- * - launchDate : date de lancement ISO « AAAA-MM-JJ »
- * - responsibleName : nom de l'associé responsable (vide = non précisé)
- * - status : 'ongoing' ou 'completed'
- * - totalInvested, totalExpenses, totalRevenues : montants (FCFA)
- * - result : bénéfice (positif) ou perte (négatif) (FCFA)
- */
 function BusinessCard({
   to,
   name,

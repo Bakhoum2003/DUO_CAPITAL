@@ -2,14 +2,12 @@ import { BookOpenIcon, BottleWaterIcon, ShirtIcon, StoreIcon, UtensilsIcon } fro
 import { CONTRIBUTION_ASSOCIATES } from './contributionSettings'
 import { BUSINESS_STATUSES } from './statusStyles'
 
-// Règles et listes du module Business.
 export const MAX_BUSINESS_AMOUNT = 100000000
 export const MIN_BUSINESS_DATE = '2020-01-01'
 export const MAX_BUSINESS_NAME_LENGTH = 60
 export const MAX_BUSINESS_DESCRIPTION_LENGTH = 300
 export const MAX_OPERATION_DESCRIPTION_LENGTH = 200
 
-// Catégories d'activité : libellé, icône et teinte (TONE_STYLES) de la carte.
 export const BUSINESS_CATEGORIES = [
   { value: 'drinks', label: 'Boissons', icon: BottleWaterIcon, tone: 'blue' },
   { value: 'clothing', label: 'Vêtements', icon: ShirtIcon, tone: 'red' },
@@ -23,7 +21,6 @@ export const BUSINESS_STATUS_OPTIONS = Object.entries(BUSINESS_STATUSES).map(([v
   label: status.label,
 }))
 
-// Les trois types d'opérations financières d'un business.
 export const OPERATION_TYPES = {
   investment: {
     label: 'Investissement',
@@ -72,7 +69,6 @@ export const BUSINESS_SORT_OPTIONS = [
 
 export const RESULT_KIND_LABELS = { profit: 'Bénéfice', loss: 'Perte', 'break-even': 'Équilibre' }
 
-// Les associés (les mêmes que pour les cotisations).
 export const BUSINESS_ASSOCIATES = CONTRIBUTION_ASSOCIATES
 
 export function getAssociate(associateId) {

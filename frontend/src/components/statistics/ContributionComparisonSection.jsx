@@ -5,16 +5,6 @@ import AssociateProgressCard from '../contributions/AssociateProgressCard'
 import EmptyState from '../common/EmptyState'
 import AssociateContributionChart from './AssociateContributionChart'
 
-/**
- * Graphique D : cotisations de Mohamed et Cheikh (totaux, progression mensuelle, participation à l'objectif).
- * Présentation neutre : pas de classement ni de jugement entre les associés.
- *
- * Props :
- * - stats : [{ associate, total, target, percent, remaining, isComplete }]
- * - monthlyData : [{ shortLabel, label, [idAssocié]: montant }]
- * - monthlyTarget : objectif mensuel de chaque associé (FCFA)
- * - isEmpty : vrai quand il n'y a aucun mois à afficher sur la période
- */
 function ContributionComparisonSection({ stats, monthlyData, monthlyTarget, isEmpty }) {
   return (
     <section className={CARD_CLASSES} aria-label="Cotisations des associés">

@@ -7,14 +7,6 @@ function createContributionId() {
   return `contribution-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
 }
 
-/**
- * Charge les cotisations et expose l'ajout, la modification et la suppression.
- * Pour l'instant tout est conservé en mémoire (perdu à l'actualisation de la page) :
- * ce sont ces trois fonctions qui appelleront le backend plus tard.
- *
- * Retourne { contributions, isLoading, errorMessage, addContribution, updateContribution, deleteContribution }.
- * Une cotisation (values) a la forme { associateId, amount, date, description }.
- */
 export default function useContributions() {
   const [state, setState] = useState({ contributions: [], isLoading: true, errorMessage: '' })
 

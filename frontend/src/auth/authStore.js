@@ -1,11 +1,4 @@
-// État d'authentification de l'application (indépendant de React, donc testable seul).
-//
-// Statuts :
-// - 'initializing' : vérification de la session au démarrage (GET /api/auth/me, avec renouvellement si nécessaire) ;
-// - 'authenticated' : utilisateur connu du serveur (jamais déduit d'une donnée stockée dans le navigateur) ;
-// - 'unauthenticated' : pas de session valide ;
-// - 'error' : le serveur n'a pas pu répondre pendant l'initialisation (on ne sait pas si la session existe).
-// L'identité (nom, numéro d'associé) vient exclusivement de /api/auth/me.
+
 
 import { ApiError } from '../services/apiClient'
 import { getErrorMessage } from '../utils/apiErrors'
@@ -65,7 +58,6 @@ export function createAuthStore({ authService }) {
 
     init,
 
-    /** Nouvelle vérification après une erreur (serveur injoignable au démarrage). */
     retry() {
       initPromise = null
       setState({ status: AUTH_STATUS.INITIALIZING, errorMessage: '' })

@@ -11,19 +11,6 @@ function getVariationText(variation) {
   return `${variation.percent > 0 ? '+' : ''}${variation.percent} % vs période précédente`
 }
 
-/**
- * Carte d'indicateur : montant de la période et évolution par rapport à la période précédente.
- *
- * Props :
- * - title : nom de l'indicateur
- * - amount : montant en FCFA
- * - isSigned : affiche le montant avec son signe (+/−), pour les résultats et soldes
- * - icon : composant d'icône Font Awesome (voir src/icons)
- * - tone : teinte ('green', 'blue', 'red', 'violet', 'orange')
- * - variation : { percent, trend } ou null (pas de comparaison possible)
- * - isNeutralTrend : ne colore pas l'évolution en vert/rouge (une hausse des dépenses n'est ni bonne ni mauvaise en soi)
- * - footnote : petit texte explicatif
- */
 function StatisticsKpiCard({ title, amount, isSigned = false, icon: Icon, tone, variation, isNeutralTrend = false, footnote }) {
   const styles = TONE_STYLES[tone]
   const TrendIcon = variation ? TREND_ICONS[variation.trend] : null

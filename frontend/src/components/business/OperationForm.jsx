@@ -19,20 +19,6 @@ const ASSOCIATE_IDS = BUSINESS_ASSOCIATES.map((associate) => associate.id)
 const EXPENSE_CATEGORY_OPTIONS = [{ value: '', label: 'Choisir une catégorie' }, ...EXPENSE_CATEGORIES]
 const EXPENSE_CATEGORY_VALUES = EXPENSE_CATEGORIES.map((category) => category.value)
 
-/**
- * Formulaire d'une opération financière : investissement, dépense ou recette.
- * La catégorie de dépense n'apparaît que pour une dépense.
- *
- * Props :
- * - idPrefix : préfixe des identifiants des champs
- * - operationType : 'investment', 'expense' ou 'revenue'
- * - initialValues : { associateId, amount (texte), date, expenseCategory, description }
- * - todayIso : date du jour « AAAA-MM-JJ »
- * - launchDate : date de lancement du business (une opération ne peut pas la précéder)
- * - submitLabel : texte du bouton d'enregistrement
- * - onSubmit : fonction appelée avec { type, amount (nombre), date, associateId, expenseCategory, description }
- * - onCancel : fonction appelée au clic sur « Annuler »
- */
 function OperationForm({ idPrefix, operationType, initialValues, todayIso, launchDate, submitLabel, onSubmit, onCancel }) {
   const { values, errors, handleChange, handleBlur, setFieldValue, validateAll } = useFormValidation({
     initialValues,

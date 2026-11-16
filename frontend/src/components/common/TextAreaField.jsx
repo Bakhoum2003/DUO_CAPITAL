@@ -1,16 +1,5 @@
 import FormError from './FormError'
 
-/**
- * Zone de texte sur plusieurs lignes, avec compteur de caractères.
- *
- * Props :
- * - id, name : identifiants du champ
- * - label : libellé affiché au-dessus
- * - placeholder : texte d'aide dans le champ
- * - value, onChange, onBlur : contrôle du champ
- * - error : message d'erreur (vide = pas d'erreur)
- * - maxLength : nombre maximal de caractères (affiché dans le compteur)
- */
 function TextAreaField({ id, name, label, placeholder, value, onChange, onBlur, error, maxLength }) {
   const errorId = `${id}-error`
   const borderStyles = error

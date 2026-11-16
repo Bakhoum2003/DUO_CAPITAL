@@ -14,11 +14,6 @@ import { buildFilterOptions, buildSummaryCards, hasActiveFilters } from '../../u
 const TITLE = 'Historique'
 const DESCRIPTION = "Toutes les opérations financières réellement enregistrées : cotisations, revenus, investissements, dépenses et retraits. Consultation seule : chaque opération se gère dans son module."
 
-/**
- * Page « Historique » : totaux, recherche, filtres combinables, tri, pagination et détail. Lecture seule.
- * Toutes les données viennent de l'API (le serveur calcule tout) ; aucune donnée fictive ; chargement, erreur,
- * aucun historique et aucun résultat sont distincts, et une erreur ne remplace jamais les chiffres par des données locales.
- */
 function HistoryPage() {
   const history = useHistory()
   const { filters, summary, list } = history
@@ -41,7 +36,6 @@ function HistoryPage() {
     </div>
   )
 
-  // Première lecture : aucune donnée du serveur n'est encore disponible.
   if (!summaryData) {
     return (
       <div className="space-y-6">

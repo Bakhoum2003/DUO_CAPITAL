@@ -1,4 +1,3 @@
-// Création initiale des deux comptes contre une VRAIE base de test (jamais DATABASE_URL, jamais Atlas).
 
 import mongoose from 'mongoose'
 import { describe, expect, it } from 'vitest'

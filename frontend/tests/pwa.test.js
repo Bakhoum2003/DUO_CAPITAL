@@ -9,14 +9,12 @@ import { createPwaStore, selectNotices } from '../src/pwa/pwaStore'
 const root = (path) => new URL(`../${path}`, import.meta.url)
 const text = (path) => readFileSync(root(path), 'utf8')
 
-/** Largeur et hauteur d'un PNG, lues dans son en-tête IHDR. */
 function pngSize(path) {
   const bytes = readFileSync(root(path))
   expect(bytes.subarray(1, 4).toString('latin1')).toBe('PNG')
   return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) }
 }
 
-/** Fenêtre factice : événements, navigator et matchMedia. */
 function fakeWindow({ onLine = true, standalone = false, userAgent = 'Mozilla/5.0 (Linux; Android 14) Chrome/130', platform = 'Linux armv8l', maxTouchPoints = 5 } = {}) {
   const listeners = new Map()
   return {
@@ -142,7 +140,6 @@ describe('installation', () => {
     expect(await store.promptInstall()).toEqual({ outcome: 'accepted' })
     expect(event.prompt).toHaveBeenCalledTimes(1)
     expect(selectNotices(store.getState()).install).toBe(false)
-    // L'événement n'est utilisable qu'une fois.
     expect(await store.promptInstall()).toEqual({ outcome: 'unavailable' })
   })
 
@@ -300,7 +297,6 @@ describe('hors connexion', () => {
     expect(error instanceof ApiError).toBe(true)
     expect(error.code).toBe('NETWORK_ERROR')
     expect(error.status).toBe(0)
-    // Aucune réponse de repli : la requête est tentée une seule fois et ne passe par aucun cache.
     expect(fetchImpl).toHaveBeenCalledTimes(1)
     expect(fetchImpl.mock.calls[0][1].cache).toBe('no-store')
   })

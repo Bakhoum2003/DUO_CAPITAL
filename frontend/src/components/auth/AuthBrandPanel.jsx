@@ -4,8 +4,7 @@ import BrandWave from './illustrations/BrandWave'
 import FistBumpIllustration from './illustrations/FistBumpIllustration'
 import GrowthIllustration from './illustrations/GrowthIllustration'
 
-// Chaque illustration a sa taille. Les poings occupent toute la largeur du panneau
-// (-mx-9 annule le padding horizontal du panneau) : les manches sortent des bords, comme sur la maquette.
+
 const ILLUSTRATIONS = {
   growth: {
     Component: GrowthIllustration,
@@ -22,13 +21,6 @@ const ILLUSTRATIONS = {
 /**
  * Panneau vert de marque (partie gauche des pages d'authentification).
  * Sur mobile et tablette, il devient une bannière compacte (logo + slogan).
- *
- * Props :
- * - title : première partie du titre (en blanc)
- * - highlightedTitle : seconde partie du titre (en vert clair)
- * - description : paragraphe sous le titre (optionnel)
- * - features : liste de points forts cochés (optionnel)
- * - illustration : 'growth' (pièces et plante) ou 'fistBump' (poings)
  */
 function AuthBrandPanel({ title, highlightedTitle, description, features, illustration }) {
   const { Component: Illustration, wrapperClassName, imageClassName } = ILLUSTRATIONS[illustration]

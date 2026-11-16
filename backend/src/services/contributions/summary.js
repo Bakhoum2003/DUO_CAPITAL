@@ -1,11 +1,3 @@
-// Statistiques des cotisations : fonction PURE (aucune base, aucune horloge).
-//
-// Deux notions volontairement séparées :
-// - ENCAISSÉ (`paid`) : somme réelle des versements, jamais plafonnée (20 000 FCFA versés = 20 000 FCFA) ;
-// - CONFORMITÉ (`settled`) : pour chaque mois, min(versé du mois, objectif) ; un excédent ne compense jamais un autre mois
-//   et reste visible dans `excess`.
-// Les mois dus vont du mois de démarrage du fonds au mois courant (Africa/Dakar). Le mois courant non réglé n'est pas
-// un retard ; un mois futur n'est jamais dû. Sans mois de démarrage configuré, rien d'attendu n'est inventé.
 
 import { monthOf, monthsBetween } from '../../utils/businessDates.js'
 
@@ -33,7 +25,6 @@ export function computeContributionSummary({ today, fundStartPeriod = null, mont
   const dueMonths = expectedAvailable ? monthsBetween(fundStartPeriod, currentPeriod) : []
   const fundStarted = dueMonths.length > 0
 
-  // paid[partnerId][period] = total réel versé ; counts par associé.
   const paidBy = new Map(partners.map((partner) => [partner.id, new Map()]))
   const counts = new Map(partners.map((partner) => [partner.id, 0]))
   for (const item of effective) {

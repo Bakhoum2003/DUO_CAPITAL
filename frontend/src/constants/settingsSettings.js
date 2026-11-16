@@ -1,11 +1,3 @@
-// Réglages du module Paramètres.
-//
-// Deux familles de paramètres, enregistrées côté serveur (MongoDB) :
-// - paramètres COMMUNS du fonds : description et informations du projet (partagés par les deux associés) ;
-// - préférences PERSONNELLES : thème, format des montants, notifications visuelles, rappels (propres à chaque associé).
-// Les constantes SETTINGS_STORAGE_KEY et DEFAULT_SETTINGS ne servent plus qu'aux anciens validateurs et à leurs tests.
-// Les identités (nom, slogan, devise), les associés et les objectifs sont en LECTURE SEULE : ils viennent
-// des mêmes constantes que Cotisations, Dashboard et Statistiques, afin de rester cohérents partout.
 
 export const SETTINGS_STORAGE_KEY = 'duo-capital:settings:v1'
 export const SETTINGS_CHANGED_EVENT = 'duo-capital:settings-changed'
@@ -29,7 +21,6 @@ export const ASSOCIATE_NAME_MIN_LENGTH = 2
 export const ASSOCIATE_NAME_MAX_LENGTH = 60
 export const EXPECTED_ASSOCIATE_COUNT = 2
 
-// Séparateur des milliers pour l'affichage des montants (espace insécable, comme aujourd'hui).
 export const AMOUNT_FORMATS = {
   space: { label: 'Espace : 410 000 FCFA', separator: '\u00A0' },
   dot: { label: 'Point : 410.000 FCFA', separator: '.' },

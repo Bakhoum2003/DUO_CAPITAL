@@ -1,4 +1,3 @@
-// API /api/v1/treasury + garde des sorties contre une VRAIE base de test isolée (jamais DATABASE_URL, jamais Atlas).
 // Horloge métier fixée au 20 décembre 2026. Les enregistrements financiers sont insérés dans la base de test uniquement.
 import request from 'supertest'
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
@@ -73,7 +72,6 @@ describe.skipIf(!testDatabaseUrl())('API /api/v1/treasury (base de test)', () =>
     await addOperation('EXPENSE', 5000, '2026-12-12', { description: 'Transport' })
     await addOperation('REVENUE', 20000, '2026-12-15', { description: 'Vente de pagnes', concernedPartner: cheikh._id })
     await addWithdrawal(10000, '2026-12-18')
-    // Ne doivent JAMAIS compter : mouvement futur et enregistrements supprimés logiquement.
     await addContribution(mohamed, 15000, '2027-01-05')
     await addContribution(mohamed, 99999, '2026-12-07', { deletedAt: new Date(), deletedBy: mohamed._id })
     await addOperation('EXPENSE', 88888, '2026-12-08', { deletedAt: new Date(), deletedBy: mohamed._id })

@@ -5,12 +5,6 @@ import ChartLegend from './ChartLegend'
 
 const SERIES_LABELS = Object.fromEntries(PERFORMANCE_SERIES.map((series) => [series.key, series.label]))
 
-/**
- * Graphique C : performance de chaque activité (investi, dépenses, recettes, résultat).
- *
- * Props :
- * - data : [{ name, invested, expenses, revenues, result }] (une activité par élément)
- */
 function BusinessPerformanceChart({ data }) {
   return (
     <>

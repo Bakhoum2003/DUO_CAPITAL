@@ -1,18 +1,6 @@
 import { ChevronDownIcon } from '../../icons'
 import FormError from './FormError'
 
-/**
- * Liste déroulante de formulaire, au même style que AuthInput (icône, libellé visible, erreur).
- *
- * Props :
- * - id, name : identifiants du champ
- * - label : libellé affiché au-dessus de la liste
- * - value : valeur choisie ('' = aucune)
- * - onChange, onBlur : contrôle du champ
- * - options : tableau { value, label }
- * - error : message d'erreur (vide = pas d'erreur)
- * - icon : composant d'icône Font Awesome (voir src/icons) affiché à gauche
- */
 function FormSelectField({ id, name, label, value, onChange, onBlur, options, error, icon: Icon }) {
   const errorId = `${id}-error`
   const borderStyles = error

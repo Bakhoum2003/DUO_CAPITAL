@@ -1,4 +1,3 @@
-// Représentation publique des opérations de l'Historique : les mêmes champs que les mouvements de la trésorerie
 // (aucun email, aucune empreinte, aucun secret), choisis explicitement pour qu'un champ interne n'apparaisse jamais par accident.
 
 const pick = (source, keys) => Object.fromEntries(keys.filter((key) => key in source).map((key) => [key, source[key]]))

@@ -1,11 +1,5 @@
 import { ShieldHalvedIcon } from '../../icons'
 
-/**
- * Encart vert avec un bouclier, en bas du formulaire.
- *
- * Props :
- * - message : texte affiché (un saut de ligne \n est respecté)
- */
 function SecurityNotice({ message }) {
   return (
     <div className="flex items-center justify-center gap-3 rounded-xl bg-brand-50 px-4 py-3.5">

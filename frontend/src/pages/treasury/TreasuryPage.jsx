@@ -53,7 +53,6 @@ function TreasuryPage() {
     </div>
   )
 
-  // Première lecture : aucune donnée du serveur n'est encore disponible.
   if (!summaryData) {
     return (
       <div className="space-y-6">

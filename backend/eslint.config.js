@@ -12,7 +12,6 @@ export default [
       globals: globals.node,
     },
     rules: {
-      // Les paramètres préfixés par « _ » (ex. `_next` du gestionnaire d'erreurs) sont volontairement inutilisés.
       'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
     },
   },

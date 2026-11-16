@@ -1,4 +1,3 @@
-// API /api/v1/settings contre une VRAIE base de test isolée (jamais DATABASE_URL, jamais Atlas).
 // Horloge métier fixée au 20 décembre 2026 ; début du fonds : 2026-12. Les cotisations sont insérées dans la base de test uniquement.
 import request from 'supertest'
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'

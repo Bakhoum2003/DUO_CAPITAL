@@ -6,17 +6,6 @@ import SectionHeader from '../common/SectionHeader'
 import BusinessCard from './BusinessCard'
 import BusinessFilters from './BusinessFilters'
 
-/**
- * Section « Mes business » : filtres, grille de cartes et états vides.
- *
- * Props :
- * - businesses : business à afficher (déjà filtrés et triés), avec leur `financials`
- * - totalCount : nombre de business avant filtrage
- * - associateNames : { idAssocié: nom } pour afficher le responsable
- * - filters, onFilterChange, onResetFilters, hasActiveFilters : état des filtres (voir BusinessFilters)
- * - categoryOptions, statusOptions : options des listes déroulantes
- * - onAdd : fonction appelée pour ouvrir la fenêtre d'ajout (état vide)
- */
 function BusinessList({
   businesses,
   totalCount,

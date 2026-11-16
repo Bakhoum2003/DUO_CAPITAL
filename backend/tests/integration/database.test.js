@@ -1,22 +1,18 @@
-// Tests qui exigent une VRAIE base MongoDB de test (replica set) :
-// - TEST_DATABASE_URL (si définie dans backend/.env ou l'environnement) ;
-// - sinon une base en mémoire (mongodb-memory-server), démarrée par tests/setup/globalSetup.js.
-// Si aucune base n'est disponible, ces tests sont IGNORÉS (affichés « skipped », jamais « passed »).
-// REQUIRE_DB_TESTS=1 les rend obligatoires.
 
 import mongoose from 'mongoose'
 import { afterAll, beforeAll, describe, expect, inject, it } from 'vitest'
 import { checkDatabaseHealth, connectDatabase, disconnectDatabase } from '../../src/config/database.js'
 import { assertSafeTestDatabaseUri } from '../../src/config/env.js'
-import { assertTestDatabaseName, dropTestDatabase } from '../helpers/testDatabase.js'
+import { assertDisposableTestDatabaseName, assertTestDatabaseName, createDisposableDatabaseName, dropTestDatabase, withDatabaseName } from '../helpers/testDatabase.js'
 
 const testDatabaseUrl = inject('testDatabaseUrl')
 const hasDatabase = Boolean(testDatabaseUrl)
+const databaseUrl = hasDatabase ? withDatabaseName(testDatabaseUrl, createDisposableDatabaseName()) : ''
 
 describe.skipIf(!hasDatabase)('MongoDB réelle (base de test uniquement)', () => {
   beforeAll(async () => {
-    assertSafeTestDatabaseUri(testDatabaseUrl) // garde-fou : jamais une base de production
-    await connectDatabase({ url: testDatabaseUrl, requireReplicaSet: true })
+    assertSafeTestDatabaseUri(databaseUrl) // garde-fou : jamais une base de production
+    await connectDatabase({ url: databaseUrl, requireReplicaSet: true })
   })
 
   afterAll(async () => {
@@ -26,6 +22,7 @@ describe.skipIf(!hasDatabase)('MongoDB réelle (base de test uniquement)', () =>
   it('se connecte à une base dont le nom contient « test »', () => {
     expect(mongoose.connection.readyState).toBe(1)
     assertTestDatabaseName(mongoose.connection.name)
+    assertDisposableTestDatabaseName(mongoose.connection.name)
   })
 
   it('signale la base connectée avec transactions disponibles', async () => {
@@ -34,7 +31,7 @@ describe.skipIf(!hasDatabase)('MongoDB réelle (base de test uniquement)', () =>
 
   it('ne crée pas une seconde connexion', async () => {
     const before = mongoose.connections.length
-    await connectDatabase({ url: testDatabaseUrl })
+    await connectDatabase({ url: databaseUrl })
     expect(mongoose.connections.length).toBe(before)
   })
 
@@ -60,6 +57,13 @@ describe('garde-fous (sans MongoDB)', () => {
   it('refuse de vider une base qui ne se nomme pas « test »', () => {
     expect(() => assertTestDatabaseName('duo_capital')).toThrow()
     expect(() => assertTestDatabaseName('duo_capital_test')).not.toThrow()
+  })
+
+  it('ne vide et ne supprime que les bases temporaires au format strict', () => {
+    expect(() => assertDisposableTestDatabaseName('duo_capital')).toThrow()
+    expect(() => assertDisposableTestDatabaseName('duo_capital_test')).toThrow()
+    expect(() => assertDisposableTestDatabaseName('autre_test_0123abcd')).toThrow()
+    expect(() => assertDisposableTestDatabaseName('duo_capital_test_0123abcd')).not.toThrow()
   })
 
   it('refuse toute suite visant une base de production', () => {

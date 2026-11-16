@@ -6,7 +6,6 @@ export const FRONTEND_ORIGIN = 'http://localhost:5173'
 // Secret FICTIF réservé aux tests (aucune valeur réelle).
 export const TEST_JWT_SECRET = 'test-only-Zq81mXv7LpTn4YcR2wKs9HdB6eFg0JaU3'
 
-/** Configuration de test valide (NODE_ENV=test, base de test), avec possibilité de changer des variables. */
 export function buildTestConfig(overrides = {}) {
   return parseEnv({
     NODE_ENV: 'test',
@@ -17,7 +16,6 @@ export function buildTestConfig(overrides = {}) {
   })
 }
 
-/** Logger factice pour les tests unitaires (aucune sortie). */
 export function createSilentLogger() {
   const calls = { error: [], warn: [], info: [] }
   return {

@@ -16,14 +16,6 @@ function SummaryLine({ label, value }) {
   )
 }
 
-/**
- * Analyse des activités : nombre d'activités, la plus et la moins rentable, résultat de chacune.
- * Une activité en cours n'est jamais déclarée déficitaire : son résultat est « provisoire ».
- *
- * Props :
- * - performance : [{ businessId, name, status, invested, expenses, revenues, result }]
- * - summary : { total, ongoing, completed, best, worst }
- */
 function ActivityAnalysis({ performance, summary }) {
   return (
     <section className={CARD_CLASSES} aria-label="Analyse des activités">

@@ -1,14 +1,5 @@
 import { NavLink } from 'react-router-dom'
 
-/**
- * Un lien de la barre latérale. Il est mis en évidence (vert vif) quand sa page est la page actuelle.
- *
- * Props :
- * - label : texte du lien
- * - to : chemin de destination
- * - icon : composant d'icône Font Awesome (voir src/icons)
- * - onNavigate : fonction appelée au clic (sert à fermer le menu mobile)
- */
 function SidebarItem({ label, to, icon: Icon, onNavigate }) {
   return (
     <NavLink

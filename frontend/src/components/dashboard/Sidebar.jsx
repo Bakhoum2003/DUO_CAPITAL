@@ -11,10 +11,7 @@ import SidebarUserCard from './SidebarUserCard'
  *
  * Props :
  * - navigationItems : liste { label, to, icon } des liens
- * - userName, userRole : utilisateur affiché en bas
  * - isOpen : le tiroir est-il ouvert (tablette et mobile uniquement)
- * - onClose : fonction pour fermer le tiroir
- * - onLogout : fonction appelée au clic sur « Se déconnecter »
  */
 function Sidebar({ navigationItems, userName, userRole, isOpen, onClose, onLogout }) {
   return (

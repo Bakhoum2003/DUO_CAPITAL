@@ -27,11 +27,6 @@ const Amount = ({ operation }) => (
   <span className={`whitespace-nowrap font-bold ${operation.direction === 'IN' ? 'text-brand-700' : 'text-danger-600'}`}>{formatMovementAmount(operation.amount, operation.direction)}</span>
 )
 
-/**
- * Liste des opérations (tableau sur grand écran, cartes sur mobile), pagination et taille de page. Lecture seule.
- * Props : operations, meta { page, limit, total, totalPages, filtered }, hasActiveFilters, isRefreshing,
- * onPageChange, onLimitChange, onSelect(operation), onReset.
- */
 function OperationsList({ operations, meta, hasActiveFilters, isRefreshing, onPageChange, onLimitChange, onSelect, onReset }) {
   const badge = meta ? `${meta.total} opération(s) · net ${formatMoney(meta.filtered.net)}` : undefined
   return (

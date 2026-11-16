@@ -6,7 +6,6 @@ const iso = (value) => (value instanceof Date ? value.toISOString() : (value ?? 
 /** Associé affiché par son nom seulement (jamais d'email ni de secret). */
 const personOf = (value, users) => (value == null ? null : { id: idOf(value), name: users.get(idOf(value))?.name ?? null })
 
-/** Identifiants de tous les associés cités par une activité (pour une seule lecture des noms). */
 export function userIdsOf(activity) {
   return [activity.createdBy, activity.completedBy, activity.archivedBy, ...(activity.reopenHistory ?? []).map((entry) => entry.reopenedBy)]
     .filter(Boolean)

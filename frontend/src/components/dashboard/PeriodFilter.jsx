@@ -1,10 +1,6 @@
 import { useState } from 'react'
 import { PERIOD_OPTIONS, validateCustomRange } from '../../utils/dashboardViewModel'
 
-/**
- * Sélecteur de période (Aujourd'hui, Semaine, Mois, Trimestre, Année, Tout, Personnalisé).
- * Props : filter { period, from, to }, onChange(filter), disabled.
- */
 function PeriodFilter({ filter, onChange, disabled = false }) {
   const [draft, setDraft] = useState({ from: filter.from, to: filter.to })
   const [showCustom, setShowCustom] = useState(filter.period === 'custom')

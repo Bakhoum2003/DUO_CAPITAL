@@ -42,7 +42,7 @@ function Detail({ type, id, onClose }) {
   )
 }
 
-/** Détail d'une opération lu auprès de l'API (à monter uniquement quand une opération est sélectionnée). Props : operation { type, id }, onClose. */
+/** Détail d'une opération lu auprès de l'API (à monter uniquement quand une opération est sélectionnée). */
 function OperationDetailModal({ operation, onClose }) {
   return <FormModal idPrefix="operation-detail" title="Détail de l'opération" description="Informations de l'enregistrement d'origine, telles qu'enregistrées." onClose={onClose} formElement={<Detail type={operation.type} id={operation.id} onClose={onClose} />} />
 }

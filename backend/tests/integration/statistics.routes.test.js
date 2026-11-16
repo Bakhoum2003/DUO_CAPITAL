@@ -1,4 +1,3 @@
-// API /api/v1/statistics (lecture seule) contre une VRAIE base de test isolée (jamais DATABASE_URL, jamais Atlas).
 // Horloge métier fixée au 20 décembre 2026. Les enregistrements financiers sont insérés dans la base de test uniquement.
 import request from 'supertest'
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
@@ -79,7 +78,6 @@ describe.skipIf(!testDatabaseUrl())('API /api/v1/statistics (base de test)', () 
     ids.e1 = await addOperation(wax, 'EXPENSE', 5000, '2026-12-12', { description: 'Transport' })
     ids.r1 = await addOperation(soap, 'REVENUE', 20000, '2026-12-15', { description: 'Vente de savons', concernedPartner: cheikh._id })
     ids.w1 = await addWithdrawal(10000, '2026-12-18')
-    // Ne doivent JAMAIS compter : futur et enregistrements supprimés logiquement.
     ids.future = await addContribution(mohamed, 15000, '2027-01-05')
     await addContribution(mohamed, 99999, '2026-12-07', { deletedAt: new Date(), deletedBy: mohamed._id })
     await addOperation(wax, 'EXPENSE', 88888, '2026-12-08', { deletedAt: new Date(), deletedBy: mohamed._id })
@@ -192,7 +190,6 @@ describe.skipIf(!testDatabaseUrl())('API /api/v1/statistics (base de test)', () 
       expect(stats.totals.operationsCount).toBe(treasury.movementsCount)
       expect(stats.totals.revenues.amount).toBe(dashboard.result.revenues)
       expect(stats.totals.expenses.amount).toBe(dashboard.result.expenses)
-      // Dashboard = résultat d'exploitation (hors investissements) ; Statistiques = résultat commercial (investissements déduits).
       expect(stats.totals.commercialResult).toBe(dashboard.result.amount - stats.totals.investments.amount)
     })
 

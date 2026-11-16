@@ -15,10 +15,6 @@ const FEEDBACK_MS = 4000
 const TITLE = 'Activités commerciales'
 const DESCRIPTION = 'Créez et suivez les activités du fonds : statut, dates et résultats. Les opérations financières restent gérées séparément.'
 
-/**
- * Page « Activités commerciales » : indicateurs, recherche, filtres, tri, liste paginée et création.
- * Toutes les données viennent de l'API ; aucune donnée fictive ; chargement, erreur, liste vide et aucun résultat sont distincts.
- */
 function ActivitiesPage() {
   const activities = useActivitiesModule()
   const { filters, list, mutation } = activities
@@ -53,7 +49,6 @@ function ActivitiesPage() {
     <ActivityFormModal mode="create" onClose={() => setIsModalOpen(false)} initialValues={emptyFormValues(todayIso)} todayIso={todayIso} submission={mutation} onSubmit={handleCreate} />
   )
 
-  // Première lecture : pas encore de données.
   if (!list.data) {
     return (
       <div className="space-y-6">

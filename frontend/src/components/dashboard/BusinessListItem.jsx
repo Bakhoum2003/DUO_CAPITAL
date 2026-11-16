@@ -4,25 +4,12 @@ import { TONE_STYLES } from '../../constants/toneStyles'
 import { formatCurrency, formatShortDate } from '../../utils/formatters'
 import StatusBadge from '../common/StatusBadge'
 
-// Icône et teinte associées à la catégorie d'un business (remplace les photos des maquettes).
 const CATEGORY_STYLES = {
   drinks: { icon: BottleWaterIcon, tone: 'orange' },
   tshirts: { icon: ShirtIcon, tone: 'red' },
   snacks: { icon: CookieBiteIcon, tone: 'orange' },
 }
 
-/**
- * Une ligne de la liste « Derniers Business ».
- * Sur mobile, les montants passent sous le nom pour rester lisibles.
- *
- * Props :
- * - name : nom du business
- * - category : 'drinks', 'tshirts' ou 'snacks' (choisit l'icône)
- * - date : date au format ISO « AAAA-MM-JJ »
- * - investedAmount : montant investi (FCFA)
- * - profit : bénéfice réalisé (FCFA)
- * - status : 'completed' ou 'ongoing'
- */
 function BusinessListItem({ name, category, date, investedAmount, profit, status }) {
   const categoryStyle = CATEGORY_STYLES[category] ?? CATEGORY_STYLES.drinks
   const CategoryIcon = categoryStyle.icon

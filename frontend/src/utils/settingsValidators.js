@@ -1,5 +1,3 @@
-// Validation des paramètres (fonctions pures, testables).
-// Chaque validateur renvoie { isValid, errors, values } : `values` est la version nettoyée, prête à être enregistrée.
 
 import { MAX_CONTRIBUTION_AMOUNT } from '../constants/contributionSettings'
 import {
@@ -13,7 +11,6 @@ import {
   PROJECT_INFO_MAX_LENGTH,
 } from '../constants/settingsSettings'
 
-// Retire les espaces en début/fin et réduit les espaces multiples (les retours à la ligne sont conservés).
 export function normalizeText(value) {
   if (typeof value !== 'string') return ''
   return value
@@ -23,7 +20,6 @@ export function normalizeText(value) {
     .trim()
 }
 
-/* ---------- Informations générales ---------- */
 
 export function validateGeneralInfo(input) {
   const values = {
@@ -46,11 +42,9 @@ export function validateGeneralInfo(input) {
   return { isValid: Object.keys(errors).length === 0, errors, values }
 }
 
-/* ---------- Associés ---------- */
 
 const NAME_PATTERN = /^\p{L}[\p{L}'’ -]*$/u
 
-// Retourne un message d'erreur, ou '' si le nom est correct (lettres, espaces, tirets, apostrophes).
 export function validateAssociateName(name) {
   const value = normalizeText(name)
   if (!value) return "Le nom de l'associé est obligatoire."
@@ -85,12 +79,7 @@ export function validateAssociates(associates) {
   return errors
 }
 
-/* ---------- Objectifs de cotisation ---------- */
 
-/**
- * Vérifie les objectifs : cotisation individuelle entière, positive et raisonnable ;
- * objectif collectif = cotisation individuelle × nombre d'associés.
- */
 export function validateObjectives({ individual, collective, associateCount }) {
   const errors = []
 
@@ -105,12 +94,10 @@ export function validateObjectives({ individual, collective, associateCount }) {
   return { isValid: errors.length === 0, errors }
 }
 
-// Part de chaque associé dans le fonds, en %, selon le nombre d'associés (2 associés = 50 %).
 export function getParticipationPercent(associateCount) {
   return associateCount > 0 ? Math.round(100 / associateCount) : 0
 }
 
-/* ---------- Préférences ---------- */
 
 export function validatePreferences(input) {
   const errors = {}
@@ -127,7 +114,6 @@ export function validatePreferences(input) {
   }
 }
 
-/* ---------- Paramètres enregistrés ---------- */
 
 /**
  * Rend utilisable n'importe quelle donnée lue dans le stockage local : chaque champ invalide est remplacé par sa
@@ -163,7 +149,6 @@ export function sanitizeSettings(raw) {
   return { settings, hasInvalidData }
 }
 
-// Deux groupes de valeurs sont-ils identiques ? (détecte les modifications non enregistrées)
 export function areValuesEqual(first, second) {
   return JSON.stringify(first) === JSON.stringify(second)
 }

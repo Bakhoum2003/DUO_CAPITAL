@@ -21,7 +21,6 @@ const reason = z
 // Création : champs inconnus refusés (un `recordedBy`, un `deletedAt` ou un solde envoyé par le client ne passe pas).
 export const createWithdrawalSchema = z.object({ beneficiaryId, amount, withdrawalDate: businessDate('La date du retrait'), reason }).strict()
 
-// Modification : au moins un champ ; l'auteur de l'enregistrement n'est jamais modifiable.
 export const updateWithdrawalSchema = z
   .object({ beneficiaryId: beneficiaryId.optional(), amount: amount.optional(), withdrawalDate: businessDate('La date du retrait').optional(), reason: reason.optional() })
   .strict()

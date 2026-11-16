@@ -6,7 +6,6 @@ import SectionHeader from '../common/SectionHeader'
 
 const STATE_CLASSES = { COMPLETE: 'bg-brand-50 text-brand-700', OVERDUE: 'bg-danger-50 text-danger-600', IN_PROGRESS: 'bg-amber-50 text-amber-700' }
 
-/** Suivi mois par mois : identifie les mois réglés, en cours et non réglés. Props : rows (voir buildMonthRows), partners [{ partnerId, name }]. */
 function MonthlyTrackingTable({ rows, partners }) {
   return (
     <section className={CARD_CLASSES} aria-label="Suivi mensuel">

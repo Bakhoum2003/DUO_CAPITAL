@@ -1,7 +1,3 @@
-// Création INITIALE et contrôlée des deux comptes (Mohamed Bakhoum n°1, Cheikh Sow n°2).
-//   npm run provision:partners -- --dry-run   (simulation : aucune écriture)
-//   npm run provision:partners                (création réelle, avec confirmation)
-// Ne s'exécute jamais en environnement de test et jamais sans terminal interactif.
 
 import { pathToFileURL } from 'node:url'
 import mongoose from 'mongoose'

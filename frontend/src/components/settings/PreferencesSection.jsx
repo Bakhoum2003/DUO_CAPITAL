@@ -6,17 +6,6 @@ import ToggleSwitch from '../common/ToggleSwitch'
 import SettingsInfoRow from './SettingsInfoRow'
 import SettingsSection from './SettingsSection'
 
-/**
- * Préférences PERSONNELLES de l'associé connecté (enregistrées dans son compte, sans effet sur l'autre associé).
- * Chaque changement est enregistré et appliqué tout de suite : thème, format des montants, notifications visuelles
- * et rappels de cotisation. La devise et la langue sont fixes ; les emails ne sont pas disponibles.
- *
- * Props :
- * - preferences : { theme, amountSeparator, visualNotificationsEnabled, contributionRemindersEnabled }
- * - isSaving : un enregistrement est en cours (les champs sont désactivés pour éviter les doubles envois)
- * - onChange : fonction (changements partiels) appelée à chaque modification
- * - currencyLabel, languageLabel : devise et langue (lecture seule)
- */
 function PreferencesSection({ preferences, isSaving, onChange, currencyLabel, languageLabel }) {
   return (
     <SettingsSection

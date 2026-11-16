@@ -12,10 +12,6 @@ import { formatCompactDate, formatLongDate } from '../utils/formatters'
 import { createLogoutRunner } from '../utils/logoutFlow'
 import { buildWelcomeTitle } from '../utils/welcomeMessage'
 
-/**
- * Structure commune des pages connectées : barre latérale à gauche,
- * en-tête en haut, et la page affichée (via <Outlet />) dans la zone principale.
- */
 function DashboardLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const { pathname } = useLocation()
@@ -23,10 +19,8 @@ function DashboardLayout() {
   const [logoutError, setLogoutError] = useState('')
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false)
-  // Garde synchrone contre les doubles clics (l'état React ne change qu'au rendu suivant).
   const runLogout = useMemo(() => createLogoutRunner(logout), [logout])
 
-  // Échap ferme le menu mobile.
   useEffect(() => {
     if (!isSidebarOpen) return undefined
 
@@ -38,14 +32,11 @@ function DashboardLayout() {
   }, [isSidebarOpen])
 
   const isDashboard = pathname === ROUTES.DASHBOARD
-  // Une sous-page (ex. /business/business-001) garde le titre de son module.
   const activeItem = NAVIGATION_ITEMS.find((item) => pathname === item.to || pathname.startsWith(`${item.to}/`))
   const headerTitle = isDashboard ? buildWelcomeTitle(user) : (activeItem?.label ?? '')
   const headerSubtitle = isDashboard ? 'Voici un aperçu de votre activité ce mois-ci.' : ''
 
   // Déconnexion réelle : le serveur révoque la session. Si le serveur ne confirme pas, l'utilisateur reste connecté
-  // et en est informé. Une fois confirmée, RequireAuth renvoie vers la connexion.
-  // Le bouton « Se déconnecter » de la barre latérale ouvre d'abord une fenêtre de confirmation.
   const handleLogout = async () => {
     if (isLoggingOut) return
     setLogoutError('')

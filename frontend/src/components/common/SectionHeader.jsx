@@ -1,18 +1,6 @@
 import { ArrowRightIcon } from '../../icons'
 import { Link } from 'react-router-dom'
 
-/**
- * En-tête d'une carte du Dashboard : icône + titre, avec à droite
- * soit un lien (« Voir tout → »), soit une pastille d'information.
- *
- * Props :
- * - icon : composant d'icône Font Awesome (voir src/icons)
- * - iconClassName : couleur de l'icône (classe Tailwind)
- * - title : titre de la section
- * - actionLabel, actionTo : texte et destination du lien (optionnels)
- * - badgeLabel : texte d'une pastille (ex. « Novembre 2026 ») (optionnel)
- * - actionElement : élément React affiché à droite, ex. un sélecteur de mois (optionnel)
- */
 function SectionHeader({
   icon: Icon,
   iconClassName = 'text-brand-600',

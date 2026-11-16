@@ -4,10 +4,6 @@ import { getErrorMessage } from '../utils/apiErrors'
 import { isFilterReady } from '../utils/dashboardViewModel'
 import { dashboardReducer, initialDashboardState } from './dashboardState'
 
-/**
- * Charge le dashboard pour un filtre. Retourne { status, data, errorMessage, refresh }.
- * `refresh` relit les données (bouton Actualiser / Réessayer) ; les réponses périmées sont ignorées.
- */
 export default function useDashboard(filter) {
   const [state, dispatch] = useReducer(dashboardReducer, initialDashboardState)
   const counter = useRef(0)

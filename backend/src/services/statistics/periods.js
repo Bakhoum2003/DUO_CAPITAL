@@ -1,6 +1,3 @@
-// Périodes du module Statistiques : fonctions PURES (aucune horloge, `today` est fourni, « AAAA-MM-JJ » à Dakar).
-// Toutes les bornes sont INCLUSES. Aucune période courante ne dépasse aujourd'hui : l'avenir n'est jamais compté.
-// Le résolveur du Dashboard (`resolvePeriodRange`) n'est pas modifié : ses périodes (trimestre, jour…) sont d'autres règles.
 
 import { addDays, addMonths, diffDays, firstDayOfMonth, lastDayOfMonth, monthOf, startOfWeek } from '../../utils/businessDates.js'
 
@@ -16,7 +13,6 @@ const PERIOD_LABELS = Object.freeze({
   custom: 'Période personnalisée',
 })
 
-/** Ajoute des mois à une date en gardant le jour, ramené au dernier jour du mois si besoin (31 mars − 1 mois = 28 février). */
 export function addMonthsToDate(isoDate, count) {
   const period = addMonths(monthOf(isoDate), count)
   const day = Math.min(Number(isoDate.slice(8, 10)), Number(lastDayOfMonth(period).slice(8, 10)))
@@ -65,11 +61,6 @@ export function resolveStatisticsRange({ period = 'all', from, to }, today) {
   }
 }
 
-/**
- * Période précédente équivalente, ou null quand la comparaison n'a pas de sens (« toute la période », période vide).
- * - semaine : la semaine précédente, mêmes jours ; mois / année : mêmes jours écoulés du mois / de l'année précédente ;
- * - 3 mois, 6 mois, personnalisée : même nombre de jours, juste avant le début.
- */
 export function previousPeriodRange(range) {
   if (range.key === 'all' || range.from == null || range.isEmpty) return null
   if (range.key === 'week') return { from: addDays(range.from, -7), to: addDays(range.to, -7) }

@@ -10,18 +10,6 @@ import TextAreaField from '../common/TextAreaField'
 
 const ASSOCIATE_IDS = ASSOCIATES.map((associate) => associate.value)
 
-/**
- * Formulaire d'ajout ou de modification d'une cotisation (associé, montant, date, description).
- * Les erreurs s'affichent sous chaque champ ; rien n'est enregistré tant que le formulaire est invalide.
- *
- * Props :
- * - idPrefix : préfixe des identifiants des champs (évite les doublons dans la page)
- * - initialValues : { associateId, amount, date, description } (texte pour le montant)
- * - todayIso : date du jour « AAAA-MM-JJ » (une cotisation ne peut pas être datée du futur)
- * - submitLabel : texte du bouton d'enregistrement
- * - onSubmit : fonction appelée avec { associateId, amount (nombre), date, description } quand tout est valide
- * - onCancel : fonction appelée au clic sur « Annuler »
- */
 function ContributionForm({ idPrefix, initialValues, todayIso, submitLabel, onSubmit, onCancel }) {
   const { values, errors, handleChange, handleBlur, setFieldValue, validateAll } = useFormValidation({
     initialValues,

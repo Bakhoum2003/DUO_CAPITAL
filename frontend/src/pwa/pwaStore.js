@@ -1,14 +1,11 @@
-// État PWA de l'application : connexion, invitation d'installation, nouvelle version disponible.
 // Aucun stockage navigateur ni cache : tout reste en mémoire, rien de financier n'est conservé.
 
-/** L'application est-elle déjà lancée comme application installée (fenêtre autonome) ? */
 export function isStandaloneDisplay(win) {
   if (!win) return false
   if (win.navigator?.standalone === true) return true // Safari iOS
   return Boolean(win.matchMedia?.('(display-mode: standalone)')?.matches)
 }
 
-/** iPhone / iPad : pas d'invitation native, l'installation passe par « Partager > Sur l'écran d'accueil ». */
 export function needsManualInstallHelp(win) {
   const nav = win?.navigator
   if (!nav) return false
@@ -47,9 +44,10 @@ export function selectNotices(state) {
 }
 
 /**
- * @param {{ win?: Window }} [options] fenêtre remplaçable dans les tests
+ * @param {{ win?: Window, unsavedChanges?: ReturnType<import('./unsavedChangesStore').createUnsavedChangesStore> }} [options]
+ *   fenêtre et suivi des saisies non enregistrées, remplaçables dans les tests. Sans suivi, aucune garde n'est appliquée.
  */
-export function createPwaStore({ win = typeof window !== 'undefined' ? window : undefined } = {}) {
+export function createPwaStore({ win = typeof window !== 'undefined' ? window : undefined, unsavedChanges } = {}) {
   let state = initialState(win)
   let deferredPrompt = null
   let applyUpdateFn = null
@@ -76,7 +74,6 @@ export function createPwaStore({ win = typeof window !== 'undefined' ? window : 
       const onOnline = () => setState({ isOnline: true })
       const onOffline = () => setState({ isOnline: false })
       const onBeforeInstallPrompt = (event) => {
-        // Empêche la mini-barre automatique : l'invitation est affichée avec le design DUO CAPITAL.
         event.preventDefault()
         deferredPrompt = event
         if (!state.isInstalled) setState({ canInstall: true })
@@ -102,11 +99,9 @@ export function createPwaStore({ win = typeof window !== 'undefined' ? window : 
       return cleanup
     },
 
-    /** Ouvre l'invitation native d'installation. Retourne { outcome: 'accepted' | 'dismissed' | 'unavailable' }. */
     async promptInstall() {
       const prompt = deferredPrompt
       if (!prompt) return { outcome: 'unavailable' }
-      // L'événement n'est utilisable qu'une fois.
       deferredPrompt = null
       setState({ canInstall: false })
       await prompt.prompt()
@@ -119,26 +114,35 @@ export function createPwaStore({ win = typeof window !== 'undefined' ? window : 
       setState({ installDismissed: true })
     },
 
-    /** Appelé par le service worker : une nouvelle version est prête. `apply` l'active puis recharge la page. */
     markUpdateAvailable(apply) {
       applyUpdateFn = typeof apply === 'function' ? apply : null
       setState({ updateAvailable: true })
     },
 
-    /** Appelé par le service worker : l'interface est disponible hors connexion. */
     markOfflineReady() {
       setState({ offlineReady: true })
     },
 
-    /** Applique la nouvelle version, uniquement sur demande de l'utilisateur (jamais automatiquement). */
-    async applyUpdate() {
+    /**
+     * Applique la nouvelle version, uniquement sur demande de l'utilisateur (jamais automatiquement).
+     * Si des saisies ne sont pas enregistrées, rien n'est appliqué et { applied: false, blocked: true } est retourné :
+     * l'interface demande alors une confirmation, puis rappelle applyUpdate({ discardUnsaved: true }).
+     */
+    async applyUpdate({ discardUnsaved = false } = {}) {
       if (!applyUpdateFn) return { applied: false }
-      const apply = applyUpdateFn
-      await apply()
+      const hasUnsaved = Boolean(unsavedChanges?.hasUnsavedChanges())
+      if (hasUnsaved && !discardUnsaved) return { applied: false, blocked: true }
+
+      const restoreGuard = hasUnsaved ? unsavedChanges.allowUnload() : null
+      try {
+        await applyUpdateFn()
+      } catch (error) {
+        restoreGuard?.() // la mise à jour a échoué : la page reste, la protection aussi
+        throw error
+      }
       return { applied: true }
     },
 
-    /** « Plus tard » : masque la notice ; la nouvelle version s'appliquera à la prochaine ouverture. */
     dismissUpdate() {
       setState({ updateAvailable: false })
     },

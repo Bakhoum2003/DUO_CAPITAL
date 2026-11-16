@@ -1,4 +1,3 @@
-// Gestion des associés (service + routes /api/v1/users) contre une VRAIE base de test : jamais DATABASE_URL, jamais Atlas.
 
 import request from 'supertest'
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'

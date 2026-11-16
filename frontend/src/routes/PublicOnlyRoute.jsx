@@ -3,7 +3,6 @@ import useAuth from '../hooks/useAuth'
 import { decidePublicOnlyRoute, getPostLoginPath } from './authGuard'
 import { ROUTES } from './routePaths'
 
-/** Page de connexion : un utilisateur déjà connecté est envoyé au dashboard (ou à la page qu'il visait). */
 function PublicOnlyRoute() {
   const { status } = useAuth()
   const location = useLocation()

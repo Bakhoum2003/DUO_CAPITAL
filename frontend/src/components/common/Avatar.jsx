@@ -8,14 +8,6 @@ const SIZE_CLASSES = {
   md: 'h-11 w-11 text-sm',
 }
 
-/**
- * Pastille ronde avec les initiales d'une personne (ex. « MB »).
- *
- * Props :
- * - initials : initiales affichées
- * - tone : 'green' ou 'red'
- * - size : 'sm' ou 'md'
- */
 function Avatar({ initials, tone = 'green', size = 'md' }) {
   return (
     <span

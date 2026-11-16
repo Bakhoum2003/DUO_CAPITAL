@@ -5,11 +5,6 @@ import PwaNotices from '../components/pwa/PwaNotices'
 import { AUTH_PANEL_CONTENT } from '../constants/authPanelContent'
 import { ROUTES } from '../routes/routePaths'
 
-/**
- * Structure commune des pages d'inscription et de connexion :
- * panneau de marque à gauche (contenu selon la page) et formulaire à droite.
- * La page affichée (formulaire) est injectée par React Router via <Outlet />.
- */
 function AuthLayout() {
   const { pathname } = useLocation()
   const panelContent = AUTH_PANEL_CONTENT[pathname] ?? AUTH_PANEL_CONTENT[ROUTES.LOGIN]

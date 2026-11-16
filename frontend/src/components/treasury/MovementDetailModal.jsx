@@ -1,7 +1,7 @@
 import FormModal from '../common/FormModal'
 import MovementDetail from './MovementDetail'
 
-/** Fenêtre de détail d'un mouvement (à monter uniquement quand un mouvement est sélectionné). Props : movement { type, id }, onClose. */
+/** Fenêtre de détail d'un mouvement (à monter uniquement quand un mouvement est sélectionné). */
 function MovementDetailModal({ movement, onClose }) {
   return (
     <FormModal

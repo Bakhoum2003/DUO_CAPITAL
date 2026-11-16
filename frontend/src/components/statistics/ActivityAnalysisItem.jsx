@@ -1,16 +1,6 @@
 import { formatCurrency, formatSignedAmount } from '../../utils/formatters'
 import StatusBadge from '../common/StatusBadge'
 
-/**
- * Résultat d'une activité sur la période.
- *
- * Props :
- * - name : nom de l'activité
- * - statusLabel : statut de l'activité (« En cours », « Terminée »…)
- * - invested, expenses, revenues : montants en FCFA
- * - result : résultat = recettes − dépenses − investissements (FCFA)
- * - assessmentLabel, assessmentTone : jugement affiché (« Rentable », « Résultat provisoire »…)
- */
 function ActivityAnalysisItem({ name, statusLabel, invested, expenses, revenues, result, assessmentLabel, assessmentTone }) {
   const resultColor = result > 0 ? 'text-brand-700' : result < 0 ? 'text-danger-600' : 'text-ink'
 

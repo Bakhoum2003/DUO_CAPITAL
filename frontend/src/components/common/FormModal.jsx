@@ -6,13 +6,6 @@ import IconButton from './IconButton'
 /**
  * Cadre d'une fenêtre modale de formulaire : fond assombri, titre, croix de fermeture,
  * Échap, blocage du défilement et piège à focus. À monter uniquement quand elle est ouverte.
- *
- * Props :
- * - idPrefix : préfixe des identifiants (titre et description), unique dans la page
- * - title : titre de la fenêtre
- * - description : phrase d'explication sous le titre
- * - formElement : le formulaire à afficher dans la fenêtre (élément React)
- * - onClose : fonction appelée pour fermer (croix, Échap, clic sur le fond)
  */
 function FormModal({ idPrefix, title, description, formElement, onClose }) {
   const dialogRef = useRef(null)

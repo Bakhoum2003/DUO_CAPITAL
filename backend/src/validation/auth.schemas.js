@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { MAX_EMAIL_LENGTH, MAX_PASSWORD_LENGTH } from '../config/constants.js'
 
-// Messages volontairement génériques : ils ne disent rien de l'existence d'un compte.
 export const loginSchema = z
   .object({
     email: z

@@ -53,17 +53,12 @@ function buildBusinessValues(business) {
   }
 }
 
-/**
- * Page de détails d'un business (/business/:businessId) : informations générales, chiffres clés,
- * historique des opérations financières, modification et suppression du business et des opérations.
- */
 function BusinessDetailsPage() {
   const { businessId } = useParams()
   const navigate = useNavigate()
   const { businesses, operations, updateBusiness, deleteBusiness, addOperation, updateOperation, deleteOperation } =
     useBusinessStore()
   const [typeFilter, setTypeFilter] = useState('')
-  // null, ou { kind: 'edit-business' | 'delete-business' | 'operation' | 'delete-operation', ... }
   const [modal, setModal] = useState(null)
   const [feedback, setFeedback] = useFeedbackMessage()
 

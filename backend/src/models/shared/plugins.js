@@ -1,8 +1,3 @@
-// Plugins Mongoose : suppression logique, interdiction de suppression physique, immutabilité, sérialisation.
-//
-// LIMITE À CONNAÎTRE : ces garde-fous interceptent l'API Mongoose (documents et requêtes). Ils ne peuvent pas
-// bloquer un accès direct au driver (collection.deleteMany, bulkWrite, mongosh). La protection de fond est
-// donc double : (1) les services n'utilisent que les modèles, (2) en production, l'utilisateur MongoDB de
 // l'application n'a pas le droit `remove` sur les collections financières ni `update`/`remove` sur auditlogs.
 
 import mongoose from 'mongoose'

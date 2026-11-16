@@ -3,18 +3,6 @@ import { formatCurrency, formatShortDate } from '../../utils/formatters'
 import Avatar from '../common/Avatar'
 import StatusBadge from '../common/StatusBadge'
 
-/**
- * Une ligne de la liste « Cotisations du mois ».
- *
- * Props :
- * - associateName : nom de l'associé
- * - initials : initiales de l'associé (avatar)
- * - avatarTone : couleur de l'avatar ('green' ou 'red')
- * - monthLabel : mois concerné (ex. « Novembre 2026 »)
- * - amount : montant de la cotisation (FCFA)
- * - paidOn : date de paiement ISO « AAAA-MM-JJ » (null si pas encore payée)
- * - status : 'paid', 'pending' ou 'late'
- */
 function ContributionListItem({ associateName, initials, avatarTone, monthLabel, amount, paidOn, status }) {
   const statusStyle = CONTRIBUTION_STATUSES[status]
 

@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { areValuesEqual } from '../utils/settingsValidators'
+import useUnsavedChanges from './useUnsavedChanges'
 
 /**
  * Brouillon d'un formulaire : l'utilisateur modifie une copie, rien n'est appliqué avant l'enregistrement.
@@ -9,6 +10,7 @@ import { areValuesEqual } from '../utils/settingsValidators'
  * @param validate fonction (valeurs) => { isValid, errors, values }
  * Retourne { values, errors, isDirty, setField, cancel, submit }.
  * submit() valide : retourne les valeurs nettoyées, ou null (les erreurs sont alors affichées).
+ * Un brouillon modifié est signalé au suivi central des saisies non enregistrées (mise à jour PWA, fermeture de page).
  */
 export default function useDraftForm({ savedValues, validate }) {
   const [baseline, setBaseline] = useState(savedValues)
@@ -37,5 +39,8 @@ export default function useDraftForm({ savedValues, validate }) {
     return result.isValid ? result.values : null
   }, [validate, values])
 
-  return { values, errors, isDirty: !areValuesEqual(values, savedValues), setField, cancel, submit }
+  const isDirty = !areValuesEqual(values, savedValues)
+  useUnsavedChanges(isDirty)
+
+  return { values, errors, isDirty, setField, cancel, submit }
 }

@@ -1,15 +1,5 @@
 // Calculs financiers du dashboard : fonctions PURES (aucune base de données, aucune horloge, aucun effet de bord).
-// Le service charge les enregistrements non supprimés ; tout ce qui suit n'est que de l'arithmétique sur des entiers FCFA.
-//
-// Règles (aucune n'est inventée : elles découlent des modèles existants) :
-// - un enregistrement non supprimé = un mouvement réel ; les modèles n'ont ni statut « annulé » ni « en attente » ;
-//   la suppression logique (deletedAt) est déjà exclue en amont ;
-// - un mouvement daté APRÈS aujourd'hui (Africa/Dakar) n'a pas encore eu lieu : il est ignoré et signalé ;
-// - ENTRÉES de trésorerie = cotisations + recettes (REVENUE) ; SORTIES = investissements (INVESTMENT) + dépenses (EXPENSE) + retraits ;
 // - trésorerie = Σ entrées − Σ sorties, cumulée depuis le début jusqu'à la fin de la période ; aucun solde initial n'existe, aucun n'est supposé ;
-// - résultat d'exploitation = recettes − dépenses ; les investissements sont suivis à part (leur décaissement est déjà dans la trésorerie) ;
-// - capital apporté = cotisations réellement enregistrées (jamais les attendues, jamais les recettes) ;
-// - cotisations attendues = mois × cible mensuelle, à partir d'un mois de départ configuré (aucun paiement n'est supposé).
 
 import { addDays, diffDays, firstDayOfMonth, monthOf, monthsBetween } from '../../utils/businessDates.js'
 
@@ -185,7 +175,6 @@ export function computeDashboard({ today, range, fundStartPeriod = null, monthly
   const businessById = new Map(businesses.map((business) => [idOf(business._id), business]))
   const partnerById = new Map(partners.map((partner) => [partner.id, partner]))
 
-  // --- Totaux de la période ---
   const contributionMoves = ofKind('CONTRIBUTION')
   const revenueMoves = ofKind('REVENUE')
   const expenseMoves = ofKind('EXPENSE')
@@ -202,18 +191,14 @@ export function computeDashboard({ today, range, fundStartPeriod = null, monthly
   const inflow = totals.contributions.amount + totals.revenues.amount
   const outflow = totals.investments.amount + totals.expenses.amount + totals.withdrawals.amount
 
-  // --- Trésorerie : cumul depuis le début jusqu'à la fin de la période ---
   const upToEnd = realized.filter((movement) => movement.date <= to)
   const beforeStart = from == null ? [] : realized.filter((movement) => movement.date < from)
   const balance = sum(upToEnd, signed)
   const openingBalance = sum(beforeStart, signed)
 
-  // --- Résultat d'exploitation (hors investissements) ---
   const operatingResult = totals.revenues.amount - totals.expenses.amount
-  // Une activité suspendue peut reprendre : le résultat reste provisoire tant qu'une activité est active OU suspendue.
   const hasRunningBusiness = businesses.some((business) => business.status === 'ACTIVE' || business.status === 'SUSPENDED')
 
-  // --- Capital apporté ---
   const cashInRange = new Map()
   const cashToDate = new Map()
   for (const movement of upToEnd) {
@@ -230,13 +215,11 @@ export function computeDashboard({ today, range, fundStartPeriod = null, monthly
     sharePercent: percent(cashToDate.get(partner.id) ?? 0, capitalToDate),
   }))
 
-  // --- Cotisations attendues / versées ---
   const activeContributions = contributions.filter((item) => item.contributionDate <= today)
   const contributionsSummary = buildContributionsSummary({
     contributions: activeContributions, partners, today, from, to, fundStartPeriod, monthlyTarget, cashInRange, cashToDate,
   })
 
-  // --- Investissements ---
   const investmentsByBusinessMap = new Map()
   for (const movement of investmentMoves) {
     const business = businessById.get(movement.businessId)
@@ -260,7 +243,6 @@ export function computeDashboard({ today, range, fundStartPeriod = null, monthly
     }),
   )
 
-  // --- Dépenses et recettes : par catégorie d'activité / par activité ---
   const expensesByCategoryMap = new Map()
   for (const movement of expenseMoves) {
     const category = businessById.get(movement.businessId)?.category || UNCATEGORIZED_LABEL
@@ -282,7 +264,6 @@ export function computeDashboard({ today, range, fundStartPeriod = null, monthly
   const monthStart = firstDayOfMonth(monthOf(today))
   const thisMonth = (kind) => sum(realized.filter((movement) => movement.kind === kind && movement.date >= monthStart))
 
-  // --- Évolution (graphique) ---
   const earliest = realized.length > 0 ? realized.reduce((min, movement) => (movement.date < min ? movement.date : min), realized[0].date) : null
   const seriesFrom = from ?? earliest
   const granularity = seriesFrom && seriesFrom <= to ? chooseGranularity(range, seriesFrom, to) : 'month'
@@ -295,7 +276,6 @@ export function computeDashboard({ today, range, fundStartPeriod = null, monthly
     openingCapital: sum(beforeStart.filter((movement) => movement.kind === 'CONTRIBUTION')),
   })
 
-  // --- Activités récentes (les 10 dernières, indépendamment du filtre) ---
   const recentActivities = [...realized]
     .sort((a, b) => b.date.localeCompare(a.date) || String(b.createdAt ?? '').localeCompare(String(a.createdAt ?? '')) || b.id.localeCompare(a.id))
     .slice(0, RECENT_ACTIVITY_LIMIT)
@@ -314,7 +294,6 @@ export function computeDashboard({ today, range, fundStartPeriod = null, monthly
       }
     })
 
-  // --- Avertissements honnêtes sur la fiabilité ---
   const notices = [
     {
       code: 'NO_INITIAL_BALANCE',

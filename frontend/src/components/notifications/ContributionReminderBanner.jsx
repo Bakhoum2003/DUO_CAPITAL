@@ -8,10 +8,6 @@ import { shouldShowReminderBadge } from '../../utils/settingsViewModel'
 
 const MAX_LINES = 4
 
-/**
- * Bannière du Dashboard : cotisations qui restent à compléter (mois en cours et mois précédents réellement incomplets,
- * pour les deux associés). Masquée si les notifications visuelles ou les rappels sont désactivés, et quand tout est à jour.
- */
 function ContributionReminderBanner() {
   const { preferences } = usePreferences()
   const { view } = useReminders()

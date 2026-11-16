@@ -5,19 +5,6 @@ import DateInput from '../common/DateInput'
 import FormError from '../common/FormError'
 import SelectField from '../common/SelectField'
 
-/**
- * Filtre de période des statistiques : périodes prédéfinies ou dates personnalisées.
- *
- * Props :
- * - periodKey : période choisie ('week', 'month', '3months', '6months', 'year', 'all', 'custom')
- * - customStartDate, customEndDate : dates de la période personnalisée (« AAAA-MM-JJ » ou « »)
- * - onPeriodChange : fonction (valeur) appelée au choix d'une période
- * - onStartDateChange, onEndDateChange : fonctions (valeur) pour les dates personnalisées
- * - onReset : fonction appelée au clic sur « Réinitialiser »
- * - canReset : affiche le bouton « Réinitialiser » quand la période n'est pas celle par défaut
- * - periodLabel : texte décrivant la période appliquée (ex. « Du 01/11/2026 au 12/11/2026 »)
- * - periodError : message d'erreur de la période personnalisée (vide = correcte)
- */
 function StatisticsPeriodFilter({
   periodKey,
   customStartDate,

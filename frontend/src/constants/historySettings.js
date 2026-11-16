@@ -1,8 +1,5 @@
 import { AwardIcon, CartShoppingIcon, MoneyBillTransferIcon, MoneyBillWaveIcon, PiggyBankIcon, RocketIcon } from '../icons'
 
-// Les six catégories de mouvements de l'Historique.
-// `direction` : 'in' (entrée d'argent), 'out' (sortie de trésorerie) ou 'none' (résultat calculé).
-// Un bénéfice calculé est 'none' : il n'est jamais compté dans les entrées (pas de double comptage).
 export const HISTORY_TYPES = {
   contribution: {
     label: 'Cotisation',
@@ -48,14 +45,12 @@ export const HISTORY_TYPES = {
   },
 }
 
-// Sens du mouvement : libellé, signe, teinte du badge (StatusBadge) et couleurs.
 export const DIRECTIONS = {
   in: { label: 'Entrée', sign: '+', badgeTone: 'success', tileTone: 'green', textClass: 'text-brand-700' },
   out: { label: 'Sortie', sign: '−', badgeTone: 'danger', tileTone: 'red', textClass: 'text-danger-600' },
   none: { label: 'Résultat calculé', sign: '', badgeTone: 'warning', tileTone: 'violet', textClass: 'text-violet-700' },
 }
 
-// Valeur du filtre « activité » pour les mouvements sans activité (cotisations, retraits).
 export const NO_BUSINESS_FILTER = '__none__'
 
 export const HISTORY_SORT_OPTIONS = [

@@ -1,8 +1,4 @@
-// Envoi d'une cotisation SANS double soumission.
-// - un clic répété pendant l'envoi retourne la même promesse : une seule requête part ;
 // - la clé d'idempotence reste la même tant que le contenu est identique (nouvelle tentative après coupure réseau
-//   = le serveur rejoue la réponse au lieu de créer un second versement) et change dès que le contenu change ;
-// - rien n'est considéré comme enregistré avant la confirmation du serveur.
 
 export function generateIdempotencyKey() {
   return `dc-${globalThis.crypto.randomUUID()}`

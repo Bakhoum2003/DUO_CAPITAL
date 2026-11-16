@@ -1,9 +1,6 @@
 // Sessions d'authentification = modèle Session (B1). Une session = un refresh token émis ; chaque renouvellement
 // révoque la session courante (ROTATED) et en crée une nouvelle dans la même famille. Présenter un refresh token
-// déjà tourné prouve qu'il a fuité : toute la famille est révoquée (REUSE_DETECTED).
-//
 // Limite assumée : deux renouvellements simultanés avec le même refresh token (deux onglets) sont traités comme une
-// réutilisation. Le frontend doit sérialiser les appels à /refresh.
 
 import { Session } from '../models/Session.js'
 import { User } from '../models/User.js'

@@ -1,13 +1,10 @@
 import { formatMonthLabel, formatNumber, formatShortDate } from './formatters'
 
-// Tous les calculs du module Cotisations (fonctions pures, sans React ni montant codé en dur).
-// Les dates sont au format « AAAA-MM-JJ » et les mois au format « AAAA-MM ».
 
 export function getMonthKey(isoDate) {
   return isoDate.slice(0, 7)
 }
 
-// Date du jour au format ISO, dans le fuseau horaire de l'utilisateur.
 export function getTodayIsoDate(now = new Date()) {
   const month = String(now.getMonth() + 1).padStart(2, '0')
   const day = String(now.getDate()).padStart(2, '0')
@@ -20,7 +17,6 @@ export function shiftMonthKey(monthKey, offset) {
   return `${shifted.getFullYear()}-${String(shifted.getMonth() + 1).padStart(2, '0')}`
 }
 
-// Premier et dernier mois navigables : du plus ancien mois avec données jusqu'au mois en cours.
 export function getMonthBounds(contributions, currentMonthKey) {
   const monthKeys = [...contributions.map((contribution) => getMonthKey(contribution.date)), currentMonthKey].sort()
   return { first: monthKeys[0], last: monthKeys[monthKeys.length - 1] }
@@ -32,7 +28,6 @@ export function clampMonthKey(monthKey, first, last) {
   return monthKey
 }
 
-// Mois ayant au moins une cotisation, du plus récent au plus ancien (options du filtre « mois »).
 export function getMonthOptions(contributions) {
   const monthKeys = [...new Set(contributions.map((contribution) => getMonthKey(contribution.date)))]
   return monthKeys.sort().reverse().map((monthKey) => ({ value: monthKey, label: formatMonthLabel(monthKey) }))
@@ -42,7 +37,6 @@ export function sumAmounts(contributions) {
   return contributions.reduce((total, contribution) => total + contribution.amount, 0)
 }
 
-// Ajoute à chaque cotisation l'associé correspondant (objet `associate`).
 export function attachAssociates(contributions, associates) {
   const associatesById = new Map(associates.map((associate) => [associate.id, associate]))
   return contributions
@@ -50,7 +44,6 @@ export function attachAssociates(contributions, associates) {
     .map((contribution) => ({ ...contribution, associate: associatesById.get(contribution.associateId) }))
 }
 
-// Total et nombre de cotisations de chaque associé.
 export function getAssociateTotals(contributions, associates) {
   return associates.map((associate) => {
     const associateContributions = contributions.filter((contribution) => contribution.associateId === associate.id)
@@ -68,7 +61,6 @@ function buildProgress(collected, target) {
   }
 }
 
-// Progression d'un mois : une ligne par associé + la progression collective.
 export function getMonthlyProgress({ contributions, monthKey, associates, monthlyTargetPerAssociate }) {
   const monthContributions = contributions.filter((contribution) => getMonthKey(contribution.date) === monthKey)
 
@@ -85,7 +77,6 @@ export function getMonthlyProgress({ contributions, monthKey, associates, monthl
   return { items, collective }
 }
 
-// Minuscules, sans accents ni espaces : « Cotisation » et « cotisation » se valent, « 15 000 » et « 15000 » aussi.
 export function normalizeSearchText(value) {
   return String(value)
     .toLowerCase()
@@ -94,7 +85,6 @@ export function normalizeSearchText(value) {
     .replace(/\s/g, '')
 }
 
-// Filtre des cotisations (déjà associées à leur associé) par texte, associé et mois.
 export function filterContributions(contributions, { search, associateId, monthKey }) {
   const query = normalizeSearchText(search)
 
@@ -116,7 +106,6 @@ export function filterContributions(contributions, { search, associateId, monthK
   })
 }
 
-// Tri par date ('date-desc' : plus récentes d'abord, 'date-asc' : plus anciennes d'abord).
 export function sortContributionsByDate(contributions, sortOrder) {
   const direction = sortOrder === 'date-asc' ? 1 : -1
   return [...contributions].sort(

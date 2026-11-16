@@ -1,8 +1,3 @@
-// Teintes réutilisées par les cartes, icônes et actions du Dashboard.
-// - surface / border : fond et bordure pâles d'une carte
-// - icon : couleur de l'icône
-// - tile : fond arrondi derrière une icône
-// - stroke : couleur hexadécimale pour les tracés SVG
 export const TONE_STYLES = {
   green: {
     surface: 'bg-brand-50',

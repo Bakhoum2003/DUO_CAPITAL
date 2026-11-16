@@ -7,19 +7,6 @@ import ContributionFilters from './ContributionFilters'
 import ContributionMobileItem from './ContributionMobileItem'
 import ContributionTable from './ContributionTable'
 
-/**
- * Section « Historique des cotisations » : filtres, tableau (ou cartes sur mobile),
- * états vides et total des cotisations affichées.
- *
- * Props :
- * - contributions : cotisations à afficher (déjà filtrées et triées), avec leur `associate`
- * - totalCount : nombre de cotisations avant filtrage
- * - displayedTotalAmount : total (FCFA) des cotisations affichées
- * - filters, onFilterChange, onResetFilters, hasActiveFilters : état des filtres (voir ContributionFilters)
- * - associateOptions, monthOptions : options des listes déroulantes
- * - onAdd : fonction appelée pour ouvrir la fenêtre d'ajout (état vide)
- * - onEdit, onDelete : fonctions appelées avec la cotisation concernée
- */
 function ContributionHistory({
   contributions,
   totalCount,

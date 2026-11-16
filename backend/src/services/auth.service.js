@@ -6,7 +6,6 @@ import { verifyAgainstDummyHash, verifyPassword } from './password.service.js'
 import { createSessionRecord, logoutSession, rotateSession } from './session.service.js'
 import { signAccessToken } from './token.service.js'
 
-/** Normalisation de l'email : espaces retirés, minuscules (comme le modèle User). */
 export const normalizeEmail = (email) => String(email ?? '').trim().toLowerCase()
 
 /** Informations publiques d'un utilisateur : jamais d'empreinte de mot de passe, de compteur ni de verrou. */

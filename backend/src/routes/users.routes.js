@@ -34,7 +34,6 @@ export function createUsersRouter({ config, userService }) {
 
   router.get('/', async (_req, res) => sendSuccess(res, { users: await userService.listPartners() }))
 
-  // Opérations sur SON propre compte (déclarées avant « /:id »).
   router.patch('/me', validateBody(updateProfileSchema), async (req, res) =>
     sendSuccess(res, { user: await userService.updateProfile({ actor: actorOf(req), name: req.body.name, meta: clientMeta(req) }) }),
   )

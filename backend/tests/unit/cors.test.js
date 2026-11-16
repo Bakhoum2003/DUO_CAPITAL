@@ -28,7 +28,15 @@ describe('createCorsOptions', () => {
   it('autorise les cookies et limite les méthodes', () => {
     expect(options.credentials).toBe(true)
     expect(options.methods).toContain('PATCH')
-    expect(options.methods).not.toContain('PUT')
+    expect(options.methods).toContain('PUT')
+    // Liste exacte : aucune autre méthode n'est autorisée (pas de TRACE, CONNECT, HEAD, etc.).
+    expect([...options.methods].sort()).toEqual(['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT'])
+  })
+
+  it("garde une liste blanche d'origines : jamais de joker, en-têtes autorisés inchangés", () => {
+    expect(options.origin).toBeTypeOf('function')
+    expect(decide(options, '*')).toBe(false)
+    expect(options.allowedHeaders).toEqual(['Content-Type', 'Authorization', 'Idempotency-Key', 'X-Request-Id'])
   })
 
   it("n'autorise personne si la liste est vide", () => {

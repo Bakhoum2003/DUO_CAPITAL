@@ -1,4 +1,3 @@
-// Logique du script de création initiale des deux comptes, séparée de l'entrée/sortie pour être testable.
 // Ne contient AUCUN mot de passe par défaut : tout est saisi par l'opérateur, masqué, et jamais affiché ni journalisé.
 
 import { PARTNER_IDENTITIES } from '../../src/config/partners.js'

@@ -1,13 +1,6 @@
 import { CheckIcon } from '../../icons'
 import { TONE_STYLES } from '../../constants/toneStyles'
 
-/**
- * Petit repère visuel en bas à droite d'une SummaryCard.
- *
- * Props :
- * - kind : 'trend' (courbe), 'check' (pastille validée) ou 'bars' (barres croissantes)
- * - tone : teinte de la carte ('green', 'blue', 'red'…), qui colore le tracé
- */
 function SummaryCardIndicator({ kind, tone }) {
   const color = TONE_STYLES[tone].stroke
 

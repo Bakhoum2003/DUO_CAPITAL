@@ -1,17 +1,5 @@
 import { CircleNotchIcon } from '../../icons'
 
-/**
- * Bouton principal vert, pleine largeur.
- *
- * Props :
- * - label : texte du bouton
- * - loadingLabel : texte affiché pendant le chargement
- * - icon : composant d'icône Font Awesome (voir src/icons) (ex. RightToBracketIcon) affiché à gauche du texte
- * - type : 'button' ou 'submit'
- * - isLoading : affiche un indicateur et désactive le bouton
- * - disabled : désactive le bouton
- * - onClick : fonction appelée au clic
- */
 function PrimaryButton({
   label,
   loadingLabel = 'Chargement…',

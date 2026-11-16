@@ -4,9 +4,6 @@ import SettingsSection from './SettingsSection'
 /**
  * Mon compte : identité de l'utilisateur connecté (lecture seule).
  * Les informations viennent du serveur (utilisateur authentifié).
- *
- * Props :
- * - fullName, initials, role : informations de l'utilisateur
  */
 function AccountSection({ fullName, initials, role }) {
   return (

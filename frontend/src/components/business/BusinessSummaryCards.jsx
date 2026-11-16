@@ -3,16 +3,6 @@ import { getResultKind } from '../../utils/businessCalculations'
 import { formatNumber, formatSignedAmount } from '../../utils/formatters'
 import SummaryCard from '../dashboard/SummaryCard'
 
-/**
- * Les quatre cartes récapitulatives : nombre de business, investissements, recettes, résultat cumulé.
- * Réutilise SummaryCard du Dashboard.
- *
- * Props :
- * - businessCount : nombre total de business
- * - totalInvested : total des investissements (FCFA)
- * - totalRevenues : total des recettes (FCFA)
- * - result : bénéfice (positif) ou perte (négatif) cumulé (FCFA)
- */
 function BusinessSummaryCards({ businessCount, totalInvested, totalRevenues, result }) {
   const resultKind = getResultKind(result)
   const resultTitle = resultKind === 'loss' ? 'Pertes cumulées' : 'Bénéfices cumulés'

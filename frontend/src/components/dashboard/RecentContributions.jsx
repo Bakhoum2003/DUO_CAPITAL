@@ -3,13 +3,6 @@ import { CARD_CLASSES } from '../../constants/uiClasses'
 import SectionHeader from '../common/SectionHeader'
 import ContributionListItem from './ContributionListItem'
 
-/**
- * Carte « Cotisations du mois » : une ligne par associé et un message de bilan.
- *
- * Props :
- * - monthLabel : mois affiché dans la pastille (ex. « Novembre 2026 »)
- * - contributions : tableau { id, associateName, initials, avatarTone, monthLabel, amount, paidOn, status }
- */
 function RecentContributions({ monthLabel, contributions }) {
   const unpaidCount = contributions.filter((contribution) => contribution.status !== 'paid').length
   const isComplete = contributions.length > 0 && unpaidCount === 0

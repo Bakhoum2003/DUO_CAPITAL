@@ -8,11 +8,9 @@ export const OFFLINE_ERROR_MESSAGE =
 const SERVER_ERROR_MESSAGE = 'Le serveur a rencontré une erreur. Veuillez réessayer dans un instant.'
 const GENERIC_ERROR_MESSAGE = "Une erreur est survenue. Veuillez réessayer."
 
-/** Message lisible pour une erreur d'API (ApiError) ou toute autre erreur. */
 export function getErrorMessage(error) {
   if (!error || typeof error !== 'object') return GENERIC_ERROR_MESSAGE
   if (error.code === NETWORK_ERROR_CODE) {
-    // Navigateur hors connexion (information locale, rien n'est stocké) : message plus précis.
     const isOffline = typeof navigator !== 'undefined' && navigator.onLine === false
     return isOffline ? OFFLINE_ERROR_MESSAGE : NETWORK_ERROR_MESSAGE
   }

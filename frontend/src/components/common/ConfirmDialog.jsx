@@ -3,20 +3,6 @@ import { useRef } from 'react'
 import useModalBehavior from '../../hooks/useModalBehavior'
 import ActionButton from './ActionButton'
 
-/**
- * Fenêtre de confirmation avant une action importante (suppression par défaut).
- *
- * Props :
- * - idPrefix : préfixe des identifiants (titre et description), unique dans la page
- * - title : question posée (ex. « Supprimer ce business ? »)
- * - description : conséquences de la suppression
- * - confirmLabel : texte du bouton rouge (ex. « Supprimer »)
- * - onConfirm : fonction appelée au clic sur le bouton de confirmation
- * - onClose : fonction appelée pour annuler (Annuler, Échap, clic sur le fond)
- * - icon : icône de la fenêtre et du bouton (corbeille par défaut)
- * - confirmVariant : couleur du bouton de confirmation ('danger' rouge par défaut, ou 'primary' vert)
- * - isSubmitting : action en cours ; les deux boutons sont désactivés et la fenêtre ne se ferme plus (faux par défaut)
- */
 function ConfirmDialog({
   idPrefix,
   title,
@@ -29,7 +15,6 @@ function ConfirmDialog({
   isSubmitting = false,
 }) {
   const dialogRef = useRef(null)
-  // Pendant le traitement, Échap et le clic sur le fond sont sans effet.
   const handleClose = () => {
     if (!isSubmitting) onClose()
   }

@@ -1,11 +1,9 @@
-// Fabriques de champs Mongoose communes à plusieurs modèles.
 
 import mongoose from 'mongoose'
 import { isBusinessDate, isFcfaAmount, isPeriod } from './validators.js'
 
 const { Schema } = mongoose
 
-/** Montant FCFA entier strictement positif. */
 export function fcfaAmountField() {
   return {
     type: Number,
@@ -15,7 +13,6 @@ export function fcfaAmountField() {
   }
 }
 
-/** Date métier stockée comme date seule « AAAA-MM-JJ » (aucun fuseau, aucun décalage possible). */
 export function businessDateField({ required = false, label = 'La date' } = {}) {
   return {
     type: String,
@@ -28,7 +25,6 @@ export function businessDateField({ required = false, label = 'La date' } = {}) 
   }
 }
 
-/** Période mensuelle « AAAA-MM ». */
 export function periodField() {
   return {
     type: String,
@@ -37,7 +33,6 @@ export function periodField() {
   }
 }
 
-/** Référence vers un utilisateur (associé). */
 export function userRefField({ required = true, label = "L'utilisateur", immutable = false } = {}) {
   return {
     type: Schema.Types.ObjectId,

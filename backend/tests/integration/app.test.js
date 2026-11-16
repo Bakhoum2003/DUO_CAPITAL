@@ -127,6 +127,32 @@ describe('CORS', () => {
       .set('Access-Control-Request-Method', 'POST')
     expect(res.headers['access-control-allow-origin']).toBeUndefined()
   })
+
+  it.each(['/api/v1/settings', '/api/v1/settings/preferences'])('pré-requête OPTIONS pour PUT %s : méthode, cookies et origine autorisés', async (path) => {
+    const res = await request(build())
+      .options(path)
+      .set('Origin', FRONTEND_ORIGIN)
+      .set('Access-Control-Request-Method', 'PUT')
+      .set('Access-Control-Request-Headers', 'content-type')
+    expect(res.status).toBe(204)
+    expect(res.headers['access-control-allow-origin']).toBe(FRONTEND_ORIGIN)
+    expect(res.headers['access-control-allow-credentials']).toBe('true')
+    expect(res.headers['access-control-allow-methods']).toContain('PUT')
+  })
+
+  it("n'autorise pas une origine inconnue en pré-requête PUT", async () => {
+    const res = await request(build())
+      .options('/api/v1/settings')
+      .set('Origin', 'https://pirate.example.com')
+      .set('Access-Control-Request-Method', 'PUT')
+    expect(res.headers['access-control-allow-origin']).toBeUndefined()
+  })
+
+  it('un PUT venant d’une origine non autorisée reste refusé par la protection Trusted Origin (403)', async () => {
+    const res = await request(build()).put('/api/v1/settings').set('Origin', 'https://pirate.example.com').send({})
+    expect(res.status).toBe(403)
+    expect(res.body.error.code).toBe('FORBIDDEN_ORIGIN')
+  })
 })
 
 describe('sécurité HTTP de base', () => {

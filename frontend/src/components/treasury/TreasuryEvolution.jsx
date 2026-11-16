@@ -5,7 +5,7 @@ import SectionHeader from '../common/SectionHeader'
 
 const MAX_MONTHS = 12
 
-/** Évolution mensuelle de la trésorerie (points fournis par l'API : entrées, sorties et solde cumulé). Props : points [{ key, inflow, outflow, balance }]. */
+/** Évolution mensuelle de la trésorerie (points fournis par l'API : entrées, sorties et solde cumulé). */
 function TreasuryEvolution({ points }) {
   if (points.length === 0) return null
   const rows = points.slice(-MAX_MONTHS).reverse()

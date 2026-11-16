@@ -5,13 +5,6 @@ import SummaryCard from '../dashboard/SummaryCard'
 /**
  * Les quatre indicateurs de la vue générale : entrées, sorties, solde net, nombre d'opérations.
  * Ils portent sur les mouvements affichés (donc sur la période et les filtres choisis).
- *
- * Props :
- * - totalIn : total des entrées (FCFA)
- * - totalOut : total des sorties (FCFA)
- * - netBalance : solde net = entrées − sorties (FCFA, peut être négatif)
- * - movementCount : nombre de mouvements d'argent
- * - isFiltered : vrai quand des filtres sont actifs (les libellés l'indiquent)
  */
 function HistorySummaryCards({ totalIn, totalOut, netBalance, movementCount, isFiltered }) {
   const scope = isFiltered ? 'selon vos filtres' : 'sur toute la période'

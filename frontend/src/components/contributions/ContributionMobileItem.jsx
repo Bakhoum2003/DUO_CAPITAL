@@ -3,17 +3,6 @@ import { formatCurrency, formatShortDate } from '../../utils/formatters'
 import ActionButton from '../common/ActionButton'
 import Avatar from '../common/Avatar'
 
-/**
- * Une cotisation sous forme de carte (petits écrans, à la place du tableau).
- *
- * Props :
- * - associateName, initials, avatarTone : associé concerné
- * - amount : montant (FCFA)
- * - date : date ISO « AAAA-MM-JJ »
- * - description : description (facultative)
- * - onEdit : fonction appelée au clic sur « Modifier »
- * - onDelete : fonction appelée au clic sur « Supprimer »
- */
 function ContributionMobileItem({ associateName, initials, avatarTone, amount, date, description, onEdit, onDelete }) {
   return (
     <li className="rounded-xl border border-line bg-white p-4">

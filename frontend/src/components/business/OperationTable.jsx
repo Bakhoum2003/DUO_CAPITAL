@@ -1,14 +1,5 @@
 import OperationTableRow from './OperationTableRow'
 
-/**
- * Tableau des opérations d'un business (à partir des écrans moyens ;
- * sur mobile on utilise OperationMobileItem à la place).
- *
- * Props :
- * - operations : tableau { id, type, amount, date, description, categoryLabel, associate } (associate : { name, initials, avatarTone })
- * - onEdit : fonction appelée avec l'opération à modifier
- * - onDelete : fonction appelée avec l'opération à supprimer
- */
 function OperationTable({ operations, onEdit, onDelete }) {
   return (
     <div className="hidden overflow-x-auto rounded-xl border border-line md:block">

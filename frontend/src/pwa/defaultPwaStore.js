@@ -1,4 +1,4 @@
 import { createPwaStore } from './pwaStore'
+import { unsavedChangesStore } from './defaultUnsavedChangesStore'
 
-/** Instance unique utilisée par l'application (les tests créent la leur avec createPwaStore). */
-export const pwaStore = createPwaStore()
+export const pwaStore = createPwaStore({ unsavedChanges: unsavedChangesStore })

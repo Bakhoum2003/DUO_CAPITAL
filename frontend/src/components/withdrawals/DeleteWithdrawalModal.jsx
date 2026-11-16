@@ -7,10 +7,6 @@ import FormError from '../common/FormError'
 import FormModal from '../common/FormModal'
 import TextAreaField from '../common/TextAreaField'
 
-/**
- * Confirmation d'une suppression LOGIQUE (le retrait n'est plus compté, mais reste conservé dans l'historique).
- * Props : withdrawal, submission { status, message }, onConfirm(motif), onClose.
- */
 function DeleteWithdrawalModal({ withdrawal, submission, onConfirm, onClose }) {
   const [reason, setReason] = useState('')
   const isSubmitting = submission.status === 'submitting'

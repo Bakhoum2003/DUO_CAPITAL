@@ -6,12 +6,6 @@ function getColor(index) {
   return CHART_COLORS.expenseCategories[index % CHART_COLORS.expenseCategories.length]
 }
 
-/**
- * Graphique B : répartition des dépenses par catégorie, avec le détail chiffré à côté.
- *
- * Props :
- * - data : [{ label, amount, percent }] (de la catégorie la plus élevée à la plus faible)
- */
 function ExpenseBreakdownChart({ data }) {
   return (
     <div className="grid items-center gap-4 md:max-xl:grid-cols-2 2xl:grid-cols-2">

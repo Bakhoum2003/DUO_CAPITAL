@@ -1,11 +1,3 @@
-/**
- * Ligne « libellé : valeur » en lecture seule.
- *
- * Props :
- * - label : nom de l'information
- * - value : valeur affichée
- * - noteLabel : petite précision sous la valeur (optionnel)
- */
 function SettingsInfoRow({ label, value, noteLabel }) {
   return (
     <div className="flex flex-col gap-0.5 py-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">

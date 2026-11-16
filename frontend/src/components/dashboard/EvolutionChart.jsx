@@ -7,7 +7,6 @@ import SectionHeader from '../common/SectionHeader'
 
 const NAMES = { inflow: 'Entrées', outflow: 'Sorties', balance: 'Trésorerie', capital: 'Capital' }
 
-/** Évolution financière : entrées/sorties de chaque période et trésorerie / capital cumulés. */
 function EvolutionChart({ evolution, periodLabel }) {
   const points = evolution?.points ?? []
   const rows = points.map((point) => ({ ...point, label: formatAxisKey(point.key, evolution.granularity) }))

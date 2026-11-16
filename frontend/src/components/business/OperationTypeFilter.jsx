@@ -1,11 +1,3 @@
-/**
- * Boutons de filtre de l'historique par type d'opération (Toutes, Investissements, Dépenses, Recettes).
- *
- * Props :
- * - value : type sélectionné ('' = toutes)
- * - options : tableau { value, label }
- * - onChange : fonction appelée avec la valeur choisie
- */
 function OperationTypeFilter({ value, options, onChange }) {
   return (
     <div role="group" aria-label="Filtrer par type d'opération" className="mb-4 flex flex-wrap gap-2">

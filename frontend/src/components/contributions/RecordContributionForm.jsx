@@ -7,13 +7,6 @@ import FormError from '../common/FormError'
 import FormSelectField from '../common/FormSelectField'
 import TextAreaField from '../common/TextAreaField'
 
-/**
- * Formulaire d'enregistrement d'une cotisation réelle. Rien n'est enregistré avant la confirmation du serveur ;
- * le bouton est désactivé pendant l'envoi (aucune double soumission).
- *
- * Props : initialValues, context { todayIso, fundStartPeriod, partnerIds }, partnerOptions, periodOptions,
- * submission { status, message, fieldErrors, needsDuplicateConfirmation }, onSubmit(values, { confirmDuplicate }), onCancel.
- */
 function RecordContributionForm({ initialValues, context, partnerOptions, periodOptions, submission, onSubmit, onCancel }) {
   const { values, errors, handleChange, handleBlur, validateAll } = useFormValidation({
     initialValues,

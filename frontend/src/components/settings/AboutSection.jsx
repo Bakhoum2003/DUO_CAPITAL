@@ -2,12 +2,6 @@ import { CircleInfoIcon } from '../../icons'
 import HandshakeIcon from '../common/HandshakeIcon'
 import SettingsSection from './SettingsSection'
 
-/**
- * À propos : logo, nom, version et slogan de l'application.
- *
- * Props :
- * - appName, version, slogan, aboutText : informations de l'application
- */
 function AboutSection({ appName, version, slogan, aboutText }) {
   return (
     <SettingsSection

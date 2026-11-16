@@ -4,7 +4,7 @@ import useModalBehavior from '../../hooks/useModalBehavior'
 import IconButton from '../common/IconButton'
 import RecordContributionForm from './RecordContributionForm'
 
-/** Fenêtre d'enregistrement d'une cotisation (à monter uniquement quand elle est ouverte). Props : voir RecordContributionForm + onClose. */
+/** Fenêtre d'enregistrement d'une cotisation (à monter uniquement quand elle est ouverte). */
 function RecordContributionModal({ onClose, ...formProps }) {
   const dialogRef = useRef(null)
   useModalBehavior({ dialogRef, onClose })

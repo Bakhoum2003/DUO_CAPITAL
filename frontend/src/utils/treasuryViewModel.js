@@ -1,5 +1,3 @@
-// Logique PURE du module Trésorerie (sans React ni réseau) : filtres, libellés, cartes, formatage.
-// Le backend est la source de vérité : tous les montants viennent de l'API ; ici on ne fait que de la présentation
 // (aucune addition de montants, aucun solde recalculé).
 
 import { formatNumber, formatShortDate } from './formatters'
@@ -9,7 +7,6 @@ const DATE = /^\d{4}-\d{2}-\d{2}$/
 
 export const DEFAULT_FILTERS = Object.freeze({ search: '', type: '', direction: '', category: '', partnerId: '', from: '', to: '', sort: 'date_desc', page: 1 })
 
-/** Types de mouvements : libellé, sens et teinte du badge. Les entrées sont vertes, les sorties rouges ou orange. */
 export const TYPE_META = Object.freeze({
   CONTRIBUTION: { label: 'Cotisation', direction: 'IN', tone: 'success' },
   REVENUE: { label: 'Recette commerciale', direction: 'IN', tone: 'info' },
@@ -35,7 +32,6 @@ export const DIRECTION_LABELS = Object.freeze({ IN: 'Entrée', OUT: 'Sortie' })
 
 export const hasActiveFilters = (filters) => ['search', 'type', 'direction', 'category', 'partnerId', 'from', 'to'].some((key) => Boolean(filters[key]))
 
-/** Erreur de saisie des filtres (dates), ou null. */
 export function validateFilters(filters) {
   if (filters.from && !DATE.test(filters.from)) return 'La date de début est invalide.'
   if (filters.to && !DATE.test(filters.to)) return 'La date de fin est invalide.'
@@ -43,7 +39,6 @@ export function validateFilters(filters) {
   return null
 }
 
-/** URL de l'historique : seuls les filtres renseignés sont envoyés, avec les noms de paramètres exacts du backend. */
 export function buildMovementsPath(filters = DEFAULT_FILTERS) {
   const params = new URLSearchParams()
   for (const key of ['search', 'type', 'direction', 'category', 'partnerId', 'from', 'to']) {
@@ -57,20 +52,17 @@ export function buildMovementsPath(filters = DEFAULT_FILTERS) {
 
 export const movementPath = (type, id) => `/api/v1/treasury/movements/${encodeURIComponent(type)}/${encodeURIComponent(id)}`
 
-/** « 45 000 FCFA » ; un montant négatif garde son signe (« −10 000 FCFA ») : un déficit n'est jamais masqué. */
 export function formatMoney(amount) {
   if (!Number.isFinite(amount)) return '—'
   return `${amount < 0 ? '−' : ''}${formatNumber(Math.abs(amount))} FCFA`
 }
 
-/** Montant d'un mouvement avec son sens : « + 20 000 FCFA » (entrée) ou « − 5 000 FCFA » (sortie). */
 export function formatMovementAmount(amount, direction) {
   return `${direction === 'IN' ? '+' : '−'} ${formatNumber(amount)} FCFA`
 }
 
 export const formatLastMovement = (isoDate) => (isoDate ? formatShortDate(isoDate) : 'Aucun mouvement')
 
-/** « 2026-12 » → « décembre 2026 » (étiquettes de l'évolution). */
 export function formatMonthKey(key) {
   const [year, month] = String(key).split('-').map(Number)
   if (!year || !month) return String(key)
@@ -90,7 +82,6 @@ export function buildSummaryCards(summary) {
   ]
 }
 
-/** Lignes de la carte « Investissements et dépenses » : deux montants distincts. */
 export function buildSpendingRows(summary) {
   if (!summary) return []
   return [

@@ -1,10 +1,4 @@
-// Calculs de l'Historique (fonctions pures, testables).
-//
-// Total des entrées = cotisations reçues + recettes
-// Total des sorties = investissements + dépenses + retraits
 // Solde net         = entrées − sorties
-// Un bénéfice calculé (sens 'none') n'est JAMAIS compté : ce n'est pas un mouvement d'argent
-// (ses recettes et ses dépenses sont déjà dans les totaux, le compter doublerait le montant).
 // Le solde net n'est pas le bénéfice commercial, et aucune répartition entre associés n'est calculée.
 
 import { HISTORY_TYPES, NO_BUSINESS_FILTER } from '../constants/historySettings'
@@ -27,7 +21,6 @@ export function getNetBalance(entries) {
   return getTotalIn(entries) - getTotalOut(entries)
 }
 
-// Indicateurs de la vue générale. `movementCount` ne compte que les vrais mouvements d'argent.
 export function getHistoryTotals(entries) {
   const totalIn = getTotalIn(entries)
   const totalOut = getTotalOut(entries)
@@ -41,7 +34,6 @@ export function getHistoryTotals(entries) {
   }
 }
 
-// Message d'erreur si la période est incohérente (« » si elle est correcte ou incomplète).
 export function getPeriodError(startDate, endDate) {
   if (startDate && endDate && startDate > endDate) {
     return 'La date de début doit être antérieure ou égale à la date de fin.'
@@ -80,13 +72,11 @@ export function filterHistoryEntries(entries, { search, type, associateId, busin
   })
 }
 
-// Tri chronologique ('date-desc' : plus récentes d'abord ; 'date-asc' : plus anciennes d'abord).
 export function sortHistoryEntries(entries, sortOrder) {
   const direction = sortOrder === 'date-asc' ? 1 : -1
   return [...entries].sort((a, b) => direction * (a.date.localeCompare(b.date) || a.id.localeCompare(b.id)))
 }
 
-// Activités présentes dans l'historique, triées par nom (options du filtre « activité »).
 export function getBusinessOptions(entries) {
   const names = new Map()
   entries.forEach((entry) => {

@@ -1,8 +1,3 @@
-// Cotisations des deux associés (mêmes droits pour les deux).
-//
-// Principes :
-// - une cotisation est un mouvement réel : jamais de modification ni de suppression ici (aucune route ne le permet) ;
-// - le montant réel est conservé à l'identique (aucun plafond à 15 000 FCFA) ; plusieurs versements par mois sont permis ;
 // - l'auteur vient de la session ; l'associé concerné est vérifié en base (existant ET actif) ;
 // - un double envoi est neutralisé par une clé d'idempotence (réservation + écriture + audit dans UNE transaction) ;
 // - un versement identique (associé, montant, date, mois) enregistré très récemment est refusé sauf confirmation explicite.
@@ -35,7 +30,6 @@ const fieldError = (status, code, field, message) => businessError(status, code,
  * @param {() => Date} [options.systemClock] heure SYSTÈME, pour les horodatages techniques comparés à `createdAt`
  *   (fenêtre anti-doublon, expiration des clés) : `createdAt` est posé par la base avec l'heure réelle, jamais avec l'horloge métier.
  */
-// `aggregate()` ne convertit pas les types comme `find()` : l'identifiant d'associé doit devenir un ObjectId.
 function castForAggregation(filter) {
   return filter.partner ? { ...filter, partner: new mongoose.Types.ObjectId(filter.partner) } : filter
 }
@@ -46,7 +40,6 @@ export function createContributionService({ config, clock = () => new Date(), sy
     return new Map(users.map((user) => [String(user._id), user]))
   }
 
-  // Règles de dates et de période : pas avant le démarrage du fonds, pas dans le futur.
   function assertBusinessRules({ contributionDate, period }, today) {
     const start = config.fund.startPeriod
     if (!start) {
@@ -140,7 +133,6 @@ export function createContributionService({ config, clock = () => new Date(), sy
       })
     },
 
-    /** Liste paginée et filtrée (les filtres sont déjà validés). */
     async list(query) {
       const filter = { deletedAt: null }
       if (query.partnerId) filter.partner = query.partnerId
@@ -170,7 +162,6 @@ export function createContributionService({ config, clock = () => new Date(), sy
       return toContributionView(found, await usersById([String(found.partner), String(found.recordedBy)]))
     },
 
-    /** Statistiques du fonds à la date du jour (Dakar) : encaissé réel, objectifs, conformité mensuelle. */
     async summary() {
       const now = clock()
       const [users, contributions] = await Promise.all([

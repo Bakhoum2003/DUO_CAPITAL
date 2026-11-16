@@ -6,15 +6,6 @@ const SIZE_CLASSES = {
   lg: { tile: 'h-14 w-14', icon: 'h-7 w-7' },
 }
 
-/**
- * Pastille avec l'icône du type de mouvement, colorée selon le sens :
- * vert (entrée), rouge (sortie) ou violet (résultat calculé).
- *
- * Props :
- * - type : 'contribution', 'investment', 'expense', 'revenue', 'withdrawal' ou 'profit'
- * - direction : 'in', 'out' ou 'none'
- * - size : 'sm' ou 'lg'
- */
 function HistoryEntryIcon({ type, direction, size = 'sm' }) {
   const { icon: TypeIcon } = HISTORY_TYPES[type]
   const toneStyle = TONE_STYLES[DIRECTIONS[direction].tileTone]

@@ -6,17 +6,6 @@ function describeCount(count) {
   return `${count} cotisation${count > 1 ? 's' : ''}`
 }
 
-/**
- * Les quatre cartes récapitulatives : total reçu, total de chaque associé, objectif mensuel collectif.
- * Réutilise SummaryCard du Dashboard.
- *
- * Props :
- * - totalAmount : total de toutes les cotisations reçues (FCFA)
- * - contributionCount : nombre total de cotisations
- * - associateTotals : tableau { associate: { id, name, avatarTone }, total, count }
- * - collectiveTarget : objectif mensuel collectif (FCFA)
- * - monthlyTargetPerAssociate : objectif mensuel de chaque associé (FCFA)
- */
 function ContributionSummaryCards({
   totalAmount,
   contributionCount,

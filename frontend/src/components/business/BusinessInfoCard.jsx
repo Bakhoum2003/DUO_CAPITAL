@@ -3,17 +3,6 @@ import { CARD_CLASSES } from '../../constants/uiClasses'
 import { formatCurrency, formatShortDate } from '../../utils/formatters'
 import SectionHeader from '../common/SectionHeader'
 
-/**
- * Carte « Informations générales » d'un business, avec un rappel sur le résultat et la trésorerie.
- *
- * Props :
- * - categoryLabel : libellé de la catégorie
- * - launchDate : date de lancement ISO « AAAA-MM-JJ »
- * - responsibleName : associé responsable (vide = non précisé)
- * - initialInvestment : investissement initial (FCFA)
- * - description : description (vide = aucune)
- * - cashBalance : trésorerie du business (FCFA) : investi + recettes − dépenses
- */
 function BusinessInfoCard({ categoryLabel, launchDate, responsibleName, initialInvestment, description, cashBalance }) {
   return (
     <section className={CARD_CLASSES} aria-label="Informations générales">

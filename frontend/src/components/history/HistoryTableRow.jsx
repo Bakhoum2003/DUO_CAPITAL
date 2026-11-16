@@ -6,19 +6,6 @@ import StatusBadge from '../common/StatusBadge'
 import HistoryAmount from './HistoryAmount'
 import HistoryEntryIcon from './HistoryEntryIcon'
 
-/**
- * Une ligne du tableau de l'historique (écrans moyens et grands).
- *
- * Props :
- * - type : type de mouvement ('contribution', 'investment', 'expense', 'revenue', 'withdrawal', 'profit')
- * - direction : 'in', 'out' ou 'none'
- * - amount : montant (FCFA)
- * - date : date ISO « AAAA-MM-JJ »
- * - description : description du mouvement
- * - businessName : activité concernée (vide = aucune)
- * - associateName : associé concerné (vide = aucun)
- * - onShowDetails : fonction appelée au clic sur « Voir le détail »
- */
 function HistoryTableRow({ type, direction, amount, date, description, businessName, associateName, onShowDetails }) {
   const typeStyle = HISTORY_TYPES[type]
   const directionStyle = DIRECTIONS[direction]

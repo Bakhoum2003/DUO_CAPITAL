@@ -4,14 +4,6 @@ import OperationForm from './OperationForm'
 /**
  * Fenêtre modale d'ajout ou de modification d'une opération financière.
  * À monter uniquement quand elle est ouverte.
- *
- * Props :
- * - operationType : 'investment', 'expense' ou 'revenue'
- * - title, description : en-tête de la fenêtre
- * - submitLabel : texte du bouton d'enregistrement
- * - initialValues, todayIso, launchDate : voir OperationForm
- * - onSubmit : fonction appelée avec les valeurs validées
- * - onClose : fonction appelée pour fermer la fenêtre
  */
 function OperationFormModal({
   operationType,

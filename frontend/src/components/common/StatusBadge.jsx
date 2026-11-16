@@ -6,13 +6,6 @@ const TONE_CLASSES = {
   neutral: 'bg-slate-100 text-slate-600',
 }
 
-/**
- * Petite pastille de statut (ex. « Terminé », « Payé »).
- *
- * Props :
- * - label : texte affiché
- * - tone : 'success', 'info', 'warning', 'danger' ou 'neutral' (gris)
- */
 function StatusBadge({ label, tone = 'success' }) {
   return (
     <span

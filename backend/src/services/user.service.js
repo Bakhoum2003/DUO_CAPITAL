@@ -1,6 +1,3 @@
-// Gestion des deux associés. Aucun rôle, aucune hiérarchie : les deux ont exactement les mêmes droits.
-//
-// Règles (identiques pour les deux associés) :
 // - nom, email et mot de passe : modifiables par leur propriétaire uniquement ;
 // - email, mot de passe, activation/désactivation : confirmation par le mot de passe actuel de l'auteur ;
 // - désactiver l'AUTRE associé est possible, se désactiver soi-même ne l'est pas : au moins un compte reste toujours actif ;
@@ -60,7 +57,6 @@ export function createUserService({ clock = () => new Date() } = {}) {
       return toPartnerView(await findPartner(id))
     },
 
-    /** Modifie le nom du propriétaire du compte (seule information personnelle modifiable). */
     async updateProfile({ actor, name, meta = {} }) {
       const user = await findPartner(String(actor.userId))
       if (user.name === name) return toPartnerView(user)

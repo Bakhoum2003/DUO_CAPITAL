@@ -4,10 +4,6 @@ import { NAVIGATION_ITEMS } from '../constants/navigationItems'
 import { CARD_CLASSES } from '../constants/uiClasses'
 import { ROUTES } from '../routes/routePaths'
 
-/**
- * Page provisoire des modules pas encore développés (Cotisations, Business, Historique,
- * Statistiques, Paramètres). Le nom du module est retrouvé à partir de l'adresse de la page.
- */
 function ModulePlaceholderPage() {
   const { pathname } = useLocation()
   const navigationItem = NAVIGATION_ITEMS.find((item) => item.to === pathname)

@@ -1,23 +1,19 @@
 import { useRef, useState } from 'react'
 import useModalBehavior from '../../hooks/useModalBehavior'
+import useUnsavedChanges from '../../hooks/useUnsavedChanges'
 import { ACTION_META, MAX_REASON_LENGTH, validateActionInput } from '../../utils/activitiesViewModel'
 import AuthInput from '../auth/AuthInput'
 import ActionButton from '../common/ActionButton'
 import FormError from '../common/FormError'
 import TextAreaField from '../common/TextAreaField'
 
-/**
- * Confirmation d'un changement de statut. Selon l'action : confirmation simple, date de fin (terminer) ou motif obligatoire (rouvrir).
- * L'action n'est envoyée au serveur qu'après confirmation ; le bouton est désactivé pendant l'envoi ; l'erreur métier du serveur s'affiche ici.
- *
- * Props : action, activity, todayIso, submission { status, message }, onConfirm(input), onClose.
- */
 function ActivityActionDialog({ action, activity, todayIso, submission, onConfirm, onClose }) {
   const meta = ACTION_META[action]
   const dialogRef = useRef(null)
   useModalBehavior({ dialogRef, onClose })
   const [input, setInput] = useState({ endDate: todayIso, reason: '' })
   const [inputError, setInputError] = useState('')
+  useUnsavedChanges(input.reason.trim() !== '' || input.endDate !== todayIso)
   const isSubmitting = submission.status === 'submitting'
 
   const handleConfirm = () => {

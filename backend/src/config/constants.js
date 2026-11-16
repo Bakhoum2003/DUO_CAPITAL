@@ -1,25 +1,17 @@
-// Constantes métier et techniques partagées par tout le backend (décisions validées en Phase A).
 
-// Fuseau horaire métier : « aujourd'hui », les mois et les périodes se calculent dans ce fuseau.
-// Les horodatages techniques (createdAt, journaux) restent en UTC.
 export const BUSINESS_TIME_ZONE = 'Africa/Dakar'
 
-// Devise unique : le franc CFA (BCEAO). Les montants sont des entiers FCFA, sans décimale.
 export const CURRENCY_CODE = 'XOF'
 
-// Chemins de l'API.
 export const API_BASE_PATH = '/api'
 export const HEALTH_PATH = '/api/health'
 export const API_V1_PATH = '/api/v1'
 
-// Taille maximale d'un corps de requête JSON.
 export const JSON_BODY_LIMIT = '100kb'
 
-// Protection de base contre les abus (par adresse IP).
 export const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000
 export const RATE_LIMIT_MAX_REQUESTS = 300
 
-// Attente maximale de l'arrêt propre avant de fermer de force les connexions.
 export const SHUTDOWN_TIMEOUT_MS = 10000
 
 // Authentification (B2).
@@ -40,7 +32,6 @@ export const LOGIN_RATE_LIMIT_MAX_FAILURES = 10
 export const MAX_FAILED_LOGINS = 5
 export const ACCOUNT_LOCK_DURATION_MS = 15 * 60 * 1000
 
-// Longueurs maximales acceptées à la connexion (évite le hachage de données énormes).
 export const MAX_EMAIL_LENGTH = 254
 export const MAX_PASSWORD_LENGTH = 1024
 
@@ -48,5 +39,4 @@ export const MAX_PASSWORD_LENGTH = 1024
 export const SENSITIVE_RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000
 export const SENSITIVE_RATE_LIMIT_MAX_FAILURES = 10
 
-// Cotisation mensuelle prévue par associé (FCFA) : décision métier (15 000 FCFA × 2 associés = 30 000 FCFA par mois).
 export const MONTHLY_CONTRIBUTION_PER_PARTNER = 15000

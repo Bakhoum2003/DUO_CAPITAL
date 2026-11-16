@@ -6,14 +6,6 @@ import ActionButton from '../common/ActionButton'
 import FormError from '../common/FormError'
 import TextAreaField from '../common/TextAreaField'
 
-/**
- * Formulaire de création / modification d'une activité. Rien n'est enregistré avant la confirmation du serveur ;
- * le bouton est désactivé pendant l'envoi (aucune double soumission). Les erreurs du serveur s'affichent sous les champs.
- * Le statut, l'auteur et les montants ne sont jamais modifiables ici.
- *
- * Props : initialValues, mode ('create' | 'edit'), showEndDate (activité terminée), todayIso, submission { status, message, fieldErrors },
- * onSubmit(values), onCancel.
- */
 function ActivityForm({ initialValues, mode, showEndDate = false, todayIso, submission, onSubmit, onCancel }) {
   const { values, errors, handleChange, handleBlur, validateAll } = useFormValidation({
     initialValues,

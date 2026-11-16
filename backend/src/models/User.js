@@ -26,7 +26,6 @@ const userSchema = new Schema(
       minlength: [2, 'Le nom doit contenir au moins 2 caractères.'],
       maxlength: [80, 'Le nom est limité à 80 caractères.'],
     },
-    // Normalisé (minuscules, sans espaces autour) avant validation : l'unicité ne dépend pas de la casse.
     email: {
       type: String,
       required: [true, "L'email est obligatoire."],
@@ -62,7 +61,6 @@ const userSchema = new Schema(
 userSchema.index({ email: 1 }, { unique: true, name: 'uniq_user_email' })
 userSchema.index({ partnerNumber: 1 }, { unique: true, name: 'uniq_user_partner_number' })
 
-// Un compte ne se supprime jamais (les données financières et l'historique y font référence) : on le désactive.
 userSchema.plugin(forbidPhysicalDeletePlugin, {
   code: 'USER_DELETE_FORBIDDEN',
   message: 'Un compte ne se supprime pas : désactivez-le. Les données financières et l’historique sont conservés.',

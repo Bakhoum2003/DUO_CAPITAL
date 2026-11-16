@@ -1,6 +1,4 @@
 // Création INITIALE et contrôlée des deux comptes (jamais exposée par l'API : lancée uniquement par scripts/provision-partners.js).
-//
-// Garanties :
 // - tout ou rien : les deux comptes sont créés dans UNE transaction ;
 // - refus propre (sans aucune modification) si un compte existe déjà : pas de seconde initialisation, pas de troisième compte ;
 // - filet de sécurité en base : index uniques sur partnerNumber (1 ou 2) et sur l'email ;
@@ -20,7 +18,6 @@ import { toPartnerView } from './userView.js'
 const validationError = (fields) =>
   new AppError({ status: 400, code: 'PROVISIONING_INVALID', message: 'Les informations des associés sont invalides.', fields })
 
-/** État actuel : nombre de comptes et numéros d'associé présents. */
 export async function getProvisioningState() {
   const users = await User.find({}, { partnerNumber: 1 }).lean()
   return { count: users.length, partnerNumbers: users.map((user) => user.partnerNumber).sort() }

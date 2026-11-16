@@ -32,7 +32,6 @@ function PreferencesProvider() {
       setState({ status: 'ready', preferences, errorMessage: '' })
     } catch (error) {
       if (isCancelled()) return
-      // L'application reste utilisable avec l'apparence par défaut ; l'erreur est signalée dans les Paramètres.
       applyPreferences(DEFAULT_PREFERENCES)
       setState({ status: 'error', preferences: DEFAULT_PREFERENCES, errorMessage: getErrorMessage(error) })
     }
@@ -53,7 +52,6 @@ function PreferencesProvider() {
     return () => clearTimeout(timerId)
   }, [notice])
 
-  // Enregistre une modification : appliquée dès que le serveur la confirme (le serveur reste la source de vérité). Une seule à la fois.
   const update = useCallback(async (changes) => {
     if (savingRef.current) return { ok: false, message: 'Une modification est déjà en cours.' }
     savingRef.current = true

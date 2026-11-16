@@ -1,4 +1,4 @@
-const ALLOWED_METHODS = ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS']
+const ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 const ALLOWED_HEADERS = ['Content-Type', 'Authorization', 'Idempotency-Key', 'X-Request-Id']
 const EXPOSED_HEADERS = ['X-Request-Id', 'RateLimit', 'RateLimit-Policy', 'Retry-After']
 const PREFLIGHT_MAX_AGE_SECONDS = 600

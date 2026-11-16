@@ -2,15 +2,7 @@ import { BullseyeIcon, CircleCheckIcon } from '../../icons'
 import { formatCurrency } from '../../utils/formatters'
 import SettingsSection from './SettingsSection'
 
-/**
- * Objectifs financiers actuels (lecture seule), identiques à ceux de Cotisations, Dashboard et Statistiques.
- *
- * Props :
- * - individualTarget : cotisation mensuelle individuelle (FCFA)
- * - collectiveTarget : objectif collectif mensuel (FCFA)
- * - associateCount : nombre d'associés
- * - isConsistent : vrai si l'objectif collectif = individuel × nombre d'associés
- */
+/** Objectifs financiers actuels (lecture seule), identiques à ceux de Cotisations, Dashboard et Statistiques. */
 function ObjectivesSection({ individualTarget, collectiveTarget, associateCount, isConsistent }) {
   return (
     <SettingsSection

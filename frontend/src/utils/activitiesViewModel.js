@@ -1,6 +1,3 @@
-// Logique PURE du module Activités commerciales (sans React ni réseau) : filtres, validation, libellés, actions.
-// Les chiffres et les statuts viennent de l'API ; ici on ne fait que de la présentation et de la validation de saisie.
-// Le backend reste l'autorité finale sur toutes les règles.
 
 export const PAGE_SIZE = 12
 export const MAX_NAME_LENGTH = 100
@@ -13,7 +10,6 @@ const DATE = /^\d{4}-\d{2}-\d{2}$/
 
 export const DEFAULT_FILTERS = Object.freeze({ search: '', status: '', category: '', sort: 'start_desc', page: 1 })
 
-/** Statuts métier : libellé et teinte du badge. Une activité suspendue n'est JAMAIS présentée comme terminée. */
 export const STATUS_META = Object.freeze({
   ACTIVE: { label: 'En cours', tone: 'success' },
   SUSPENDED: { label: 'Suspendue', tone: 'warning' },
@@ -49,7 +45,6 @@ export function isRealDate(value) {
   return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day
 }
 
-/** URL de la liste : seuls les filtres renseignés sont envoyés, avec les noms de paramètres exacts du backend. */
 export function buildActivitiesPath(filters = DEFAULT_FILTERS) {
   const params = new URLSearchParams()
   if (filters.search) params.set('search', filters.search)
@@ -63,7 +58,6 @@ export function buildActivitiesPath(filters = DEFAULT_FILTERS) {
 
 export const activityPath = (id) => `/api/v1/activities/${encodeURIComponent(id)}`
 
-/** Date et heure à Dakar : « 20/12/2026 à 10:00 ». */
 export function formatDateTime(iso) {
   if (!iso) return '—'
   const date = new Date(iso)
@@ -76,7 +70,6 @@ export function formatDateTime(iso) {
   return `${parts.day}/${parts.month}/${parts.year} à ${parts.hour}:${parts.minute}`
 }
 
-/* ------------------------------ Formulaire ------------------------------ */
 
 export const emptyFormValues = (todayIso = '') => ({ name: '', description: '', category: '', startDate: todayIso, endDate: '' })
 
@@ -88,7 +81,6 @@ export const formValuesFromActivity = (activity) => ({
   endDate: activity.endDate ?? '',
 })
 
-/** Erreurs de saisie { champ: message }. `requireEndDate` : activité terminée (date de fin obligatoire). */
 export function validateActivityForm(values, { requireEndDate = false, showEndDate = false } = {}) {
   const errors = {}
   const name = values.name.trim()
@@ -118,7 +110,6 @@ export function buildCreatePayload(values) {
   }
 }
 
-/** Corps de modification : seulement les champs réellement changés. Objet vide = rien à envoyer. */
 export function buildUpdatePayload(values, original, { showEndDate = false } = {}) {
   const next = buildCreatePayload(values)
   const payload = {}
@@ -144,7 +135,6 @@ const CODE_MESSAGES = {
   REOPEN_LIMIT_REACHED: 'Le nombre maximal de réouvertures de cette activité est atteint.',
 }
 
-/** Message affichable et erreurs par champ pour une erreur d'API. Le message du serveur reste prioritaire s'il est connu. */
 export function describeActivityError(error) {
   const fieldErrors = {}
   for (const item of Array.isArray(error?.fields) ? error.fields : []) {
@@ -155,9 +145,7 @@ export function describeActivityError(error) {
   return { message: fromCode ?? error?.message ?? "L'opération a échoué. Réessayez.", fieldErrors }
 }
 
-/* -------------------------------- Actions -------------------------------- */
 
-/** Libellés des actions de statut. `kind` : 'confirm' (simple), 'complete' (date de fin) ou 'reopen' (motif obligatoire). */
 export const ACTION_META = Object.freeze({
   suspend: { kind: 'confirm', label: 'Suspendre', title: 'Suspendre cette activité ?', description: "L'activité sera temporairement arrêtée mais ne sera pas considérée comme terminée. Vous pourrez la réactiver. Aucune opération financière n'est modifiée.", confirmLabel: 'Suspendre', variant: 'primary', success: 'Activité suspendue.' },
   reactivate: { kind: 'confirm', label: 'Réactiver', title: 'Réactiver cette activité ?', description: "L'activité redeviendra « En cours ».", confirmLabel: 'Réactiver', variant: 'primary', success: 'Activité réactivée.' },
@@ -166,11 +154,9 @@ export const ACTION_META = Object.freeze({
   archive: { kind: 'confirm', label: 'Archiver', title: 'Archiver cette activité ?', description: "L'activité restera consultable avec tout son historique financier, mais ne pourra plus être modifiée ni rouverte. Cette action est définitive. Rien n'est supprimé.", confirmLabel: 'Archiver', variant: 'danger', success: 'Activité archivée.' },
 })
 
-/** Actions de statut proposées (le backend envoie `allowedActions`, y compris « edit » qui n'est pas un statut). */
 export const statusActionsOf = (activity) => (activity?.allowedActions ?? []).filter((action) => ACTION_META[action])
 export const canEdit = (activity) => (activity?.allowedActions ?? []).includes('edit')
 
-/** Corps envoyé pour une action ; contrôle de saisie associé (message d'erreur ou null). */
 export function buildActionBody(action, { endDate = '', reason = '' } = {}) {
   if (action === 'complete') return endDate ? { endDate } : {}
   if (action === 'reopen') return { reason: reason.trim() }
@@ -191,9 +177,7 @@ export function validateActionInput(action, { endDate = '', reason = '' } = {}, 
   return null
 }
 
-/* ------------------------------- Indicateurs ------------------------------ */
 
-/** Cartes de compteurs : valeurs fournies par l'API (meta.counts), jamais recalculées. */
 export function buildCountCards(counts) {
   const value = (key) => (counts && Number.isFinite(counts[key]) ? String(counts[key]) : '—')
   return [
@@ -205,7 +189,6 @@ export function buildCountCards(counts) {
   ]
 }
 
-/** Options du filtre catégorie : catégories réellement présentes (meta.categories). */
 export function buildCategoryOptions(categories, selected = '') {
   const list = Array.isArray(categories) ? [...categories] : []
   if (selected && !list.includes(selected)) list.push(selected)

@@ -3,17 +3,6 @@ import { formatCurrency, formatShortDate } from '../../utils/formatters'
 import Avatar from '../common/Avatar'
 import IconButton from '../common/IconButton'
 
-/**
- * Une ligne du tableau de l'historique (écrans moyens et grands).
- *
- * Props :
- * - associateName, initials, avatarTone : associé concerné
- * - amount : montant (FCFA)
- * - date : date ISO « AAAA-MM-JJ »
- * - description : description (vide = tiret)
- * - onEdit : fonction appelée au clic sur « Modifier »
- * - onDelete : fonction appelée au clic sur « Supprimer »
- */
 function ContributionTableRow({ associateName, initials, avatarTone, amount, date, description, onEdit, onDelete }) {
   return (
     <tr className="border-t border-line transition hover:bg-surface/70">

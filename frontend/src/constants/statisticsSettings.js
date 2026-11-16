@@ -1,6 +1,4 @@
-// Réglages du module Statistiques.
 
-// Périodes proposées (le filtre « personnalisée » utilise une date de début et une date de fin).
 export const PERIOD_OPTIONS = [
   { value: 'week', label: 'Cette semaine' },
   { value: 'month', label: 'Ce mois' },
@@ -13,7 +11,6 @@ export const PERIOD_OPTIONS = [
 
 export const DEFAULT_PERIOD = 'all'
 
-// Couleurs des séries des graphiques (distinctes, lisibles sur fond blanc).
 export const CHART_COLORS = {
   contributions: '#0c8236',
   investments: '#7c3aed',
@@ -25,7 +22,6 @@ export const CHART_COLORS = {
   expenseCategories: ['#0c8236', '#7c3aed', '#e11d2a', '#0891b2', '#f59e0b', '#64748b'],
 }
 
-// Évolution mensuelle : une ligne par type de mouvement.
 export const EVOLUTION_SERIES = [
   { key: 'contributions', label: 'Cotisations', color: CHART_COLORS.contributions },
   { key: 'investments', label: 'Investissements', color: CHART_COLORS.investments },
@@ -33,7 +29,6 @@ export const EVOLUTION_SERIES = [
   { key: 'revenues', label: 'Recettes', color: CHART_COLORS.revenues },
 ]
 
-// Performance des activités : une barre par indicateur.
 export const PERFORMANCE_SERIES = [
   { key: 'invested', label: 'Investi', color: CHART_COLORS.investments },
   { key: 'expenses', label: 'Dépenses', color: CHART_COLORS.expenses },

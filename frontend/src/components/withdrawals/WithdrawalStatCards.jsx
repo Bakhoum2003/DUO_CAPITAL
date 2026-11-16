@@ -1,9 +1,8 @@
-import { HashtagIcon, MoneyBillTransferIcon, UserIcon } from '../../icons'
+import { ArrowTrendUpIcon, HashtagIcon, UserIcon } from '../../icons'
 import SummaryCard from '../dashboard/SummaryCard'
 
-const ICONS = { count: HashtagIcon, total: MoneyBillTransferIcon }
+const ICONS = { count: HashtagIcon, total: ArrowTrendUpIcon }
 
-/** Indicateurs (valeurs de l'API). Props : cards [{ id, title, valueLabel, footnote, tone }]. */
 function WithdrawalStatCards({ cards }) {
   return (
     <section aria-label="Indicateurs des retraits" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

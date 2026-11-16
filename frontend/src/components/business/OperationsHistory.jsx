@@ -13,18 +13,6 @@ const TYPE_FILTER_OPTIONS = [
   ...Object.entries(OPERATION_TYPES).map(([value, type]) => ({ value, label: type.pluralLabel })),
 ]
 
-/**
- * Section « Historique des opérations financières » d'un business :
- * boutons d'ajout, filtre par type, tableau (ou cartes sur mobile) et état vide.
- *
- * Props :
- * - operations : opérations à afficher (déjà filtrées par type et triées), avec `associate` et `categoryLabel`
- * - totalCount : nombre d'opérations du business avant filtrage
- * - typeFilter : type sélectionné ('' = toutes)
- * - onTypeFilterChange : fonction appelée avec le nouveau type
- * - onAdd : fonction appelée avec le type d'opération à ajouter
- * - onEdit, onDelete : fonctions appelées avec l'opération concernée
- */
 function OperationsHistory({ operations, totalCount, typeFilter, onTypeFilterChange, onAdd, onEdit, onDelete }) {
   const badgeLabel = operations.length === totalCount ? `${totalCount} opération${totalCount > 1 ? 's' : ''}` : `${operations.length} sur ${totalCount}`
 

@@ -1,9 +1,5 @@
 import { BriefcaseIcon, HandHoldingDollarIcon, RocketIcon, WalletIcon } from '../icons'
 
-/**
- * Transforme le bloc `summary` des données en liste de props pour SummaryCard.
- * Garde DashboardPage simple et concentre ici le lien « donnée -> carte ».
- */
 export function buildSummaryCards(summary) {
   return [
     {

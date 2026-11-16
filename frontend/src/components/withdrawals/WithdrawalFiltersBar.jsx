@@ -5,10 +5,6 @@ import DateInput from '../common/DateInput'
 import SearchInput from '../common/SearchInput'
 import SelectField from '../common/SelectField'
 
-/**
- * Recherche, filtres (bénéficiaire, auteur, période) et tri : tout est exécuté par l'API.
- * Props : filters, searchText, onSearchChange(texte), onFilterChange(nom, valeur), onReset, hasActiveFilters, beneficiaryOptions, authorOptions, errorMessage.
- */
 function WithdrawalFiltersBar({ filters, searchText, onSearchChange, onFilterChange, onReset, hasActiveFilters, beneficiaryOptions, authorOptions, errorMessage }) {
   const change = (name) => (event) => onFilterChange(name, event.target.value)
   return (

@@ -7,7 +7,6 @@ import { formatNumber } from './formatters'
 
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
 
-// « 15 000 » ou « 15000 » -> 15000. Retourne null si la saisie n'est pas un entier positif.
 export function parseAmount(rawAmount) {
   const digitsOnly = String(rawAmount).replace(/\s/g, '')
   return /^\d+$/.test(digitsOnly) ? Number(digitsOnly) : null

@@ -3,14 +3,6 @@ const TONE_CLASSES = {
   amber: 'bg-amber-500',
 }
 
-/**
- * Barre de progression.
- *
- * Props :
- * - value : pourcentage de 0 à 100
- * - label : description accessible (ex. « Progression de Mohamed Bakhoum »)
- * - tone : 'green' (objectif atteint) ou 'amber' (en cours)
- */
 function ProgressBar({ value, label, tone = 'green' }) {
   const safeValue = Math.min(100, Math.max(0, value))
 

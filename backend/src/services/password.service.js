@@ -2,7 +2,6 @@ import { randomBytes } from 'node:crypto'
 import argon2 from 'argon2'
 import { MAX_PASSWORD_LENGTH } from '../config/constants.js'
 
-// Argon2id, paramètres minimaux recommandés par l'OWASP (19 Mio, 2 itérations, 1 thread).
 const ARGON2_OPTIONS = Object.freeze({ type: argon2.argon2id, memoryCost: 19456, timeCost: 2, parallelism: 1 })
 
 /** Hache un mot de passe en Argon2id (sel aléatoire intégré à l'empreinte). */
@@ -24,8 +23,6 @@ export async function verifyPassword(passwordHash, plainPassword) {
   }
 }
 
-// Empreinte factice (aléatoire à chaque démarrage) : sert à dépenser le même temps de calcul quand le compte n'existe pas,
-// pour qu'une réponse rapide ne révèle pas qu'un email est inconnu.
 let dummyHashPromise = null
 
 export async function verifyAgainstDummyHash(plainPassword) {

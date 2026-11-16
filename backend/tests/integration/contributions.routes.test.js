@@ -1,5 +1,3 @@
-// API /api/v1/contributions contre une VRAIE base de test isolée (jamais DATABASE_URL, jamais Atlas).
-// Horloge fixée au 20 décembre 2026 ; fonds démarrant en 2026-12. Aucune donnée réelle n'est touchée.
 
 import request from 'supertest'
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'

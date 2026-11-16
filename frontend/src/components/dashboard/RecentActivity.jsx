@@ -5,7 +5,6 @@ import { ACTIVITY_LABELS, ACTIVITY_STATUS_LABELS, formatActivityAmount } from '.
 import { formatShortDate } from '../../utils/formatters'
 import SectionHeader from '../common/SectionHeader'
 
-/** Dernières activités réelles (toutes périodes), de la plus récente à la plus ancienne. */
 function RecentActivity({ activities }) {
   return (
     <section className={CARD_CLASSES} aria-label="Activités récentes">

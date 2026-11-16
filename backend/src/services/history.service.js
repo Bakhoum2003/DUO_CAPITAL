@@ -1,9 +1,4 @@
-// Historique centralisé des opérations financières : CONSULTATION SEULE, aucune écriture, aucun nouveau modèle.
-//
 // Aucun calcul financier n'est dupliqué : les mouvements, totaux, filtres, tris et détails viennent du registre de la
-// trésorerie (Phase F, qui réutilise le calculateur du Dashboard) et le résultat commercial du Dashboard.
-// - seules les opérations déjà survenues (date <= aujourd'hui, Africa/Dakar) sont listées et comptées ;
-// - les enregistrements supprimés logiquement ne sont jamais chargés ;
 // - une opération = un enregistrement d'origine = une ligne ; un bénéfice calculé n'est JAMAIS une opération ni une entrée.
 
 import { buildDirectories, computeTreasury, listMovements } from './treasury/ledger.js'
@@ -17,7 +12,6 @@ import { toLedgerQuery } from './history/query.js'
  */
 export function createHistoryService({ treasuryService, dashboardService }) {
   return {
-    /** Indicateurs globaux (depuis le début, jusqu'à aujourd'hui). */
     async summary() {
       const { sources, today, now } = await treasuryService.readSnapshot()
       const totals = computeTreasury(sources, today)
@@ -54,7 +48,6 @@ export function createHistoryService({ treasuryService, dashboardService }) {
       }
     },
 
-    /** Liste unifiée : filtres, recherche, tri et pagination côté serveur (paramètres déjà validés). */
     async list(query) {
       const { sources, today } = await treasuryService.readSnapshot()
       const { movements, meta } = listMovements(sources, buildDirectories(sources), toLedgerQuery(query, today), today)
@@ -64,7 +57,6 @@ export function createHistoryService({ treasuryService, dashboardService }) {
       }
     },
 
-    /** Détail d'une opération (même future : elle est alors signalée comme non comptabilisée). */
     async detail(type, id) {
       return toOperationDetail(await treasuryService.getMovement(type, id))
     },

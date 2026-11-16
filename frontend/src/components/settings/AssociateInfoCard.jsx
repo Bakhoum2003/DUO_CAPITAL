@@ -1,17 +1,6 @@
 import { formatCurrency } from '../../utils/formatters'
 import Avatar from '../common/Avatar'
 
-/**
- * Fiche d'un associé (lecture seule).
- *
- * Props :
- * - name : nom complet
- * - initials : initiales (avatar)
- * - avatarTone : couleur de l'avatar ('green' ou 'red')
- * - roleLabel : rôle (« Associé »)
- * - participationPercent : part de l'associé dans le fonds (en %)
- * - monthlyTarget : objectif mensuel de cotisation (FCFA)
- */
 function AssociateInfoCard({ name, initials, avatarTone, roleLabel, participationPercent, monthlyTarget }) {
   return (
     <article className="rounded-2xl border border-line bg-white p-4">

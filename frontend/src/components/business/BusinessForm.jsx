@@ -25,20 +25,6 @@ const CATEGORY_VALUES = BUSINESS_CATEGORIES.map((category) => category.value)
 const STATUS_VALUES = BUSINESS_STATUS_OPTIONS.map((status) => status.value)
 const ASSOCIATE_IDS = BUSINESS_ASSOCIATES.map((associate) => associate.id)
 
-/**
- * Formulaire d'ajout ou de modification d'un business.
- * Rien n'est enregistré tant que le formulaire est invalide.
- *
- * Props :
- * - idPrefix : préfixe des identifiants des champs
- * - initialValues : { name, category, description, launchDate, initialInvestment (texte), responsibleId, status }
- * - todayIso : date du jour « AAAA-MM-JJ »
- * - otherBusinessNames : noms des autres business (pas de doublon)
- * - earliestOperationDate : date de la 1re opération du business modifié (« » pour un ajout)
- * - submitLabel : texte du bouton d'enregistrement
- * - onSubmit : fonction appelée avec les valeurs validées (investissement initial en nombre)
- * - onCancel : fonction appelée au clic sur « Annuler »
- */
 function BusinessForm({
   idPrefix,
   initialValues,

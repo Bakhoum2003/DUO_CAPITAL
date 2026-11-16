@@ -4,10 +4,6 @@ import ActionButton from '../common/ActionButton'
 import SearchInput from '../common/SearchInput'
 import SelectField from '../common/SelectField'
 
-/**
- * Recherche, filtres (statut, catégorie) et tri : tout est exécuté par l'API.
- * Props : filters, searchText, onSearchChange(texte), onFilterChange(nom, valeur), onReset, hasActiveFilters, categoryOptions.
- */
 function ActivityFiltersBar({ filters, searchText, onSearchChange, onFilterChange, onReset, hasActiveFilters, categoryOptions }) {
   return (
     <div className="space-y-3">

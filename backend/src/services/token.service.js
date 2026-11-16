@@ -57,7 +57,6 @@ export function hashRefreshToken(refreshToken) {
   return createHash('sha256').update(refreshToken, 'utf8').digest('hex')
 }
 
-/** Contrôle de forme avant toute requête en base (rejette les valeurs absentes, trop longues ou exotiques). */
 export function isWellFormedRefreshToken(value) {
   return typeof value === 'string' && REFRESH_TOKEN_PATTERN.test(value)
 }

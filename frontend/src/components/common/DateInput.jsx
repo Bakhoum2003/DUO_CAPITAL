@@ -1,13 +1,3 @@
-/**
- * Champ date compact avec libellé visible (filtre de période).
- *
- * Props :
- * - id : identifiant du champ
- * - label : libellé affiché au-dessus (ex. « Du »)
- * - value : date ISO « AAAA-MM-JJ » (« » = aucune)
- * - onChange : fonction appelée au changement (reçoit l'événement)
- * - min, max : bornes autorisées au format ISO (optionnel)
- */
 function DateInput({ id, label, value, onChange, min, max }) {
   return (
     <div>

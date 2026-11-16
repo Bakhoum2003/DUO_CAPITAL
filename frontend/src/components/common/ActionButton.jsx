@@ -9,19 +9,6 @@ const SIZE_CLASSES = {
   sm: 'h-9 px-3.5 text-sm',
 }
 
-/**
- * Bouton d'action compact (à la différence de PrimaryButton, pleine largeur des formulaires de connexion).
- *
- * Props :
- * - label : texte du bouton
- * - icon : composant d'icône Font Awesome (voir src/icons) affiché à gauche (optionnel)
- * - variant : 'primary' (vert), 'secondary' (bordure grise) ou 'danger' (rouge)
- * - size : 'md' ou 'sm'
- * - type : 'button' ou 'submit'
- * - onClick : fonction appelée au clic
- * - disabled : désactive le bouton
- * - isFullWidth : occupe toute la largeur disponible
- */
 function ActionButton({
   label,
   icon: Icon,

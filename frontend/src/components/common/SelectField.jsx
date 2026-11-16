@@ -1,15 +1,5 @@
 import { ChevronDownIcon } from '../../icons'
 
-/**
- * Liste déroulante (filtre ou tri).
- *
- * Props :
- * - id : identifiant du champ
- * - label : libellé accessible (non affiché)
- * - value : valeur choisie
- * - onChange : fonction appelée au changement (reçoit l'événement)
- * - options : tableau { value, label }
- */
 function SelectField({ id, label, value, onChange, options }) {
   return (
     <div className="relative">

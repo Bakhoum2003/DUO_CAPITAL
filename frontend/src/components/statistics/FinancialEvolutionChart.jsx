@@ -5,12 +5,6 @@ import ChartLegend from './ChartLegend'
 
 const SERIES_LABELS = Object.fromEntries(EVOLUTION_SERIES.map((series) => [series.key, series.label]))
 
-/**
- * Graphique A : évolution mensuelle des cotisations, investissements, dépenses et recettes.
- *
- * Props :
- * - data : [{ shortLabel, label, contributions, investments, expenses, revenues }] (un élément par mois)
- */
 function FinancialEvolutionChart({ data }) {
   return (
     <>

@@ -1,22 +1,6 @@
 import FormError from '../common/FormError'
 
-/**
- * Champ de formulaire d'authentification : icône à gauche, libellé puis saisie.
- *
- * Props :
- * - id, name : identifiants du champ
- * - label : libellé affiché au-dessus de la saisie
- * - placeholder : texte d'aide dans le champ
- * - type : type d'input HTML (text, email, password…)
- * - value, onChange, onBlur : contrôle du champ
- * - error : message d'erreur (vide = pas d'erreur)
- * - icon : composant d'icône Font Awesome (voir src/icons) affiché à gauche
- * - autoComplete : indication d'auto-complétion du navigateur
- * - disabled : désactive le champ
- * - inputMode : clavier mobile à afficher (ex. 'numeric') (optionnel)
- * - max : valeur maximale, pour un champ date ou nombre (optionnel)
- * - trailingElement : élément affiché à droite (ex. bouton œil du mot de passe)
- */
+
 function AuthInput({
   id,
   name,

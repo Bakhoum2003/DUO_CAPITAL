@@ -4,7 +4,6 @@ import { formatShortDate } from '../../utils/formatters'
 import { formatMoney } from '../../utils/treasuryViewModel'
 import SectionHeader from '../common/SectionHeader'
 
-/** Derniers retraits (fournis par l'API). Props : withdrawals, onSelect(withdrawal). */
 function LatestWithdrawals({ withdrawals, onSelect }) {
   if (withdrawals.length === 0) return null
   return (

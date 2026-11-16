@@ -4,7 +4,6 @@ import SummaryCard from '../dashboard/SummaryCard'
 
 const ICONS = { balance: BuildingColumnsIcon, inflow: ArrowTrendUpIcon, outflow: ArrowTrendDownIcon, contributions: CoinsIcon, revenues: ReceiptIcon }
 
-/** Carte « Investissements et dépenses » : deux montants distincts dans un même cadre. Props : rows [{ id, label, amountLabel, count }]. */
 function SpendingCard({ rows }) {
   const styles = TONE_STYLES.red
   return (
@@ -26,7 +25,6 @@ function SpendingCard({ rows }) {
   )
 }
 
-/** Cartes de synthèse (chiffres de l'API). Props : cards [{ id, title, valueLabel, footnote, tone }], spendingRows. */
 function TreasuryStatCards({ cards, spendingRows }) {
   return (
     <section aria-label="Synthèse de la trésorerie" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

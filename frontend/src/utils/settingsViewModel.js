@@ -3,7 +3,6 @@ import { AMOUNT_FORMATS } from '../constants/settingsSettings'
 import { getErrorMessage } from './apiErrors'
 import { formatMonthLabel } from './formatters'
 
-// Adaptation des réponses de /api/v1/settings pour l'interface (fonctions pures, testées sans navigateur).
 
 export const SETTINGS_CONFLICT_CODE = 'SETTINGS_VERSION_CONFLICT'
 
@@ -21,7 +20,6 @@ export const THEME_OPTIONS = [
 
 const FALLBACK_LIMITS = { descriptionMin: 10, descriptionMax: 300, projectInfoMax: 500 }
 
-/** Préférences sûres : chaque champ invalide ou absent est remplacé par sa valeur par défaut. */
 export function normalizePreferences(raw) {
   const source = raw && typeof raw === 'object' ? raw : {}
   return {
@@ -38,7 +36,6 @@ export function normalizePreferences(raw) {
 
 const normalizeText = (value) => String(value ?? '').replace(/\s+/g, ' ').trim()
 
-/** Paramètres communs : valeurs de formulaire, version de contrôle, limites, listes en lecture seule. */
 export function toSettingsView(data) {
   const fund = data?.fund ?? {}
   return {
@@ -53,7 +50,6 @@ export function toSettingsView(data) {
   }
 }
 
-/** Validation du formulaire commun avec les limites envoyées par le serveur. */
 export function validateGeneralValues(input, limits = FALLBACK_LIMITS) {
   const errors = {}
   const description = normalizeText(input?.description)
@@ -70,7 +66,6 @@ export function validateGeneralValues(input, limits = FALLBACK_LIMITS) {
   return { isValid: Object.keys(errors).length === 0, errors, values: { description, projectInfo } }
 }
 
-/** Corps du PUT : seulement les champs réellement modifiés, avec la version connue. null = rien à envoyer. */
 export function buildSettingsUpdate({ expectedVersion, values, saved }) {
   const body = { expectedVersion }
   if (values.description !== saved.description) body.description = values.description
@@ -78,7 +73,6 @@ export function buildSettingsUpdate({ expectedVersion, values, saved }) {
   return Object.keys(body).length > 1 ? body : null
 }
 
-/** Message lisible pour une erreur des paramètres communs (conflit de version géré à part). */
 export function getSettingsErrorMessage(error) {
   if (error?.status === 409 || error?.code === SETTINGS_CONFLICT_CODE) {
     return "Ces informations ont été modifiées entre-temps par l'autre associé. Les valeurs à jour viennent d'être rechargées : vérifiez-les puis refaites votre modification."
@@ -86,12 +80,7 @@ export function getSettingsErrorMessage(error) {
   return getErrorMessage(error)
 }
 
-/* ---------- Rappels de cotisation ---------- */
 
-/**
- * Rappels affichables : une ligne par associé et par mois dont la cotisation reste à compléter
- * (mois en cours, puis mois précédents réellement incomplets). Aucune donnée inventée : tout vient du serveur.
- */
 export function buildReminderView(data) {
   const base = { enabled: false, available: false, unavailableReason: '', items: [], itemCount: 0, monthCount: 0 }
   if (!data || data.enabled === false) return base
@@ -121,7 +110,6 @@ export function buildReminderView(data) {
   return { enabled: true, available: true, unavailableReason: '', items, itemCount: items.length, monthCount }
 }
 
-/** Faut-il afficher la pastille de la cloche et la bannière du Dashboard ? (notifications visuelles + rappels activés) */
 export function shouldShowReminderBadge(preferences, reminderView) {
   return Boolean(preferences?.visualNotificationsEnabled && preferences?.contributionRemindersEnabled && reminderView?.itemCount > 0)
 }
@@ -165,7 +153,6 @@ export function toSecurityView(data) {
   }
 }
 
-/** « Chrome sur Windows » à partir de l'agent utilisateur (texte court, jamais le texte brut). */
 export function summarizeUserAgent(userAgent) {
   const text = String(userAgent ?? '')
   if (!text) return 'Appareil inconnu'

@@ -1,12 +1,5 @@
 import HandshakeIcon from '../common/HandshakeIcon'
 
-/**
- * En-tête du formulaire : titre, sous-titre et séparateur avec la poignée de main.
- *
- * Props :
- * - title : titre principal (ex. « Se connecter »)
- * - subtitle : phrase d'introduction sous le titre
- */
 function AuthFormHeader({ title, subtitle }) {
   return (
     <header className="text-center">

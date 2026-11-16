@@ -3,19 +3,6 @@ import { TONE_STYLES } from '../../constants/toneStyles'
 import { formatCurrency, formatSignedAmount } from '../../utils/formatters'
 import SummaryCardIndicator from './SummaryCardIndicator'
 
-/**
- * Carte de synthèse financière (ex. « Capital disponible 410 000 FCFA »).
- *
- * Props :
- * - title : titre de la carte
- * - amount : montant en FCFA (nombre)
- * - valueLabel : texte affiché à la place du montant (ex. un nombre de business, ou un résultat signé) (optionnel)
- * - icon : composant d'icône Font Awesome (voir src/icons)
- * - tone : teinte de la carte ('green', 'blue', 'red')
- * - trendAmount : variation du mois en FCFA, affichée avec une flèche (optionnel)
- * - footnote : petit texte sous le montant (ex. « (12 mois) ») (optionnel)
- * - indicator : repère visuel à droite ('trend', 'check' ou 'bars') (optionnel)
- */
 function SummaryCard({ title, amount, valueLabel, icon: Icon, tone = 'green', trendAmount, footnote, indicator }) {
   const styles = TONE_STYLES[tone]
 
@@ -42,7 +29,6 @@ function SummaryCard({ title, amount, valueLabel, icon: Icon, tone = 'green', tr
       </div>
 
       {indicator && (
-        // Masqué entre 1280 et 1400 px, où les 4 cartes sont trop étroites pour un repère.
         <div className="absolute bottom-3 right-3 xl:max-[1400px]:hidden">
           <SummaryCardIndicator kind={indicator} tone={tone} />
         </div>

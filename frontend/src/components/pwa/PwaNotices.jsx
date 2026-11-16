@@ -4,35 +4,42 @@ import usePwa from '../../hooks/usePwa'
 import { selectNotices } from '../../pwa/pwaStore'
 import ActionButton from '../common/ActionButton'
 import IconButton from '../common/IconButton'
+import UnsavedUpdateDialog from './UnsavedUpdateDialog'
 
 const CARD = 'flex flex-wrap items-center gap-3 rounded-xl border px-4 py-3 text-sm shadow-sm'
 
-/**
- * Notices PWA : connexion perdue, nouvelle version disponible, invitation d'installation.
- * N'affiche rien lorsqu'il n'y a rien à signaler.
- *
- * Props :
- * - className : classes du conteneur (espacement choisi par la page qui l'accueille)
- */
 function PwaNotices({ className = '' }) {
   const pwa = usePwa()
   const [isUpdating, setIsUpdating] = useState(false)
+  const [isConfirmingDiscard, setIsConfirmingDiscard] = useState(false)
   const notices = selectNotices(pwa)
 
   if (!notices.offline && !notices.update && !notices.install && !notices.manualInstall) return null
 
-  const handleUpdate = async () => {
+  // Sans saisie non enregistrée : mise à jour directe. Sinon : le store refuse (blocked) et on demande confirmation.
+  const runUpdate = async (options) => {
     if (isUpdating) return
     setIsUpdating(true)
     try {
-      await pwa.applyUpdate()
+      const result = await pwa.applyUpdate(options)
+      if (result?.blocked) setIsConfirmingDiscard(true)
     } finally {
       setIsUpdating(false)
+    }
+  }
+  const handleUpdate = () => runUpdate()
+  const handleDiscard = async () => {
+    try {
+      await runUpdate({ discardUnsaved: true })
+    } finally {
+      setIsConfirmingDiscard(false)
     }
   }
 
   return (
     <div className={className}>
+      {isConfirmingDiscard && <UnsavedUpdateDialog isSubmitting={isUpdating} onStay={() => setIsConfirmingDiscard(false)} onDiscard={handleDiscard} />}
+
       {notices.offline && (
         <div role="status" className={`${CARD} border-amber-200 bg-amber-50 text-amber-700`}>
           <PlugCircleXmarkIcon className="h-5 w-5 shrink-0" aria-hidden="true" />

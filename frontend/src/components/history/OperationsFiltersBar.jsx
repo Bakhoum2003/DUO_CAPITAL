@@ -5,10 +5,6 @@ import DateInput from '../common/DateInput'
 import SearchInput from '../common/SearchInput'
 import SelectField from '../common/SelectField'
 
-/**
- * Recherche, filtres combinables (type, associé, activité, sens, période, dates) et tri : tout est exécuté par l'API.
- * Props : filters, searchText, onSearchChange(texte), onFilterChange(nom, valeur), onReset, hasActiveFilters, partnerOptions, activityOptions, errorMessage.
- */
 function OperationsFiltersBar({ filters, searchText, onSearchChange, onFilterChange, onReset, hasActiveFilters, partnerOptions, activityOptions, errorMessage }) {
   const change = (name) => (event) => onFilterChange(name, event.target.value)
   return (

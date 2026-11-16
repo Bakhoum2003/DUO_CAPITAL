@@ -5,7 +5,6 @@ import ActionButton from '../common/ActionButton'
 import FormError from '../common/FormError'
 import MovementTypeBadge from './MovementTypeBadge'
 
-/** Contenu du détail d'un mouvement, lu auprès de l'API. Props : type, id, onClose. */
 function MovementDetail({ type, id, onClose }) {
   const { status, movement, errorMessage, retry } = useMovementDetail(type, id)
 

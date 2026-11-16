@@ -3,7 +3,6 @@ import { AMOUNT_FORMATS } from '../src/constants/settingsSettings'
 import { applyAmountFormat, applyPreferences, applyTheme, resetAppearance } from '../src/services/settingsService'
 import { formatCurrency, formatNumber, formatSignedAmount, setAmountSeparator } from '../src/utils/formatters'
 
-// Faux élément <html> : seuls dataset et style sont utilisés.
 const fakeRoot = () => ({ dataset: {}, style: {} })
 
 afterEach(() => setAmountSeparator(' '))

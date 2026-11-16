@@ -20,13 +20,10 @@ export default [
       ...js.configs.recommended.rules,
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      // ESLint ne voit pas qu'un identifiant est utilisé dans <Composant />, faute de plugin React.
-      // Les noms en majuscule (composants importés ou reçus en props, ex. `icon: Icon`) sont donc autorisés.
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^[A-Z_]' }],
     },
   },
   {
-    // Fichiers de configuration exécutés par Node.
     files: ['vite.config.js', 'eslint.config.js'],
     languageOptions: { globals: globals.node },
   },

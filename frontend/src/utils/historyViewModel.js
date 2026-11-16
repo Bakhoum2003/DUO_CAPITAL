@@ -1,5 +1,3 @@
-// Logique PURE de la page Historique (sans React ni réseau) : filtres, adresses, cartes, détail.
-// Le backend est la source de vérité : montants, totaux, filtres, tri et pagination viennent de l'API ;
 // ici on ne fait que de la présentation (aucune addition de montants, aucun solde recalculé).
 
 import { formatShortDate } from './formatters'
@@ -30,10 +28,8 @@ export const SORT_OPTIONS = [
 export const NO_ACTIVITY_VALUE = 'none'
 
 const FILTER_KEYS = ['search', 'type', 'direction', 'partnerId', 'activityId', 'from', 'to']
-/** Vrai si un filtre (hors tri, page et taille) est actif. La période « Toute la période » n'est pas un filtre. */
 export const hasActiveFilters = (filters) => FILTER_KEYS.some((key) => Boolean(filters[key])) || filters.period !== DEFAULT_FILTERS.period
 
-/** Message d'erreur si la période est incohérente (la requête n'est alors pas envoyée), sinon null. */
 export function validateFilters(filters) {
   if (filters.from && !DATE.test(filters.from)) return 'La date de début est invalide.'
   if (filters.to && !DATE.test(filters.to)) return 'La date de fin est invalide.'
@@ -42,7 +38,6 @@ export function validateFilters(filters) {
   return null
 }
 
-/** Adresse de l'API : paramètres exactement ceux attendus par le backend. */
 export function buildHistoryPath(filters = DEFAULT_FILTERS) {
   const params = new URLSearchParams()
   for (const key of FILTER_KEYS) {
@@ -57,10 +52,6 @@ export function buildHistoryPath(filters = DEFAULT_FILTERS) {
 
 export const operationPath = (type, id) => `/api/v1/history/${encodeURIComponent(type)}/${encodeURIComponent(id)}`
 
-/**
- * Réducteur des filtres : toute modification de filtre, de tri ou de taille ramène à la page 1 ;
- * seul le changement de page conserve les filtres.
- */
 export function filtersReducer(state, action) {
   switch (action.type) {
     case 'set':
@@ -74,9 +65,7 @@ export function filtersReducer(state, action) {
   }
 }
 
-/* ------------------------------- Présentation ------------------------------ */
 
-/** Résultat commercial : libellé de nature et mise en garde (c'est un calcul, jamais une entrée d'argent). */
 function describeResult(result) {
   const kind = { PROFIT: 'Bénéfice', LOSS: 'Perte', BREAK_EVEN: 'Équilibre' }[result.kind] ?? 'Résultat'
   return `${kind}${result.isProvisional ? ' provisoire' : ''} · calcul, pas une entrée d'argent`
@@ -111,13 +100,11 @@ export function buildSummaryCards(summary) {
   }
 }
 
-/** Lignes du détail : Identifiant + les informations réellement renvoyées par l'API (rien d'inventé). */
 export function buildOperationRows(operation) {
   const [type, ...rest] = buildDetailRows(operation)
   return [type, { label: 'Identifiant', value: operation.id }, ...rest].filter(Boolean)
 }
 
-/** Options des listes déroulantes à partir des annuaires de la synthèse (associés et activités réels). */
 export function buildFilterOptions(summary) {
   return {
     partners: [{ value: '', label: 'Tous les associés' }, ...(summary?.partners ?? []).map((partner) => ({ value: partner.id, label: partner.name }))],

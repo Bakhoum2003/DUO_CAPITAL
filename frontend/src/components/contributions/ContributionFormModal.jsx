@@ -7,15 +7,6 @@ import ContributionForm from './ContributionForm'
 /**
  * Fenêtre modale d'ajout ou de modification d'une cotisation.
  * À monter uniquement quand elle est ouverte : le formulaire repart ainsi toujours des bonnes valeurs.
- *
- * Props :
- * - title : titre de la fenêtre
- * - description : phrase d'explication sous le titre
- * - submitLabel : texte du bouton d'enregistrement
- * - initialValues : valeurs de départ du formulaire (voir ContributionForm)
- * - todayIso : date du jour « AAAA-MM-JJ »
- * - onSubmit : fonction appelée avec les valeurs validées
- * - onClose : fonction appelée pour fermer la fenêtre (Annuler, croix, Échap, clic sur le fond)
  */
 function ContributionFormModal({ title, description, submitLabel, initialValues, todayIso, onSubmit, onClose }) {
   const dialogRef = useRef(null)

@@ -1,16 +1,5 @@
 import ActionButton from './ActionButton'
 
-/**
- * État vide : icône, message et bouton d'action optionnel.
- *
- * Props :
- * - icon : composant d'icône Font Awesome (voir src/icons)
- * - title : titre court
- * - description : explication sous le titre
- * - actionLabel : texte du bouton (optionnel : sans lui, pas de bouton)
- * - actionIcon : icône du bouton (optionnel)
- * - onAction : fonction appelée au clic sur le bouton
- */
 function EmptyState({ icon: Icon, title, description, actionLabel, actionIcon, onAction }) {
   return (
     <div className="flex flex-col items-center px-4 py-12 text-center">

@@ -6,13 +6,6 @@ const SIZE_CLASSES = {
   lg: { tile: 'h-14 w-14', icon: 'h-7 w-7' },
 }
 
-/**
- * Pastille colorée avec l'icône de la catégorie d'un business.
- *
- * Props :
- * - category : valeur de catégorie ('drinks', 'clothing', 'food', 'school', 'other')
- * - size : 'md' ou 'lg'
- */
 function BusinessCategoryIcon({ category, size = 'md' }) {
   const { icon: CategoryIcon, tone } = getBusinessCategory(category)
   const toneStyle = TONE_STYLES[tone]

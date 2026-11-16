@@ -36,7 +36,6 @@ export function createTreasuryService({ clock = () => new Date() } = {}) {
   return {
     guard,
 
-    /** Lecture cohérente des enregistrements actifs + date du jour : base des modules de CONSULTATION (Historique), sans aucun recalcul ici. */
     async readSnapshot() {
       const now = clock()
       return { sources: await loadSources(), today: todayInBusinessZone(now), now }

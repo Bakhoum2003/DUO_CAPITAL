@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
+import { areFormValuesDirty } from '../utils/formDirty'
+import useUnsavedChanges from './useUnsavedChanges'
 
 /**
  * Gère les valeurs d'un formulaire et leurs erreurs de validation.
@@ -9,10 +11,14 @@ import { useCallback, useState } from 'react'
  * - L'erreur d'un champ disparaît dès que l'utilisateur le modifie.
  * - L'erreur d'un champ est calculée quand il perd le focus (onBlur).
  * - validateAll() vérifie tout le formulaire (à appeler à la soumission).
+ * - Les saisies non enregistrées (valeurs différentes de celles de départ) sont signalées au suivi central
+ *   (useUnsavedChanges) : mise à jour PWA confirmée et avertissement à la fermeture de la page. Le suivi s'arrête au démontage.
  */
 export default function useFormValidation({ initialValues, validate }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
+  const baselineRef = useRef(initialValues)
+  useUnsavedChanges(areFormValuesDirty(values, baselineRef.current))
 
   const setFieldValue = useCallback((name, value) => {
     setValues((previous) => ({ ...previous, [name]: value }))

@@ -1,7 +1,3 @@
-// Données de démonstration du module Business (en attendant le backend).
-// Montants en FCFA ; dates au format « AAAA-MM-JJ ».
-// `initialInvestment` est l'investissement de départ du business ;
-// les investissements supplémentaires, dépenses et recettes sont dans MOCK_OPERATIONS.
 
 export const MOCK_BUSINESSES = [
   {
@@ -57,33 +53,28 @@ export const MOCK_BUSINESSES = [
 ]
 
 export const MOCK_OPERATIONS = [
-  // Boissons : investi 50 000, dépenses 20 000, recettes 80 000 -> résultat +10 000
   { id: 'operation-001', businessId: 'business-001', type: 'expense', amount: 15000, date: '2026-09-06', associateId: 'cheikh-sow', expenseCategory: 'goods', description: 'Cartons de boissons pour le premier week-end' },
   { id: 'operation-002', businessId: 'business-001', type: 'expense', amount: 5000, date: '2026-09-12', associateId: 'mohamed-bakhoum', expenseCategory: 'transport', description: 'Livraison des glacières' },
   { id: 'operation-003', businessId: 'business-001', type: 'revenue', amount: 38000, date: '2026-09-14', associateId: 'mohamed-bakhoum', expenseCategory: '', description: 'Ventes du premier week-end' },
   { id: 'operation-004', businessId: 'business-001', type: 'investment', amount: 10000, date: '2026-09-20', associateId: 'mohamed-bakhoum', expenseCategory: '', description: 'Renfort de stock' },
   { id: 'operation-005', businessId: 'business-001', type: 'revenue', amount: 42000, date: '2026-09-28', associateId: 'cheikh-sow', expenseCategory: '', description: 'Ventes de fin de mois' },
 
-  // T-shirts : investi 45 000, dépenses 35 000, recettes 107 000 -> résultat +27 000
   { id: 'operation-006', businessId: 'business-002', type: 'expense', amount: 20000, date: '2026-08-12', associateId: 'cheikh-sow', expenseCategory: 'goods', description: 'T-shirts blancs (lot de 40)' },
   { id: 'operation-007', businessId: 'business-002', type: 'expense', amount: 12000, date: '2026-08-15', associateId: 'cheikh-sow', expenseCategory: 'marketing', description: 'Flocage des motifs' },
   { id: 'operation-008', businessId: 'business-002', type: 'expense', amount: 3000, date: '2026-08-20', associateId: 'mohamed-bakhoum', expenseCategory: 'transport', description: '' },
   { id: 'operation-009', businessId: 'business-002', type: 'revenue', amount: 55000, date: '2026-08-30', associateId: 'cheikh-sow', expenseCategory: '', description: 'Commande d’une association' },
   { id: 'operation-010', businessId: 'business-002', type: 'revenue', amount: 52000, date: '2026-09-18', associateId: 'mohamed-bakhoum', expenseCategory: '', description: 'Ventes en ligne et au marché' },
 
-  // Snacks : investi 35 000, dépenses 24 000, recettes 57 000 -> résultat −2 000 (légère perte)
   { id: 'operation-011', businessId: 'business-003', type: 'expense', amount: 20000, date: '2026-07-03', associateId: 'mohamed-bakhoum', expenseCategory: 'goods', description: 'Farine, huile et ingrédients' },
   { id: 'operation-012', businessId: 'business-003', type: 'expense', amount: 4000, date: '2026-07-10', associateId: 'mohamed-bakhoum', expenseCategory: 'packaging', description: 'Sachets et serviettes' },
   { id: 'operation-013', businessId: 'business-003', type: 'revenue', amount: 30000, date: '2026-07-20', associateId: 'cheikh-sow', expenseCategory: '', description: 'Ventes de juillet' },
   { id: 'operation-014', businessId: 'business-003', type: 'revenue', amount: 27000, date: '2026-08-05', associateId: 'cheikh-sow', expenseCategory: '', description: 'Ventes du début août' },
 
-  // Fournitures scolaires : investi 75 000, dépenses 41 000, recettes 75 000 -> résultat −41 000 (en cours)
   { id: 'operation-015', businessId: 'business-004', type: 'expense', amount: 35000, date: '2026-10-18', associateId: 'cheikh-sow', expenseCategory: 'goods', description: 'Cahiers, stylos et sacs en gros' },
   { id: 'operation-016', businessId: 'business-004', type: 'expense', amount: 6000, date: '2026-10-22', associateId: 'mohamed-bakhoum', expenseCategory: 'transport', description: '' },
   { id: 'operation-017', businessId: 'business-004', type: 'revenue', amount: 45000, date: '2026-10-30', associateId: 'cheikh-sow', expenseCategory: '', description: 'Premières ventes à la boutique' },
   { id: 'operation-018', businessId: 'business-004', type: 'investment', amount: 15000, date: '2026-11-03', associateId: 'cheikh-sow', expenseCategory: '', description: 'Complément de stock' },
   { id: 'operation-019', businessId: 'business-004', type: 'revenue', amount: 30000, date: '2026-11-08', associateId: 'mohamed-bakhoum', expenseCategory: '', description: 'Ventes de la semaine' },
 
-  // Sonorisation : investi 25 000, dépenses 5 000, recettes 0 -> résultat −30 000 (tout juste lancé)
   { id: 'operation-020', businessId: 'business-005', type: 'expense', amount: 5000, date: '2026-11-10', associateId: 'cheikh-sow', expenseCategory: 'other', description: 'Câbles et rallonges' },
 ]

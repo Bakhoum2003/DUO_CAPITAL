@@ -1,7 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import pinoHttp from 'pino-http'
 
-// Un identifiant fourni par un proxy est repris seulement s'il est court et sans caractère exotique.
 const REQUEST_ID_PATTERN = /^[A-Za-z0-9._-]{8,64}$/
 
 /**

@@ -6,10 +6,6 @@ import { dashboardReducer as loadReducer, initialDashboardState } from './dashbo
 
 const SEARCH_DELAY_MS = 350
 
-/**
- * Module Trésorerie : synthèse (/summary) et historique filtré, trié et paginé par l'API.
- * Les réponses périmées sont ignorées ; une erreur n'efface jamais les dernières données valides ni ne les remplace par des données locales.
- */
 export default function useTreasuryModule() {
   const [filters, setFilters] = useState({ ...DEFAULT_FILTERS })
   const [searchText, setSearchText] = useState('')
@@ -44,7 +40,6 @@ export default function useTreasuryModule() {
     loadList()
   }, [loadList])
 
-  // La recherche part vers l'API après une courte pause de saisie.
   useEffect(() => {
     const timerId = setTimeout(() => {
       const search = searchText.trim()

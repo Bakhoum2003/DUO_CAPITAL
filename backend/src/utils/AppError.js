@@ -1,9 +1,3 @@
-/**
- * Erreur « prévue » de l'application : elle porte un statut HTTP, un code stable lisible par le frontend
- * et un message destiné à l'utilisateur. Le gestionnaire d'erreurs centralisé la transforme en réponse JSON.
- *
- * Exemple : throw new AppError({ status: 404, code: 'NOT_FOUND', message: 'Cotisation introuvable.' })
- */
 export class AppError extends Error {
   /**
    * @param {object} options

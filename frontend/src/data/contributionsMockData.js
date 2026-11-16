@@ -1,12 +1,8 @@
-// DONNÉES TEMPORAIRES du module Cotisations (aucune API, aucune base de données).
-// Forme d'une cotisation : { id, associateId, amount (FCFA), date (« AAAA-MM-JJ »), description }.
-// Cohérence avec le Dashboard : 12 mois (déc. 2025 → nov. 2026) × 2 associés × 15 000 FCFA = 360 000 FCFA.
 
 const MOHAMED = 'mohamed-bakhoum'
 const CHEIKH = 'cheikh-sow'
 const DEFAULT_DESCRIPTION = 'Cotisation mensuelle'
 
-// [associé, montant, date, description]
 const CONTRIBUTION_ROWS = [
   [MOHAMED, 15000, '2025-12-04', DEFAULT_DESCRIPTION],
   [CHEIKH, 15000, '2025-12-06', DEFAULT_DESCRIPTION],

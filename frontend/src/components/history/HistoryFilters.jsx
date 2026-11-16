@@ -6,17 +6,6 @@ import FormError from '../common/FormError'
 import SearchInput from '../common/SearchInput'
 import SelectField from '../common/SelectField'
 
-/**
- * Recherche, filtres (type, associé, activité, période) et tri de l'historique. Les filtres se combinent.
- *
- * Props :
- * - filters : { search, type, associateId, businessId, startDate, endDate, sortOrder }
- * - onFilterChange : fonction (nom, valeur) appelée à chaque changement
- * - onReset : fonction appelée au clic sur « Réinitialiser »
- * - hasActiveFilters : affiche le bouton « Réinitialiser » quand un filtre est actif
- * - typeOptions, associateOptions, businessOptions : tableaux { value, label } (première option « tous » = '')
- * - periodError : message d'erreur de la période (vide = période correcte)
- */
 function HistoryFilters({
   filters,
   onFilterChange,

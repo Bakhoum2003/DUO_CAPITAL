@@ -1,10 +1,7 @@
 import FormModal from '../common/FormModal'
 import ActivityForm from './ActivityForm'
 
-/**
- * Fenêtre de création ou de modification (à monter uniquement quand elle est ouverte).
- * Props : mode ('create' | 'edit'), onClose + props de ActivityForm.
- */
+/** Fenêtre de création ou de modification (à monter uniquement quand elle est ouverte). */
 function ActivityFormModal({ mode, onClose, ...formProps }) {
   const isCreate = mode === 'create'
   return (

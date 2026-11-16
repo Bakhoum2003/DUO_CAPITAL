@@ -1,6 +1,4 @@
-// Paramètres : paramètres communs du fonds (FundSettings), préférences personnelles (UserPreferences), rappels de cotisation
 // calculés à partir des vraies cotisations, et informations de sécurité du compte. AUCUNE écriture financière, AUCUN envoi d'email.
-// Les LECTURES n'écrivent jamais : sans document, les valeurs par défaut sont renvoyées telles quelles.
 
 import { BUSINESS_TIME_ZONE, CURRENCY_CODE, MONTHLY_CONTRIBUTION_PER_PARTNER } from '../config/constants.js'
 import { PARTNER_COUNT } from '../config/partners.js'
@@ -87,7 +85,6 @@ export function createSettingsService({ config, clock = () => new Date() }) {
   }
 
   return {
-    /** Paramètres communs + identité officielle + associés réels + objectifs (valeurs de la configuration, jamais copiées). */
     async getSettings() {
       const [fund, users] = await Promise.all([loadFund(), User.find({}, { name: 1, email: 1, partnerNumber: 1, status: 1 }).sort({ partnerNumber: 1 }).lean()])
       const authors = new Map(users.map((user) => [String(user._id), user]))
@@ -162,7 +159,6 @@ export function createSettingsService({ config, clock = () => new Date() }) {
       }
     },
 
-    /** Préférences de l'associé connecté (valeurs par défaut s'il n'en a jamais enregistré ; aucune écriture). */
     async getPreferences({ userId }) {
       return toPreferencesView(await UserPreferences.findOne({ user: userId }).lean())
     },
@@ -172,17 +168,12 @@ export function createSettingsService({ config, clock = () => new Date() }) {
       return toPreferencesView(await upsertPreferences(userId, changes))
     },
 
-    /** Remet SES préférences aux valeurs par défaut (aucun effet sur les paramètres communs ni sur les données financières). */
     async resetPreferences({ userId }) {
       const existing = await UserPreferences.exists({ user: userId })
       if (!existing) return toPreferencesView(null) // rien à réécrire
       return toPreferencesView(await upsertPreferences(userId, { ...DEFAULT_USER_PREFERENCES }))
     },
 
-    /**
-     * Rappels de cotisation à la date du jour (Dakar) : mois courant + mois passés réellement incomplets, pour LES DEUX associés.
-     * Si l'associé connecté a désactivé les rappels, rien n'est renvoyé (ses données de cotisation ne changent pas ; l'autre associé n'est pas touché).
-     */
     async getContributionReminders({ userId }) {
       const now = clock()
       const preferences = await UserPreferences.findOne({ user: userId }, { contributionRemindersEnabled: 1 }).lean()

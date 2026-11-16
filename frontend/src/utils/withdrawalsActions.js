@@ -1,8 +1,4 @@
-// Actions d'écriture du module Retraits (PURES : sans React), testables seules.
 // - création : même promesse tant que l'envoi est en cours (une seule requête), même clé d'idempotence tant que le
-//   contenu est identique (nouvelle tentative après coupure réseau = le serveur rejoue la réponse) ;
-// - modification / suppression : une seule opération à la fois ;
-// - rien n'est considéré comme fait avant la confirmation du serveur ; après un succès, les données affichées sont relues.
 
 import { generateIdempotencyKey } from './contributionSubmitter'
 import { buildCreatePayload, buildUpdatePayload, describeWithdrawalError } from './withdrawalsViewModel'

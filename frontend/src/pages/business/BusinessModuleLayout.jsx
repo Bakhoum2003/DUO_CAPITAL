@@ -1,10 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import useBusinesses from '../../hooks/useBusinesses'
 
-/**
- * Structure commune des pages du module Business (liste et détails) : charge les données une seule fois
- * et les transmet à la page affichée (via <Outlet context />), sans passer de contenu en enfant.
- */
 function BusinessModuleLayout() {
   const businessStore = useBusinesses()
 

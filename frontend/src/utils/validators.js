@@ -8,10 +8,6 @@ export function isValidEmail(value) {
   return EMAIL_PATTERN.test(value.trim())
 }
 
-/**
- * Valide le formulaire d'inscription.
- * Retourne un objet { champ: 'message' } ne contenant que les champs en erreur.
- */
 export function validateRegisterForm({ username, email, password, confirmPassword, associate }) {
   const errors = {}
   const trimmedUsername = username.trim()
@@ -49,10 +45,6 @@ export function validateRegisterForm({ username, email, password, confirmPasswor
   return errors
 }
 
-/**
- * Valide le formulaire de connexion.
- * Le serveur identifie l'associé par son adresse email : c'est le seul identifiant accepté.
- */
 export function validateLoginForm({ email, password }) {
   const errors = {}
   const trimmedEmail = email.trim()

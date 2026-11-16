@@ -4,7 +4,6 @@ import { getErrorMessage } from '../utils/apiErrors'
 import { IDLE_MUTATION, runMutation } from './activityMutation'
 import { dashboardReducer as loadReducer, initialDashboardState } from './dashboardState'
 
-/** Détail d'une activité : lecture, modification et changements de statut via l'API. Relit après chaque écriture. */
 export default function useActivityDetail(activityId) {
   const [state, dispatch] = useReducer(loadReducer, initialDashboardState)
   const [mutation, setMutation] = useState(IDLE_MUTATION)

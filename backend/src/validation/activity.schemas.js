@@ -32,7 +32,6 @@ export const createActivitySchema = z
   .strict()
   .superRefine(endsAfterStart)
 
-// Modification partielle : seules ces informations sont modifiables ; le statut passe par les actions dédiées.
 export const updateActivitySchema = z
   .object({
     name: name.optional(),

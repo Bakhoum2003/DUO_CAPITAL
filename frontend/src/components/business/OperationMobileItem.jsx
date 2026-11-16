@@ -6,19 +6,6 @@ import Avatar from '../common/Avatar'
 import StatusBadge from '../common/StatusBadge'
 import OperationAmount from './OperationAmount'
 
-/**
- * Une opération sous forme de carte (petits écrans, à la place du tableau).
- *
- * Props :
- * - type : 'investment', 'expense' ou 'revenue'
- * - amount : montant (FCFA)
- * - date : date ISO « AAAA-MM-JJ »
- * - associateName, initials, avatarTone : associé concerné
- * - categoryLabel : catégorie de dépense (vide pour les autres types)
- * - description : description (facultative)
- * - onEdit : fonction appelée au clic sur « Modifier »
- * - onDelete : fonction appelée au clic sur « Supprimer »
- */
 function OperationMobileItem({
   type,
   amount,

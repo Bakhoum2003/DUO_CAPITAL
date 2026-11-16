@@ -1,15 +1,4 @@
-// Calculs du module Statistiques : fonctions PURES (aucune base de données, aucune horloge, aucun effet de bord).
-//
-// Aucun second système de calcul : les mouvements viennent de `normalizeMovements` (calculateur du Dashboard, aussi base
-// de la Trésorerie et de l'Historique). Règles (décisions validées) :
-// - un enregistrement non supprimé = une opération réelle (les modèles n'ont pas de statut « annulé ») ;
-// - une opération datée APRÈS aujourd'hui (Africa/Dakar) n'est jamais comptée (elle est seulement signalée) ;
 // - entrées = cotisations + recettes ; sorties = investissements + dépenses + retraits ; solde net = entrées − sorties ;
-// - résultat commercial = recettes − dépenses − investissements (≠ résultat d'exploitation du Dashboard, qui exclut les
-//   investissements) : c'est un calcul, JAMAIS ajouté aux entrées ; les cotisations et retraits n'en font pas partie ;
-// - dépenses par catégorie : catégorie réelle de l'activité (« Non catégorisé » sinon, identifiant null) ;
-// - comparaison des associés : mois = mois CONCERNÉ (`period`) ; objectif mensuel à partir de FUND_START_PERIOD seulement ;
-//   les montants cotisés ne sont jamais plafonnés, seul le pourcentage d'atteinte l'est (100 %).
 
 import { monthOf, monthsBetween } from '../../utils/businessDates.js'
 import { normalizeMovements } from '../dashboard/calculator.js'
@@ -23,7 +12,6 @@ const byAmountDesc = (a, b) => b.amount - a.amount || String(a.label).localeComp
 
 const inRange = (movement, range) => range != null && (range.from == null || movement.date >= range.from) && movement.date <= range.to && (range.from == null || range.from <= range.to)
 
-/** Totaux d'un ensemble de mouvements déjà réalisés. */
 export function totalsOf(movements) {
   const of = (kind) => movements.filter((movement) => movement.kind === kind)
   const total = (kind) => ({ amount: sum(of(kind)), count: of(kind).length })
@@ -112,7 +100,6 @@ function buildActivities(movements, businessById) {
         category: business?.category ?? null,
         ...entry,
         result: entry.revenues - entry.expenses - entry.investments,
-        // Une activité active ou suspendue peut encore recevoir des recettes : son résultat reste provisoire.
         isProvisional: status === 'ACTIVE' || status === 'SUSPENDED',
       }
     })
@@ -185,7 +172,6 @@ export function computeStatistics({ today, range, previousRange = null, fundStar
   const periodMovements = realized.filter((movement) => inRange(movement, range))
   const totals = totalsOf(periodMovements)
 
-  // Mois analysés : du début de la période (ou de la première opération) jusqu'à la fin ; jamais d'avenir, jamais avant les données.
   const earliest = realized.reduce((min, movement) => (min == null || movement.date < min ? movement.date : min), null)
   const start = earliest == null ? null : range.from != null && range.from > earliest ? range.from : earliest
   const monthKeys = start == null || range.isEmpty || start > range.to ? [] : monthsBetween(monthOf(start), monthOf(range.to))

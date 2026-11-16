@@ -6,14 +6,6 @@ const SIZE_STYLES = {
   sidebar: { icon: 'h-16 w-24', wordmark: 'text-[1.65rem]', slogan: 'text-xs' },
 }
 
-/**
- * Logo DUO CAPITAL (poignée de main + nom + slogan).
- *
- * Props :
- * - orientation : 'vertical' (icône au-dessus) ou 'horizontal' (icône à gauche)
- * - size : 'md', 'lg' ou 'sidebar' (barre latérale du Dashboard)
- * - showSlogan : affiche « Ensemble, plus loin ! » sous le nom
- */
 function Logo({ orientation = 'vertical', size = 'lg', showSlogan = true }) {
   const styles = SIZE_STYLES[size]
   const isVertical = orientation === 'vertical'

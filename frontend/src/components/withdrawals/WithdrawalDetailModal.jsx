@@ -46,7 +46,7 @@ function Detail({ id, onClose, onEdit, onDelete, disabled }) {
   )
 }
 
-/** Détail d'un retrait lu auprès de l'API (à monter uniquement quand un retrait est sélectionné). Props : withdrawal { id }, onClose, onEdit, onDelete, disabled. */
+/** Détail d'un retrait lu auprès de l'API (à monter uniquement quand un retrait est sélectionné). */
 function WithdrawalDetailModal({ withdrawal, onClose, ...actions }) {
   return <FormModal idPrefix="withdrawal-detail" title="Détail du retrait" description="Informations telles qu'enregistrées." onClose={onClose} formElement={<Detail id={withdrawal.id} onClose={onClose} {...actions} />} />
 }

@@ -2,10 +2,7 @@ import { CalculatorIcon } from '../../icons'
 import { CARD_CLASSES } from '../../constants/uiClasses'
 import SectionHeader from '../common/SectionHeader'
 
-/**
- * « Comment le solde est calculé » : chaque composante du solde avec son effet (+ ou −), telle que fournie par l'API.
- * Props : rows [{ id, label, sign, increases, amountLabel, count }], balanceLabel (solde de l'API), notices [{ code, message }].
- */
+/** « Comment le solde est calculé » : chaque composante du solde avec son effet (+ ou −), telle que fournie par l'API. */
 function TreasuryFormula({ rows, balanceLabel, notices }) {
   return (
     <section className={CARD_CLASSES} aria-label="Calcul du solde">

@@ -5,7 +5,6 @@ import Avatar from '../common/Avatar'
 import ProgressBar from '../common/ProgressBar'
 import SectionHeader from '../common/SectionHeader'
 
-/** Suivi séparé de chaque associé : objectif mensuel, versé (réel, jamais plafonné), restant, progression. Props : partners (voir buildPartnerProgress). */
 function PartnerTrackingSection({ partners }) {
   return (
     <section className={CARD_CLASSES} aria-label="Suivi des associés">

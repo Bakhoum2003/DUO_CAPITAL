@@ -5,11 +5,6 @@ import ActionButton from '../common/ActionButton'
 import EmptyState from '../common/EmptyState'
 import SectionHeader from '../common/SectionHeader'
 
-/**
- * Historique des cotisations (tableau sur grand écran, cartes sur mobile) avec pagination. Lecture seule :
- * une cotisation est un mouvement réel, elle ne se modifie ni ne se supprime depuis l'interface.
- * Props : contributions, meta { page, totalPages, total, filteredAmount }, hasActiveFilters, onPageChange, onAdd.
- */
 function ContributionLedger({ contributions, meta, hasActiveFilters, onPageChange, onAdd, isRefreshing }) {
   return (
     <section className={CARD_CLASSES} aria-label="Historique des cotisations" aria-busy={isRefreshing}>

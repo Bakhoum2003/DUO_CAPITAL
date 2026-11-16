@@ -1,15 +1,5 @@
 import { CARD_CLASSES } from '../../constants/uiClasses'
 
-/**
- * Carte d'une section des Paramètres : icône, titre, explication et contenu.
- *
- * Props :
- * - icon : composant d'icône Font Awesome (voir src/icons)
- * - title : titre de la section
- * - description : phrase d'explication (optionnel)
- * - badgeLabel : petite pastille à droite du titre, ex. « Lecture seule » (optionnel)
- * - contentElement : élément React affiché dans la carte (formulaire, liste de lignes…)
- */
 function SettingsSection({ icon: Icon, title, description, badgeLabel, contentElement }) {
   return (
     <section className={CARD_CLASSES} aria-label={title}>

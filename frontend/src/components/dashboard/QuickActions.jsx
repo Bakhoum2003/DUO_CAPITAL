@@ -4,12 +4,6 @@ import { CARD_CLASSES } from '../../constants/uiClasses'
 import { TONE_STYLES } from '../../constants/toneStyles'
 import SectionHeader from '../common/SectionHeader'
 
-/**
- * Carte « Actions Rapides » : raccourcis vers les modules (pages provisoires pour le moment).
- *
- * Props :
- * - actions : tableau { id, label, to, icon, tone } ; un \n dans label coupe le texte sur deux lignes
- */
 function QuickActions({ actions }) {
   return (
     <section className={CARD_CLASSES} aria-label="Actions rapides">

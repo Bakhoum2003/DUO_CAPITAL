@@ -1,7 +1,7 @@
 import FormModal from '../common/FormModal'
 import WithdrawalForm from './WithdrawalForm'
 
-/** Fenêtre de création / modification d'un retrait (à monter uniquement quand elle est ouverte). Props : isEdit, onClose + props de WithdrawalForm. */
+/** Fenêtre de création / modification d'un retrait (à monter uniquement quand elle est ouverte). */
 function WithdrawalFormModal({ isEdit, onClose, ...formProps }) {
   return (
     <FormModal

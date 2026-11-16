@@ -20,7 +20,6 @@ const payloadValidators = [
   },
 ]
 
-/** Tous les champs sont immuables : une écriture est un fait, jamais corrigé. */
 function immutable(definitions) {
   return Object.fromEntries(Object.entries(definitions).map(([path, definition]) => [path, { ...definition, immutable: true }]))
 }

@@ -4,12 +4,6 @@ import { ROUTES } from '../../routes/routePaths'
 import SectionHeader from '../common/SectionHeader'
 import BusinessListItem from './BusinessListItem'
 
-/**
- * Carte « Derniers Business » avec un lien vers la page Business.
- *
- * Props :
- * - businesses : tableau { id, name, category, date, investedAmount, profit, status }
- */
 function RecentBusinesses({ businesses }) {
   return (
     <section className={CARD_CLASSES} aria-label="Derniers business">

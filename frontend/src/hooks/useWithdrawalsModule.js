@@ -47,7 +47,6 @@ export default function useWithdrawalsModule() {
     loadList()
   }, [loadList])
 
-  // La recherche part vers l'API après une courte pause de saisie.
   useEffect(() => {
     const timerId = setTimeout(() => {
       const search = searchText.trim()

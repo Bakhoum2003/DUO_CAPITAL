@@ -1,13 +1,8 @@
-// Retraits des deux associés (mêmes droits pour les deux).
-//
-// Principes :
 // - un retrait est une SORTIE d'argent : création, modification et suppression passent par la garde atomique de la
 //   Phase F (verrou TreasuryLock + solde relu dans la transaction) ; solde insuffisant => 409 INSUFFICIENT_TREASURY,
 //   rien n'est écrit (ni retrait, ni audit, ni clé d'idempotence) ;
 // - l'auteur (`recordedBy`) vient de la session et n'est jamais modifiable ; le bénéficiaire est choisi explicitement
-//   (existant ET actif) : il n'est jamais déduit de l'auteur ;
 // - création idempotente : clé réservée, retrait, audit et réponse enregistrés dans la MÊME transaction ;
-// - suppression logique seulement (jamais physique) ; un retrait supprimé n'est plus compté dans la trésorerie ;
 // - les montants de trésorerie ne sont pas recalculés ici : le solde est celui de la trésorerie (Phase F).
 
 import { IDEMPOTENCY_KEY_TTL_MS } from '../models/shared/constants.js'
@@ -103,7 +98,6 @@ export function createWithdrawalService({ treasuryService, clock = () => new Dat
       })
     },
 
-    /** Liste paginée, recherchée, filtrée et triée (les paramètres sont déjà validés). */
     async list(query) {
       const [{ byId }, withdrawals] = await Promise.all([directory(), activeWithdrawals()])
       return listWithdrawals(withdrawals, byId, query)

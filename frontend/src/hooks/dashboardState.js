@@ -1,8 +1,3 @@
-// État du chargement du dashboard (fonction pure, testable sans React).
-// - « loading » : première lecture, aucune donnée ;
-// - « refreshing » : les données précédentes restent affichées pendant une nouvelle lecture ;
-// - « error » : échec, sans effacer les dernières données valides (elles sont signalées comme périmées) ;
-// - une réponse d'une requête périmée (requestId différent) est ignorée.
 
 export const initialDashboardState = Object.freeze({ status: 'loading', data: null, errorMessage: '', requestId: 0 })
 

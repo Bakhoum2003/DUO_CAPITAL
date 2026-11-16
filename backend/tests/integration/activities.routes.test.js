@@ -1,4 +1,3 @@
-// API /api/v1/activities contre une VRAIE base de test isolée (jamais DATABASE_URL, jamais Atlas).
 // Horloge métier fixée au 20 décembre 2026. Les opérations financières sont insérées dans la base de test uniquement.
 import mongoose from 'mongoose'
 import request from 'supertest'

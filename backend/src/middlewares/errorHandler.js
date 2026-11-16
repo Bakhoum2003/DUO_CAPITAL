@@ -3,14 +3,11 @@ import { AppError } from '../utils/AppError.js'
 const GENERIC_MESSAGE = 'Une erreur est survenue.'
 const DATABASE_ERROR_NAMES = new Set(['MongooseServerSelectionError', 'MongoServerSelectionError', 'MongoNetworkError'])
 
-// Transforme n'importe quelle erreur en { status, code, message, fields? }.
-// Seules les erreurs reconnues ont un message précis ; tout le reste devient une erreur 500 générique.
 function normalizeError(err) {
   if (err instanceof AppError) {
     return { status: err.status, code: err.code, message: err.message, fields: err.fields }
   }
 
-  // Échec de validation d'une entrée (Zod) : 400 avec le détail par champ.
   if (err?.name === 'ZodError' && Array.isArray(err.issues)) {
     return {
       status: 400,
@@ -20,7 +17,6 @@ function normalizeError(err) {
     }
   }
 
-  // Erreurs de lecture du corps de la requête (express.json).
   if (err?.type === 'entity.parse.failed') {
     return { status: 400, code: 'INVALID_JSON', message: 'Le corps de la requête n’est pas un JSON valide.' }
   }
@@ -28,7 +24,6 @@ function normalizeError(err) {
     return { status: 413, code: 'PAYLOAD_TOO_LARGE', message: 'Le corps de la requête est trop volumineux.' }
   }
 
-  // Erreurs Mongoose / MongoDB.
   if (err?.name === 'ValidationError' && err.errors) {
     return {
       status: 400,
@@ -61,7 +56,6 @@ function normalizeError(err) {
  * @param {{ isDevelopment: boolean }} options.config
  */
 export function createErrorHandler({ logger, config }) {
-  // Les quatre paramètres sont indispensables : c'est ainsi qu'Express reconnaît un gestionnaire d'erreurs.
   return function errorHandler(err, req, res, next) {
     if (res.headersSent) return next(err)
 

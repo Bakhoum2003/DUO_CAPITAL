@@ -12,7 +12,6 @@ const KIND_CLASSES = {
  * Résultat financier d'un business, en couleur : « +10 000 FCFA » (vert), « −2 000 FCFA » (rouge).
  *
  * Props :
- * - result : résultat en FCFA (négatif = perte)
  * - showKindLabel : ajoute le mot « Bénéfice », « Perte » ou « Équilibre » après le montant
  */
 function ResultLabel({ result, showKindLabel = false }) {

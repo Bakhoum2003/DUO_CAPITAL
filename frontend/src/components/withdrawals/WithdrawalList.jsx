@@ -18,11 +18,6 @@ function RowActions({ withdrawal, onDetails, onEdit, onDelete, disabled }) {
   )
 }
 
-/**
- * Liste des retraits (tableau sur grand écran, cartes sur mobile) avec pagination.
- * Props : withdrawals, meta { page, totalPages, total, filteredAmount }, hasActiveFilters, isRefreshing, disabled,
- * onPageChange, onDetails, onEdit, onDelete, onReset, onAdd.
- */
 function WithdrawalList({ withdrawals, meta, hasActiveFilters, isRefreshing, disabled, onPageChange, onDetails, onEdit, onDelete, onReset, onAdd }) {
   const badge = meta ? `${meta.total} retrait(s) · ${formatMoney(meta.filteredAmount)}` : undefined
   const actions = { onDetails, onEdit, onDelete, disabled }

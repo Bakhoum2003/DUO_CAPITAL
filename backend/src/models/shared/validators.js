@@ -1,8 +1,6 @@
-// Validateurs purs (sans Mongoose) : testables isolément et réutilisables par les futurs services.
 
 import { MAX_BUSINESS_YEAR, MIN_BUSINESS_YEAR } from './constants.js'
 
-/** Montant FCFA : entier strictement positif, représentable exactement (jamais de décimale). */
 export function isFcfaAmount(value) {
   return typeof value === 'number' && Number.isSafeInteger(value) && value >= 1
 }
@@ -20,7 +18,6 @@ export function isBusinessDate(value) {
   return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day
 }
 
-/** Période mensuelle « AAAA-MM ». */
 export function isPeriod(value) {
   if (typeof value !== 'string' || !/^\d{4}-(0[1-9]|1[0-2])$/.test(value)) return false
   return isValidYear(Number(value.slice(0, 4)))
@@ -35,7 +32,6 @@ export function isPasswordHash(value) {
   return typeof value === 'string' && (/^\$argon2(?:id|i|d)\$[ -~]{20,}$/.test(value) || /^\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}$/.test(value))
 }
 
-/** Empreinte SHA-256 en hexadécimal minuscule (64 caractères). */
 export function isSha256Hex(value) {
   return typeof value === 'string' && /^[a-f0-9]{64}$/.test(value)
 }
@@ -74,7 +70,6 @@ export function findSensitiveKey(value, path = '', depth = 0) {
   return null
 }
 
-/** Taille approximative d'une valeur sérialisée en JSON (octets). Infinity si non sérialisable. */
 export function jsonByteSize(value) {
   try {
     return Buffer.byteLength(JSON.stringify(value) ?? '')
@@ -83,7 +78,6 @@ export function jsonByteSize(value) {
   }
 }
 
-/** Clé de comparaison d'un nom : sans accents, minuscules, espaces simplifiés. */
 export function toNameKey(name) {
   return String(name ?? '')
     .normalize('NFD')

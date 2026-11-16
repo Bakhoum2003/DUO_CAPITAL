@@ -4,10 +4,6 @@ import SelectField from '../common/SelectField'
 
 const dateClasses = 'h-11 w-full rounded-xl border border-line bg-white px-3 text-sm text-ink outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/20'
 
-/**
- * Filtres de l'historique (agissent réellement sur l'API) : associé, mois, année, période de dates.
- * Props : filters, onFilterChange(nom, valeur), onReset, hasActiveFilters, partnerOptions, periodOptions, yearOptions, errorMessage.
- */
 function ContributionFiltersBar({ filters, onFilterChange, onReset, hasActiveFilters, partnerOptions, periodOptions, yearOptions, errorMessage }) {
   return (
     <div className="mb-4 space-y-3">

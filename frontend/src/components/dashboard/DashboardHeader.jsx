@@ -2,18 +2,6 @@ import { BarsIcon, CalendarDaysIcon } from '../../icons'
 import Avatar from '../common/Avatar'
 import NotificationBell from '../notifications/NotificationBell'
 
-/**
- * En-tête du Dashboard : bouton menu (tablette/mobile), titre de la page,
- * date du jour, cloche de rappels de cotisation (réels) et avatar de l'utilisateur.
- *
- * Props :
- * - title : titre affiché (message de bienvenue ou nom de la page)
- * - subtitle : phrase sous le titre (optionnelle, masquée sur mobile)
- * - dateLabel : date du jour en toutes lettres (écrans larges)
- * - compactDateLabel : date du jour courte (petits écrans)
- * - userInitials : initiales de l'utilisateur (avatar)
- * - onOpenMenu : fonction pour ouvrir la barre latérale (tablette/mobile)
- */
 function DashboardHeader({
   title,
   subtitle,

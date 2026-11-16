@@ -7,10 +7,6 @@ import { dashboardReducer as loadReducer, initialDashboardState } from './dashbo
 
 const SEARCH_DELAY_MS = 350
 
-/**
- * Module Activités (liste) : liste filtrée, triée et paginée par l'API, création, modification et changements de statut.
- * Tout vient de l'API ; les réponses périmées sont ignorées ; aucune double soumission.
- */
 export default function useActivitiesModule() {
   const [filters, setFilters] = useState({ ...DEFAULT_FILTERS })
   const [searchText, setSearchText] = useState('')
@@ -32,7 +28,6 @@ export default function useActivitiesModule() {
     load()
   }, [load])
 
-  // La recherche part vers l'API après une courte pause de saisie.
   useEffect(() => {
     const timerId = setTimeout(() => {
       const search = searchText.trim()
@@ -41,7 +36,6 @@ export default function useActivitiesModule() {
     return () => clearTimeout(timerId)
   }, [searchText])
 
-  // Une page devenue vide (dernière activité archivée ou filtrée) renvoie vers la dernière page existante.
   const meta = list.data?.meta
   const isEmptyPage = Boolean(list.data) && list.data.data.activities.length === 0
   useEffect(() => {
@@ -58,7 +52,6 @@ export default function useActivitiesModule() {
   }, [])
   const resetMutation = useCallback(() => setMutation(IDLE_MUTATION), [])
 
-  /** Enregistre via l'API puis relit la liste. Retourne true seulement après la confirmation du serveur. */
   const mutate = useCallback(
     async (call) => {
       const result = await runMutation(call, { guard, setMutation })

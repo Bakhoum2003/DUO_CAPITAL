@@ -1,4 +1,3 @@
-// GET /api/v1/dashboard contre une VRAIE base de test isolée : jamais DATABASE_URL, jamais Atlas.
 // Les données sont insérées uniquement dans la base de test éphémère, puis cette base est supprimée par useTestDatabase.
 
 import request from 'supertest'

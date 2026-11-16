@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { AMOUNT_SEPARATORS, FUND_DESCRIPTION_MAX_LENGTH, FUND_DESCRIPTION_MIN_LENGTH, FUND_PROJECT_INFO_MAX_LENGTH, THEMES } from '../models/shared/constants.js'
 
-/** Même nettoyage que le formulaire : espaces de bord retirés, espaces multiples réduits, retours à la ligne conservés. */
 export function normalizeText(value) {
   return value
     .split('\n')
@@ -57,5 +56,4 @@ export const updatePreferencesSchema = z
   .strict()
   .refine((body) => Object.keys(body).length > 0, { message: 'Indiquez au moins une préférence à modifier.', path: ['theme'] })
 
-/** POST /settings/preferences/reset : aucun champ attendu. */
 export const emptyBodySchema = z.object({}).strict()

@@ -1,12 +1,5 @@
 import HistoryTableRow from './HistoryTableRow'
 
-/**
- * Tableau de l'historique (à partir des écrans moyens ; sur mobile on utilise HistoryMobileItem).
- *
- * Props :
- * - entries : mouvements { id, type, direction, amount, date, description, businessName, associateName }
- * - onShowDetails : fonction appelée avec le mouvement dont on veut le détail
- */
 function HistoryTable({ entries, onShowDetails }) {
   return (
     <div className="hidden overflow-x-auto rounded-xl border border-line md:block">

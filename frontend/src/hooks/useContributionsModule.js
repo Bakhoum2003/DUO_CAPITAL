@@ -7,10 +7,6 @@ import { dashboardReducer as loadReducer, initialDashboardState } from './dashbo
 
 const IDLE_SUBMISSION = Object.freeze({ status: 'idle', message: '', fieldErrors: {}, needsDuplicateConfirmation: false })
 
-/**
- * Module Cotisations : statistiques (/summary), liste filtrée et paginée, enregistrement.
- * Tout vient de l'API ; les réponses périmées sont ignorées ; aucun double envoi.
- */
 export default function useContributionsModule() {
   const [filters, setFilters] = useState({ ...DEFAULT_FILTERS })
   const [summary, dispatchSummary] = useReducer(loadReducer, initialDashboardState)
@@ -55,7 +51,6 @@ export default function useContributionsModule() {
     loadList()
   }, [loadSummary, loadList])
 
-  /** Enregistre via l'API. Retourne true seulement après la confirmation du serveur. */
   const record = useCallback(
     async (values, { confirmDuplicate = false } = {}) => {
       if (submitter.current.isSubmitting()) return false

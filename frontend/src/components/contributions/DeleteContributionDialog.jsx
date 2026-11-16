@@ -4,16 +4,6 @@ import useModalBehavior from '../../hooks/useModalBehavior'
 import { formatCurrency, formatShortDate } from '../../utils/formatters'
 import ActionButton from '../common/ActionButton'
 
-/**
- * Fenêtre de confirmation avant la suppression d'une cotisation.
- *
- * Props :
- * - associateName : associé concerné
- * - amount : montant de la cotisation (FCFA)
- * - date : date ISO « AAAA-MM-JJ »
- * - onConfirm : fonction appelée au clic sur « Supprimer »
- * - onClose : fonction appelée pour annuler (Annuler, Échap, clic sur le fond)
- */
 function DeleteContributionDialog({ associateName, amount, date, onConfirm, onClose }) {
   const dialogRef = useRef(null)
   useModalBehavior({ dialogRef, onClose })

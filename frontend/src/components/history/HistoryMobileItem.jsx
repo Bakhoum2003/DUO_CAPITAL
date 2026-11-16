@@ -6,15 +6,6 @@ import StatusBadge from '../common/StatusBadge'
 import HistoryAmount from './HistoryAmount'
 import HistoryEntryIcon from './HistoryEntryIcon'
 
-/**
- * Un mouvement sous forme de carte (petits écrans, à la place du tableau).
- *
- * Props :
- * - type, direction, amount, date, description : voir HistoryTableRow
- * - businessName : activité concernée (vide = aucune)
- * - associateName : associé concerné (vide = aucun)
- * - onShowDetails : fonction appelée au clic sur « Voir le détail »
- */
 function HistoryMobileItem({ type, direction, amount, date, description, businessName, associateName, onShowDetails }) {
   const directionStyle = DIRECTIONS[direction]
 

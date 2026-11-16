@@ -22,10 +22,6 @@ import {
 
 const FEEDBACK_MS = 4000
 
-/**
- * Page « Cotisations » : statistiques, suivi par associé et par mois, historique filtrable et enregistrement.
- * Toutes les données viennent de l'API ; aucune donnée fictive ; les états chargement / erreur / vide sont distincts.
- */
 function ContributionsPage() {
   const { user } = useAuth()
   const contributions = useContributionsModule()

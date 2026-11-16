@@ -1,15 +1,5 @@
 import { CheckIcon } from '../../icons'
 
-/**
- * Case à cocher stylée (ex. « Se souvenir de moi »).
- *
- * Props :
- * - id, name : identifiants du champ
- * - label : texte à côté de la case
- * - checked : état coché
- * - onChange : fonction appelée au changement (reçoit l'événement)
- * - disabled : désactive la case
- */
 function CheckboxField({ id, name, label, checked, onChange, disabled = false }) {
   return (
     <label htmlFor={id} className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-ink">

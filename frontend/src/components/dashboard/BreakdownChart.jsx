@@ -4,10 +4,6 @@ import { hasAmounts } from '../../utils/dashboardViewModel'
 import { formatCompactAmount, formatCurrency } from '../../utils/formatters'
 import SectionHeader from '../common/SectionHeader'
 
-/**
- * Répartition en barres horizontales (investissements par activité, dépenses par catégorie, cotisations par associé).
- * Props : title, icon, rows [{ label, amount }], color, emptyMessage.
- */
 function BreakdownChart({ title, icon, rows, color, emptyMessage }) {
   const height = Math.max(160, rows.length * 44 + 40)
   return (

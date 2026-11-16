@@ -1,6 +1,3 @@
-// Dates métier « AAAA-MM-JJ » (sans heure ni fuseau) et périodes « AAAA-MM ».
-// Tout le calcul se fait sur des chaînes et des dates UTC : aucun décalage de fuseau possible.
-// Seul « aujourd'hui » dépend du fuseau métier (Africa/Dakar, UTC+0 toute l'année).
 
 import { BUSINESS_TIME_ZONE } from '../config/constants.js'
 
@@ -26,7 +23,6 @@ const toDate = (isoDate) => {
 }
 const toIso = (date) => date.toISOString().slice(0, 10)
 
-/** Date du jour à Dakar, « AAAA-MM-JJ ». */
 export function todayInBusinessZone(now = new Date()) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: BUSINESS_TIME_ZONE, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now)
 }
@@ -49,7 +45,6 @@ export function addMonths(period, count) {
   return `${String(Math.floor(index / 12)).padStart(4, '0')}-${String((index % 12) + 1).padStart(2, '0')}`
 }
 
-/** Mois de `first` à `last` inclus (vide si first > last). */
 export function monthsBetween(first, last) {
   const months = []
   for (let month = first; month <= last; month = addMonths(month, 1)) months.push(month)
@@ -65,7 +60,6 @@ export function lastDayOfMonth(period) {
   return toIso(new Date(Date.UTC(year, month, 0)))
 }
 
-/** Lundi de la semaine contenant la date (semaine du lundi au dimanche). */
 export function startOfWeek(isoDate) {
   const weekday = (toDate(isoDate).getUTCDay() + 6) % 7 // lundi = 0
   return addDays(isoDate, -weekday)

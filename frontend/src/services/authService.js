@@ -39,7 +39,6 @@ export function createAuthService(client) {
 
 export const authService = createAuthService(apiClient)
 
-// Aucune route d'inscription n'existe côté serveur (comptes créés par un script d'administration).
 export async function registerUser() {
   throw new RegistrationDisabledError()
 }

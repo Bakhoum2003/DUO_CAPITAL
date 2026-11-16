@@ -1,14 +1,5 @@
-// Tous les calculs du module Statistiques (fonctions pures, sans React, testables).
-//
-// Source unique : les mouvements de l'Historique (cotisations, investissements, dépenses, recettes,
-// retraits). Chaque opération y figure une seule fois ; les bénéfices calculés (sens 'none') ne sont
-// jamais additionnés : ce ne sont pas des entrées d'argent (pas de double comptage).
-//
-// Résultat d'une activité = recettes − dépenses − investissements
-// Résultat commercial global = somme des résultats des activités
 // Solde net des mouvements = entrées réelles − sorties réelles (donc, avec les retraits :
 //   solde net = cotisations + résultat commercial − retraits)
-// Progression des cotisations = montant cotisé / objectif sur la période × 100 (0 si objectif nul)
 
 import { UNCATEGORIZED_EXPENSE_LABEL } from '../constants/statisticsSettings'
 import { getResultKind } from './businessCalculations'
@@ -16,7 +7,6 @@ import { shiftMonthKey } from './contributionCalculations'
 import { formatMonthLabel, formatShortDate } from './formatters'
 import { filterHistoryEntries, getNetBalance } from './historyCalculations'
 
-/* ---------- Dates (format « AAAA-MM-JJ », calculs en UTC pour éviter les décalages d'heure) ---------- */
 
 function parseIso(isoDate) {
   const [year, month, day] = isoDate.split('-').map(Number)
@@ -33,7 +23,6 @@ export function addDays(isoDate, days) {
   return toIso(date)
 }
 
-// Ajoute des mois en gardant le jour, ramené au dernier jour du mois si besoin (31 mars − 1 mois = 28 février).
 export function addMonths(isoDate, months) {
   const [year, month, day] = isoDate.split('-').map(Number)
   const target = new Date(Date.UTC(year, month - 1 + months, 1))
@@ -46,7 +35,6 @@ export function diffDays(startIso, endIso) {
   return Math.round((parseIso(endIso) - parseIso(startIso)) / 86400000)
 }
 
-/* ---------- Périodes ---------- */
 
 /**
  * Bornes (incluses) d'une période. « » signifie « sans limite ».
@@ -74,12 +62,6 @@ export function getPeriodRange({ periodKey, customStartDate = '', customEndDate 
   }
 }
 
-/**
- * Période de comparaison, de durée équivalente, juste avant la période choisie.
- * - semaine, mois, année : mêmes jours écoulés de la semaine / du mois / de l'année précédente ;
- * - 3 mois, 6 mois, personnalisée : même nombre de jours, juste avant le début ;
- * - « toute la période » ou période ouverte : pas de comparaison (null).
- */
 export function getPreviousPeriodRange({ periodKey, range }) {
   const { startDate, endDate } = range
   if (periodKey === 'all' || !startDate || !endDate || startDate > endDate) return null
@@ -93,7 +75,6 @@ export function getPreviousPeriodRange({ periodKey, range }) {
   return { startDate: addDays(previousEnd, -(length - 1)), endDate: previousEnd }
 }
 
-// « Du 01/11/2026 au 12/11/2026 », « Depuis le … », « Jusqu'au … » ou « Toute la période ».
 export function getPeriodLabel({ startDate, endDate }) {
   if (startDate && endDate) return `Du ${formatShortDate(startDate)} au ${formatShortDate(endDate)}`
   if (startDate) return `Depuis le ${formatShortDate(startDate)}`
@@ -101,7 +82,6 @@ export function getPeriodLabel({ startDate, endDate }) {
   return 'Toute la période'
 }
 
-// Mouvements dont la date est dans la période (bornes incluses).
 export function filterEntriesByRange(entries, { startDate, endDate }) {
   return filterHistoryEntries(entries, {
     search: '',
@@ -113,7 +93,6 @@ export function filterEntriesByRange(entries, { startDate, endDate }) {
   })
 }
 
-/* ---------- Totaux et évolution ---------- */
 
 function sumByType(entries, type) {
   return entries.filter((entry) => entry.type === type).reduce((total, entry) => total + entry.amount, 0)
@@ -129,7 +108,6 @@ export const EMPTY_TOTALS = {
   netBalance: 0,
 }
 
-// Totaux des indicateurs. Le résultat commercial n'est pas la trésorerie ; les bénéfices calculés sont ignorés.
 export function getStatisticsTotals(entries) {
   const investments = sumByType(entries, 'investment')
   const expenses = sumByType(entries, 'expense')
@@ -146,11 +124,6 @@ export function getStatisticsTotals(entries) {
   }
 }
 
-/**
- * Évolution d'un indicateur par rapport à la période précédente.
- * Retourne { percent, trend } : percent est null quand la valeur précédente est nulle (division par zéro évitée) ;
- * trend vaut 'up', 'down', 'flat' ou 'new' (valeur précédente nulle, valeur actuelle non nulle).
- */
 export function getVariation(current, previous) {
   if (previous === 0) return { percent: null, trend: current === 0 ? 'flat' : 'new' }
 
@@ -158,22 +131,17 @@ export function getVariation(current, previous) {
   return { percent, trend: percent > 0 ? 'up' : percent < 0 ? 'down' : 'flat' }
 }
 
-// Évolution de chaque total ; null pour tous si la période précédente n'existe pas.
 export function compareTotals(currentTotals, previousTotals) {
   return Object.fromEntries(
     Object.keys(EMPTY_TOTALS).map((key) => [key, previousTotals ? getVariation(currentTotals[key], previousTotals[key]) : null]),
   )
 }
 
-// Part en pourcentage (0 si le total est nul : pas de division par zéro).
 export function getProgressPercent(amount, target) {
   return target > 0 ? Math.round((amount / target) * 100) : 0
 }
 
-/* ---------- Regroupements mensuels ---------- */
 
-// Mois (« AAAA-MM ») couverts par la période, du premier mouvement jusqu'à aujourd'hui (jamais dans le futur).
-// `allEntries` sert à borner une période ouverte ; une période sans donnée donne [].
 export function getRangeMonthKeys(range, allEntries, todayIso) {
   const dates = allEntries.map((entry) => entry.date).sort()
   if (dates.length === 0) return []
@@ -195,10 +163,6 @@ function formatShortMonth(monthKey) {
   return new Intl.DateTimeFormat('fr-FR', { month: 'short', year: '2-digit' }).format(new Date(year, month - 1, 1))
 }
 
-/**
- * Cotisations, investissements, dépenses et recettes regroupés par mois (mois sans mouvement = 0).
- * Retourne [{ monthKey, label, shortLabel, contributions, investments, expenses, revenues }].
- */
 export function groupEntriesByMonth(entries, monthKeys) {
   return monthKeys.map((monthKey) => {
     const monthEntries = entries.filter((entry) => entry.date.startsWith(monthKey))
@@ -214,9 +178,7 @@ export function groupEntriesByMonth(entries, monthKeys) {
   })
 }
 
-/* ---------- Répartition des dépenses ---------- */
 
-// Dépenses par catégorie, de la plus élevée à la plus faible : [{ label, amount, percent }].
 export function getExpenseBreakdown(entries) {
   const expenses = entries.filter((entry) => entry.type === 'expense')
   const total = expenses.reduce((sum, entry) => sum + entry.amount, 0)
@@ -232,12 +194,7 @@ export function getExpenseBreakdown(entries) {
     .sort((a, b) => b.amount - a.amount || a.label.localeCompare(b.label, 'fr'))
 }
 
-/* ---------- Performance des activités ---------- */
 
-/**
- * Résultat de chaque activité concernée par les mouvements fournis (de la plus à la moins rentable).
- * Retourne [{ businessId, name, status, invested, expenses, revenues, result, kind }].
- */
 export function getBusinessPerformance(entries, businesses) {
   const totals = new Map()
 
@@ -261,10 +218,6 @@ export function getBusinessPerformance(entries, businesses) {
     .sort((a, b) => b.result - a.result || a.name.localeCompare(b.name, 'fr'))
 }
 
-/**
- * Jugement d'une activité. Une activité EN COURS n'est jamais déclarée déficitaire :
- * son résultat est « provisoire » (toutes ses recettes ne sont pas encore enregistrées).
- */
 export function getActivityAssessment(item) {
   if (item.status !== 'completed') return { label: 'Résultat provisoire', tone: 'info', isProvisional: true }
   if (item.kind === 'profit') return { label: 'Rentable', tone: 'success', isProvisional: false }
@@ -272,7 +225,6 @@ export function getActivityAssessment(item) {
   return { label: "À l'équilibre", tone: 'warning', isProvisional: false }
 }
 
-// Synthèse : nombre d'activités (total, en cours, terminées), la plus et la moins rentable (null si impossible).
 export function getActivitySummary(performance) {
   const best = performance[0] ?? null
   const worst = performance.length > 1 ? performance[performance.length - 1] : null
@@ -286,7 +238,6 @@ export function getActivitySummary(performance) {
   }
 }
 
-/* ---------- Cotisations des associés ---------- */
 
 /**
  * Total cotisé par chaque associé, objectif sur la période (objectif mensuel × nombre de mois) et progression.
@@ -311,7 +262,6 @@ export function getAssociateContributionStats({ entries, associates, monthCount,
   })
 }
 
-// Cotisations de chaque associé, mois par mois : [{ monthKey, label, shortLabel, [idAssocié]: montant }].
 export function getMonthlyContributionsByAssociate(entries, monthKeys, associates) {
   return monthKeys.map((monthKey) => {
     const row = { monthKey, label: formatMonthLabel(monthKey), shortLabel: formatShortMonth(monthKey) }

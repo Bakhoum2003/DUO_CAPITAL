@@ -6,11 +6,6 @@ import { dashboardReducer as loadReducer, initialDashboardState } from './dashbo
 
 const SEARCH_DELAY_MS = 350
 
-/**
- * Page Historique : synthèse (/history/summary) et opérations filtrées, triées et paginées par l'API.
- * Les réponses périmées sont ignorées ; une erreur n'efface jamais les dernières données valides ni ne les remplace
- * par des données locales. Lecture seule : aucune écriture n'existe dans ce module.
- */
 export default function useHistory() {
   const [filters, dispatchFilters] = useReducer(filtersReducer, DEFAULT_FILTERS)
   const [searchText, setSearchText] = useState('')
@@ -45,7 +40,6 @@ export default function useHistory() {
     loadList()
   }, [loadList])
 
-  // La recherche part vers l'API après une courte pause de saisie.
   useEffect(() => {
     const timerId = setTimeout(() => {
       const search = searchText.trim()

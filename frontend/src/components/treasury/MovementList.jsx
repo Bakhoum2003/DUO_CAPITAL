@@ -21,10 +21,6 @@ function Amount({ movement }) {
   )
 }
 
-/**
- * Historique des mouvements (tableau sur grand écran, cartes sur mobile) avec pagination. Lecture seule.
- * Props : movements, meta { page, totalPages, total, filtered }, hasActiveFilters, onPageChange, onSelect(movement), onReset, isRefreshing.
- */
 function MovementList({ movements, meta, hasActiveFilters, onPageChange, onSelect, onReset, isRefreshing }) {
   const badge = meta ? `${meta.total} mouvement(s) · net ${formatMoney(meta.filtered.net)}` : undefined
   return (

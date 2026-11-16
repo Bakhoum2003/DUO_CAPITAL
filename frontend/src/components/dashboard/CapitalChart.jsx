@@ -16,7 +16,6 @@ import SectionHeader from '../common/SectionHeader'
 const LINE_COLOR = '#0c8236'
 const Y_AXIS_TICKS = [0, 100000, 200000, 300000, 400000]
 
-// Étiquette au-dessus d'un point ; le dernier point reçoit une pastille verte.
 function CapitalPointLabel({ x, y, value, isLast }) {
   const pointX = Number(x)
   const pointY = Number(y)
@@ -40,13 +39,6 @@ function CapitalPointLabel({ x, y, value, isLast }) {
   )
 }
 
-/**
- * Graphique « Évolution de votre capital » (courbe avec aire, Recharts, responsive).
- *
- * Props :
- * - history : tableau { month, capital } (capital en FCFA)
- * - periodLabel : période affichée dans la pastille (ex. « 6 derniers mois »)
- */
 function CapitalChart({ history, periodLabel }) {
   const lastIndex = history.length - 1
 

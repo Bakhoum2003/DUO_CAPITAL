@@ -4,22 +4,6 @@ import SettingsFormActions from './SettingsFormActions'
 import SettingsInfoRow from './SettingsInfoRow'
 import SettingsSection from './SettingsSection'
 
-/**
- * Informations générales : identité du fonds (lecture seule) et description / informations du projet (modifiables).
- * L'enregistrement est demandé à l'utilisateur dans une fenêtre de confirmation avant d'être appliqué.
- *
- * Props :
- * - appName, slogan, currencyLabel : identité de l'application (lecture seule)
- * - values : { description, projectInfo } du brouillon
- * - errors : { description, projectInfo } messages d'erreur
- * - isDirty : modifications non enregistrées
- * - isSaving : enregistrement en cours
- * - updatedLabel : dernière modification (« 12 nov. 2026 à 10:30 par Cheikh Sow »), vide si jamais modifié
- * - onFieldChange : fonction (nom, valeur) appelée à chaque saisie
- * - onSubmit : fonction appelée à la soumission du formulaire (validation puis confirmation)
- * - onCancel : fonction appelée au clic sur « Annuler »
- * - descriptionMaxLength, projectInfoMaxLength : longueurs maximales
- */
 function GeneralInfoSection({
   appName,
   slogan,

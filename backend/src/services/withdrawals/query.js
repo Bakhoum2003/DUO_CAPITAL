@@ -1,4 +1,3 @@
-// Consultation des retraits : fonctions PURES (filtre, recherche, tri, pagination, indicateurs).
 // Les retraits reçus sont déjà les enregistrements non supprimés ; les montants viennent uniquement de ces enregistrements.
 
 import { toNameKey } from '../../models/shared/validators.js'
@@ -16,7 +15,6 @@ const COMPARATORS = {
   amount_asc: (a, b) => a.amount - b.amount,
 }
 
-// Ordre total et stable : critère demandé, puis date, heure d'enregistrement et identifiant.
 function compare(sort) {
   const main = COMPARATORS[sort] ?? COMPARATORS.date_desc
   return (a, b) =>
@@ -55,7 +53,6 @@ export function listWithdrawals(withdrawals, users, query) {
   }
 }
 
-/** Indicateurs globaux (tous les retraits actifs, quel que soit le filtre de la liste). */
 export function summarizeWithdrawals(withdrawals, users, partners) {
   const latest = [...withdrawals].sort(compare('date_desc')).slice(0, LATEST_COUNT)
   return {

@@ -10,10 +10,6 @@ const INITIAL_FILTERS = {
   sortOrder: 'date-desc',
 }
 
-/**
- * Gère la recherche, les filtres (type, associé, activité, période) et le tri de l'historique.
- * Retourne { filters, setFilter(nom, valeur), resetFilters(), hasActiveFilters }.
- */
 export default function useHistoryFilters() {
   const [filters, setFilters] = useState(INITIAL_FILTERS)
 
@@ -21,7 +17,6 @@ export default function useHistoryFilters() {
     setFilters((previous) => ({ ...previous, [name]: value }))
   }, [])
 
-  // Réinitialise la recherche et les filtres ; le tri choisi est conservé.
   const resetFilters = useCallback(() => {
     setFilters((previous) => ({ ...INITIAL_FILTERS, sortOrder: previous.sortOrder }))
   }, [])

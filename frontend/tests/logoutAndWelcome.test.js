@@ -72,7 +72,6 @@ describe('confirmation de déconnexion : branchement', () => {
     expect(layout.includes('onClose={() => setIsLogoutDialogOpen(false)}')).toBe(true)
     expect(layout.includes('onConfirm={handleLogout}')).toBe(true)
     expect(layout.includes('await runLogout()')).toBe(true)
-    // Annuler, fond assombri et Échap (useModalBehavior) passent tous par la même fermeture.
     expect(dialog.includes('onClick={handleClose} aria-hidden="true"')).toBe(true)
     expect(dialog.includes('label="Annuler" variant="secondary" onClick={handleClose}')).toBe(true)
     expect(dialog.includes('useModalBehavior({ dialogRef, onClose: handleClose })')).toBe(true)

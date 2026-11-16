@@ -8,9 +8,6 @@ export const AuthContext = createContext(null)
 /**
  * Fournisseur d'authentification, utilisé comme route « layout » : il enveloppe toutes les routes via <Outlet />.
  * Au montage il vérifie la session auprès du serveur (GET /api/auth/me) ; rien n'est lu dans le navigateur.
- *
- * Props :
- * - store : état d'authentification (remplaçable dans les tests)
  */
 function AuthProvider({ store = defaultStore }) {
   const state = useSyncExternalStore(store.subscribe, store.getState)

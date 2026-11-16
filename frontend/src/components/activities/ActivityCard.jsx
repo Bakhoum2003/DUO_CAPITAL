@@ -4,7 +4,6 @@ import { CARD_CLASSES } from '../../constants/uiClasses'
 import { formatShortDate } from '../../utils/formatters'
 import ActivityStatusBadge from './ActivityStatusBadge'
 
-/** Carte d'une activité de la liste (lien vers le détail). Props : activity (objet de l'API), to (adresse du détail). */
 function ActivityCard({ activity, to }) {
   return (
     <li>

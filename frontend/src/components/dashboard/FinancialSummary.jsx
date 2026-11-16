@@ -3,7 +3,6 @@ import { CARD_CLASSES } from '../../constants/uiClasses'
 import { formatNumber } from '../../utils/formatters'
 import SectionHeader from '../common/SectionHeader'
 
-// Icône et couleur de chaque indicateur du résumé.
 const ITEM_STYLES = {
   contributions: { icon: WalletIcon, color: 'text-brand-600' },
   investments: { icon: RocketIcon, color: 'text-violet-600' },

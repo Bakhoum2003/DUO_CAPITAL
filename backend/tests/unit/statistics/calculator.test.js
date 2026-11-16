@@ -23,7 +23,6 @@ const contribution = (partner, amount, contributionDate, period = contributionDa
 const operation = (business, type, amount, operationDate) => ({ _id: id(), business, type, amount, operationDate, description: '', concernedPartner: null, createdAt: new Date() })
 const withdrawal = (beneficiary, amount, withdrawalDate) => ({ _id: id(), beneficiary, amount, withdrawalDate, reason: 'Besoin', createdAt: new Date() })
 
-// Jeu de référence (aujourd'hui = 20 décembre 2026).
 const data = {
   contributions: [
     contribution(P1, 15000, '2026-12-02'),

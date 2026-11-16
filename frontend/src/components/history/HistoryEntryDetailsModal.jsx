@@ -2,13 +2,7 @@ import ActionButton from '../common/ActionButton'
 import FormModal from '../common/FormModal'
 import HistoryEntryDetails from './HistoryEntryDetails'
 
-/**
- * Fenêtre modale « Détail du mouvement » (lecture seule). À monter uniquement quand elle est ouverte.
- *
- * Props :
- * - entry : le mouvement à détailler (voir HistoryEntryDetails)
- * - onClose : fonction appelée pour fermer la fenêtre (Fermer, croix, Échap, clic sur le fond)
- */
+/** Fenêtre modale « Détail du mouvement » (lecture seule). À monter uniquement quand elle est ouverte. */
 function HistoryEntryDetailsModal({ entry, onClose }) {
   return (
     <FormModal

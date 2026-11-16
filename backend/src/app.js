@@ -40,7 +40,6 @@ export function createApp({ config, logger, database, clock }) {
   app.use(helmet())
   app.use(cors(createCorsOptions(config.frontendOrigins)))
 
-  // La route de santé reste hors limitation de débit : les outils de supervision doivent pouvoir l'appeler.
   app.use(HEALTH_PATH, createHealthRouter({ config, database }))
 
   app.use(API_BASE_PATH, createRateLimiter(config.rateLimit))

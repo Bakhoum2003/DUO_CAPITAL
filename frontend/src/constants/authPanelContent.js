@@ -1,7 +1,6 @@
 import { ROUTES } from '../routes/routePaths'
 
 // Contenu du panneau vert (partie gauche) selon la page d'authentification.
-// `illustration` correspond à une clé de AuthBrandPanel : 'growth' ou 'fistBump'.
 export const AUTH_PANEL_CONTENT = {
   [ROUTES.REGISTER]: {
     title: 'Construisons notre capital,',

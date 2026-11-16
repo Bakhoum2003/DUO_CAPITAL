@@ -1,19 +1,9 @@
-// Client HTTP centralisé vers le backend DUO CAPITAL.
-//
-// Contrat du backend (vérifié dans le code) :
-// - succès : { data: ... } ; erreur : { error: { code, message, fields? } } ;
 // - authentification par cookies HttpOnly (jeton d'accès `dc_access`, refresh token `dc_refresh`) :
-//   le JavaScript ne les voit jamais, le navigateur les renvoie grâce à `credentials: 'include'` ;
 // - jeton d'accès expiré : le navigateur supprime le cookie à son expiration, la réponse est donc
 //   401 UNAUTHENTICATED (ou 401 TOKEN_EXPIRED) ; on tente alors UN renouvellement via POST /api/auth/refresh.
-//
-// Règles :
-// - un seul renouvellement à la fois (les requêtes qui échouent en même temps attendent le même) ;
-// - un seul rejeu par requête, jamais de boucle ;
 // - un refresh token n'est jamais réutilisé : le navigateur envoie toujours le cookie le plus récent ;
 // - entre onglets, un verrou (Web Locks) évite deux renouvellements simultanés, qui déclencheraient la
 //   détection de réutilisation du refresh token côté serveur.
-// Aucun jeton n'est lu, stocké ni journalisé ici.
 
 import { API_BASE_URL } from '../config/apiConfig'
 import { NETWORK_ERROR_CODE, NETWORK_ERROR_MESSAGE } from '../utils/apiErrors'
@@ -67,7 +57,7 @@ export function createApiClient({ baseUrl = API_BASE_URL, fetchImpl, withRefresh
     try {
       payload = await response.json()
     } catch {
-      // Réponse vide ou non JSON : traitée ci-dessous.
+      // Corps absent ou non JSON : on s'appuie alors sur le statut HTTP.
     }
 
     if (response.ok) return withMeta ? { data: payload?.data ?? null, meta: payload?.meta ?? null } : (payload?.data ?? null)

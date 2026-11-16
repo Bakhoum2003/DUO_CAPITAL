@@ -1,7 +1,3 @@
-/**
- * BrandWave - illustration SVG décorative (recréée d'après les maquettes).
- * Prop : className (classes Tailwind de taille/position).
- */
 function BrandWave({ className = '' }) {
   return (
     <svg className={className} aria-hidden="true" focusable="false" viewBox="0 0 400 90" preserveAspectRatio="none">

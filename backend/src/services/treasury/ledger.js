@@ -1,10 +1,4 @@
-// Trésorerie : fonctions PURES (aucune base de données, aucune horloge). Les mouvements sont construits à partir des
-// enregistrements existants (cotisations, opérations d'activités, retraits) : RIEN n'est copié ni stocké.
-//
-// Règles : celles du Dashboard (Phase C), dont on réutilise `normalizeMovements`, `signed` et `buildSeries` pour ne pas
-// dupliquer les calculs :
 // - solde = cotisations + recettes − investissements − dépenses − retraits ;
-// - un mouvement daté après aujourd'hui (Africa/Dakar) n'est PAS compté (il est signalé) ; un enregistrement supprimé
 //   logiquement n'est jamais chargé ; aucun solde d'ouverture n'existe ;
 // - un mouvement = un enregistrement d'origine = une ligne ; le bénéfice commercial n'est jamais ajouté au solde.
 
@@ -21,7 +15,6 @@ export const TYPE_LABELS = Object.freeze({
   WITHDRAWAL: 'Retrait',
 })
 export const SORTS = Object.freeze(['date_desc', 'date_asc', 'amount_desc', 'amount_asc'])
-/** Valeur spéciale du filtre `activityId` : mouvements sans activité (cotisations, retraits). */
 export const NO_ACTIVITY = 'none'
 
 const SOURCE_BY_TYPE = Object.freeze({ CONTRIBUTION: 'contributions', REVENUE: 'operations', INVESTMENT: 'operations', EXPENSE: 'operations', WITHDRAWAL: 'withdrawals' })
@@ -29,12 +22,10 @@ const idOf = (value) => (value == null ? null : String(value))
 const sum = (list, pick = (item) => item.amount) => list.reduce((total, item) => total + pick(item), 0)
 const iso = (value) => (value instanceof Date ? value.toISOString() : (value ?? null))
 
-/** Mouvements normalisés (tous types, passés ET futurs) à partir des enregistrements non supprimés. */
 export function buildMovements(sources) {
   return normalizeMovements(sources)
 }
 
-/** Sépare les mouvements déjà survenus (comptés) de ceux datés dans le futur (ignorés mais signalés). */
 export function splitByToday(movements, today) {
   const realized = movements.filter((movement) => movement.date <= today)
   return { realized, future: movements.filter((movement) => movement.date > today) }
@@ -102,7 +93,6 @@ function indexSources(sources) {
   }
 }
 
-/** Représentation publique d'un mouvement (liste). `category` = catégorie de l'activité liée (null sinon). */
 export function toMovementView(movement, source, directories, today) {
   const business = movement.businessId ? (directories.businesses.get(movement.businessId) ?? null) : null
   const person = (id) => (id ? (directories.users.get(idOf(id)) ?? { id: idOf(id), name: null, partnerNumber: null }) : null)
@@ -149,10 +139,6 @@ const COMPARATORS = {
   amount_asc: (a, b) => a.amount - b.amount || COMPARATORS.date_desc(a, b),
 }
 
-/**
- * Historique des mouvements DÉJÀ SURVENUS : filtres, tri et pagination (côté serveur). Les totaux `filtered` portent sur
- * tout l'ensemble filtré (pas seulement la page). `categories` = catégories d'activité présentes (pour le filtre).
- */
 export function listMovements(sources, directories, query, today) {
   const { realized } = splitByToday(buildMovements(sources), today)
   const indexed = indexSources(sources)

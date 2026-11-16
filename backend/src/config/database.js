@@ -1,4 +1,3 @@
-// Connexion MongoDB (Mongoose). Une seule connexion partagée par toute l'application.
 
 import mongoose from 'mongoose'
 
@@ -65,7 +64,6 @@ export async function connectDatabase({ url, requireReplicaSet = false, logger }
   return mongoose.connection
 }
 
-/** Ferme la connexion MongoDB (sans erreur si elle est déjà fermée). */
 export async function disconnectDatabase() {
   if (mongoose.connection.readyState !== 0) await mongoose.disconnect()
   transactionsSupported = null

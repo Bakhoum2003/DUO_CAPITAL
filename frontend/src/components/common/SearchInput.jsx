@@ -1,16 +1,5 @@
 import { MagnifyingGlassIcon, XmarkIcon } from '../../icons'
 
-/**
- * Champ de recherche avec loupe et bouton pour effacer.
- *
- * Props :
- * - id : identifiant du champ
- * - label : libellé accessible (non affiché)
- * - value : texte saisi
- * - onChange : fonction appelée à chaque saisie (reçoit l'événement)
- * - onClear : fonction appelée au clic sur la croix
- * - placeholder : texte d'aide dans le champ
- */
 function SearchInput({ id, label, value, onChange, onClear, placeholder }) {
   return (
     <div className="relative">

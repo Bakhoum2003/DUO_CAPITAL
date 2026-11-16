@@ -1,7 +1,3 @@
-/**
- * GrowthIllustration - illustration SVG décorative (recréée d'après les maquettes).
- * Prop : className (classes Tailwind de taille/position).
- */
 function GrowthIllustration({ className = '' }) {
   return (
     <svg className={className} aria-hidden="true" focusable="false" viewBox="0 0 300 220">

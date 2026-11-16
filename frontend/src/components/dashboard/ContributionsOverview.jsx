@@ -5,7 +5,6 @@ import { SITUATION_LABELS, formatPercent } from '../../utils/dashboardViewModel'
 import { formatCurrency } from '../../utils/formatters'
 import SectionHeader from '../common/SectionHeader'
 
-/** Cotisations : attendu / versé / restant, pour chaque associé. Le restant n'est jamais supposé payé. */
 function ContributionsOverview({ contributions }) {
   const available = contributions.expectedAvailable
   return (

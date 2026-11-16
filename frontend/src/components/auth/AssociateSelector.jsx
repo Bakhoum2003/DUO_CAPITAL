@@ -1,18 +1,7 @@
 import { CircleCheckIcon, UserIcon } from '../../icons'
 import FormError from '../common/FormError'
 
-/**
- * Choix de l'associé (boutons « pilule » exclusifs).
- *
- * Props :
- * - label : titre du groupe (ex. « Choisissez votre nom »)
- * - name : nom du groupe de boutons radio
- * - options : tableau { value, label }
- * - selectedValue : valeur actuellement choisie ('' = aucune)
- * - onChange : fonction appelée avec la valeur choisie
- * - error : message d'erreur (vide = pas d'erreur)
- * - disabled : désactive le choix
- */
+
 function AssociateSelector({ label, name, options, selectedValue, onChange, error, disabled = false }) {
   const labelId = `${name}-label`
   const errorId = `${name}-error`

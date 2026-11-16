@@ -1,7 +1,6 @@
 import { BriefcaseIcon, ChartLineIcon, ClockRotateLeftIcon, GaugeHighIcon, GearIcon, HandHoldingDollarIcon, MoneyBillTransferIcon, WalletIcon } from '../icons'
 import { ROUTES } from '../routes/routePaths'
 
-// Entrées de la barre latérale, dans l'ordre d'affichage.
 export const NAVIGATION_ITEMS = [
   { label: 'Tableau de bord', to: ROUTES.DASHBOARD, icon: GaugeHighIcon },
   { label: 'Cotisations', to: ROUTES.CONTRIBUTIONS, icon: HandHoldingDollarIcon },

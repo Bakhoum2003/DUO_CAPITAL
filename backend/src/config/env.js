@@ -1,11 +1,7 @@
-// Chargement et validation de la configuration (variables d'environnement).
-//
 // Principes de sécurité :
 // - aucune valeur sensible dans le code : tout vient de l'environnement (fichier .env, jamais versionné) ;
-// - les messages d'erreur citent le NOM des variables, jamais leurs valeurs ;
 // - en environnement « test », la base utilisée est TOUJOURS TEST_DATABASE_URL, et son nom doit contenir « test » ;
 // - une base dont le nom contient « test » est refusée en développement et en production (et inversement),
-//   pour qu'une suite de tests ne puisse jamais viser des données réelles.
 
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -35,7 +31,6 @@ export const LOG_LEVELS = ['fatal', 'error', 'warn', 'info', 'debug', 'trace', '
 const DEFAULT_FRONTEND_URL = 'http://localhost:5173'
 const DEFAULT_PORT = 4000
 
-/** Configuration invalide : liste des variables fautives (sans leurs valeurs). */
 export class ConfigError extends Error {
   /** @param {Array<{variable: string, message: string}>} issues */
   constructor(issues) {
@@ -45,12 +40,10 @@ export class ConfigError extends Error {
   }
 }
 
-/* ---------- Adresses MongoDB ---------- */
 
 const HOST_PATTERN = /^(?:\[[0-9a-fA-F:.]+\]|[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?)(?::(\d{1,5}))?$/
 const FORBIDDEN_DATABASE_NAME_CHARS = /[/\\. "$]/
 
-// Position du premier caractère de contrôle ou séparateur de ligne Unicode (-1 si aucun).
 function findControlCharIndex(value) {
   for (let index = 0; index < value.length; index += 1) {
     const code = value.charCodeAt(index)
@@ -60,7 +53,6 @@ function findControlCharIndex(value) {
 }
 const VALID_PERCENT_ENCODING = /^(?:[^%]|%[0-9a-fA-F]{2})*$/
 
-/** Retire une paire de guillemets qui entoure toute la valeur (« "mongodb+srv://…" » -> « mongodb+srv://… »). */
 function stripSurroundingQuotes(value) {
   const trimmed = value.trim()
   const first = trimmed[0]
@@ -69,11 +61,6 @@ function stripSurroundingQuotes(value) {
 
 const fail = (reason) => ({ ok: false, reason })
 
-/**
- * Analyse une adresse MongoDB (mongodb:// ou mongodb+srv://, avec ou sans identifiants, port, base, paramètres).
- * Retourne soit { ok: true, … }, soit { ok: false, reason } : la raison décrit le PROBLÈME (jamais la valeur,
- * jamais les identifiants) pour que l'utilisateur sache quoi corriger.
- */
 export function analyzeMongoUri(uri) {
   if (typeof uri !== 'string' || uri.trim() === '') return fail('la valeur est vide.')
   const value = uri.trim()
@@ -100,7 +87,6 @@ export function analyzeMongoUri(uri) {
   const authority = slashIndex === -1 ? beforeQuery : beforeQuery.slice(0, slashIndex)
   const rawDatabase = slashIndex === -1 ? '' : beforeQuery.slice(slashIndex + 1)
 
-  // Identifiants : tout ce qui précède l'unique « @ » de l'autorité.
   const atCount = authority.split('@').length - 1
   if (atCount > 1) return fail("les identifiants contiennent un « @ » non encodé (écrivez %40).")
   if (atCount === 0 && rawDatabase.includes('@')) return fail("les identifiants contiennent un « / » non encodé (écrivez %2F).")
@@ -119,7 +105,6 @@ export function analyzeMongoUri(uri) {
     if (!VALID_PERCENT_ENCODING.test(userinfo)) return fail('les identifiants contiennent un « % » mal encodé (écrivez %25).')
   }
 
-  // Hôtes.
   const hosts = hostList.split(',')
   if (hostList === '' || hosts.some((host) => host === '')) return fail("l'hôte est absent ou vide.")
   for (const host of hosts) {
@@ -133,7 +118,6 @@ export function analyzeMongoUri(uri) {
     if (!hosts[0].includes('.')) return fail('mongodb+srv:// exige un nom de domaine complet (ex. cluster0.xxxxx.mongodb.net).')
   }
 
-  // Nom de la base.
   let databaseName = rawDatabase
   try {
     databaseName = decodeURIComponent(rawDatabase)
@@ -158,7 +142,6 @@ export function parseMongoUri(uri) {
   return { hosts, databaseName, identity }
 }
 
-/** Explication (sans valeur ni identifiant) de ce qui ne va pas dans l'adresse, ou null si elle est valide. */
 export function explainMongoUriProblem(uri) {
   const analysis = analyzeMongoUri(uri)
   return analysis.ok ? null : analysis.reason
@@ -175,7 +158,6 @@ export function redactMongoUri(uri) {
   return match ? `${match[1]}***@${uri.trim().slice(match[0].length)}` : uri
 }
 
-/** Vrai si le nom de base contient « test » comme mot entier (duo_capital_test, test-db…, pas « contest »). */
 export function isTestDatabaseName(name) {
   return typeof name === 'string' && /(^|[-_.])tests?($|[-_.])/i.test(name)
 }
@@ -200,7 +182,6 @@ export function getTestDatabaseIssues(uri, otherUri) {
   return issues
 }
 
-/** Lève une erreur si l'adresse ne peut pas servir de base de test (utilisé par les tests d'intégration). */
 export function assertSafeTestDatabaseUri(uri, otherUri) {
   const issues = getTestDatabaseIssues(uri, otherUri)
   if (issues.length > 0) {
@@ -222,7 +203,6 @@ function normalizeOrigin(rawOrigin) {
   }
 }
 
-/* ---------- Schéma et analyse ---------- */
 
 const ENV_KEYS = [
   'NODE_ENV',
@@ -261,7 +241,6 @@ const SCHEMA_MESSAGES = {
   COOKIE_SAME_SITE: `doit valoir ${COOKIE_SAME_SITE_VALUES.join(', ')}.`,
 }
 
-// Ne garde que les variables connues, rogne les espaces et ignore les valeurs vides (« PORT= »).
 function pickEnv(source) {
   const picked = {}
   for (const key of ENV_KEYS) {
@@ -344,7 +323,6 @@ export function parseEnv(source) {
     addIssue('JWT_ACCESS_SECRET', 'est un modèle ou une valeur trop prévisible : générez un vrai secret aléatoire.')
   }
 
-  // Mois de début du fonds (cotisations attendues) : facultatif, jamais deviné.
   if (env.FUND_START_PERIOD && !isValidPeriod(env.FUND_START_PERIOD)) {
     addIssue('FUND_START_PERIOD', 'doit être un mois au format AAAA-MM (ex. 2026-01).')
   }

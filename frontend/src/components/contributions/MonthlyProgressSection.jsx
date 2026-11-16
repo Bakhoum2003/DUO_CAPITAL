@@ -6,17 +6,6 @@ import SectionHeader from '../common/SectionHeader'
 import AssociateProgressCard from './AssociateProgressCard'
 import MonthNavigator from './MonthNavigator'
 
-/**
- * Section « Suivi mensuel » : mois sélectionné, navigation entre les mois,
- * progression collective et progression de chaque associé.
- *
- * Props :
- * - monthLabel : mois sélectionné (ex. « Novembre 2026 »)
- * - canGoPrevious, canGoNext : possibilité de changer de mois
- * - onPreviousMonth, onNextMonth : fonctions de navigation
- * - progressItems : tableau { associate, collected, target, remaining, percent, isComplete }
- * - collectiveProgress : { collected, target, remaining, percent, isComplete } pour les deux associés
- */
 function MonthlyProgressSection({
   monthLabel,
   canGoPrevious,

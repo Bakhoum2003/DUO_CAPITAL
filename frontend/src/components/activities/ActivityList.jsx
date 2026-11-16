@@ -5,10 +5,6 @@ import ActionButton from '../common/ActionButton'
 import EmptyState from '../common/EmptyState'
 import ActivityCard from './ActivityCard'
 
-/**
- * Liste paginée des activités (cartes). Distingue « aucune activité » et « aucun résultat pour ces filtres ».
- * Props : activities, meta { page, totalPages, total }, hasActiveFilters, onPageChange, onAdd, onReset, isRefreshing.
- */
 function ActivityList({ activities, meta, hasActiveFilters, onPageChange, onAdd, onReset, isRefreshing }) {
   if (activities.length === 0) {
     return (

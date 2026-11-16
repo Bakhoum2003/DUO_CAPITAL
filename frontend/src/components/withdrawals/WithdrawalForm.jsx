@@ -8,13 +8,6 @@ import FormError from '../common/FormError'
 import FormSelectField from '../common/FormSelectField'
 import TextAreaField from '../common/TextAreaField'
 
-/**
- * Formulaire de retrait (création ou modification). Rien n'est enregistré avant la confirmation du serveur ;
- * le bouton est désactivé pendant l'envoi (aucune double soumission). L'auteur est affiché, jamais modifiable.
- *
- * Props : initialValues, context { todayIso, partnerIds, availableBalance }, partnerOptions, authorName, isEdit,
- * submission { status, message, fieldErrors }, onSubmit(values), onCancel.
- */
 function WithdrawalForm({ initialValues, context, partnerOptions, authorName, isEdit, submission, onSubmit, onCancel }) {
   const { values, errors, handleChange, handleBlur, validateAll } = useFormValidation({
     initialValues,

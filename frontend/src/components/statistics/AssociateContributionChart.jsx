@@ -3,14 +3,6 @@ import { CHART_COLORS } from '../../constants/statisticsSettings'
 import { formatCompactAmount, formatCurrency } from '../../utils/formatters'
 import ChartLegend from './ChartLegend'
 
-/**
- * Progression mensuelle des cotisations de chaque associé, avec l'objectif mensuel en repère.
- *
- * Props :
- * - data : [{ shortLabel, label, [idAssocié]: montant }] (un élément par mois)
- * - associates : [{ id, name }]
- * - monthlyTarget : objectif mensuel de chaque associé (FCFA)
- */
 function AssociateContributionChart({ data, associates, monthlyTarget }) {
   const names = Object.fromEntries(associates.map((associate) => [associate.id, associate.name]))
   const legendItems = associates.map((associate, index) => ({ label: associate.name, color: CHART_COLORS.associates[index] }))

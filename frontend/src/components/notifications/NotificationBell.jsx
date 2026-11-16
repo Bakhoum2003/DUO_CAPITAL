@@ -8,12 +8,6 @@ import { shouldShowReminderBadge } from '../../utils/settingsViewModel'
 import { formatCurrency } from '../../utils/formatters'
 import ProgressBar from '../common/ProgressBar'
 
-/**
- * Cloche de l'en-tête : liste les rappels de cotisation réels (associé, mois, objectif, versé, reste, progression).
- * - pastille rouge : seulement si les notifications visuelles ET les rappels sont activés pour l'associé connecté ;
- * - rappels désactivés : le menu l'indique, aucune cotisation n'est affichée ni modifiée ;
- * - les erreurs de chargement restent visibles dans le menu.
- */
 function NotificationBell() {
   const { preferences } = usePreferences()
   const { status, view, errorMessage, refresh } = useReminders()

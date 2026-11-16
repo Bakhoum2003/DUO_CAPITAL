@@ -6,19 +6,6 @@ import IconButton from '../common/IconButton'
 import StatusBadge from '../common/StatusBadge'
 import OperationAmount from './OperationAmount'
 
-/**
- * Une ligne du tableau des opérations (écrans moyens et grands).
- *
- * Props :
- * - type : 'investment', 'expense' ou 'revenue'
- * - amount : montant (FCFA)
- * - date : date ISO « AAAA-MM-JJ »
- * - associateName, initials, avatarTone : associé concerné
- * - categoryLabel : catégorie de dépense (vide pour les autres types)
- * - description : description (vide = tiret)
- * - onEdit : fonction appelée au clic sur « Modifier »
- * - onDelete : fonction appelée au clic sur « Supprimer »
- */
 function OperationTableRow({
   type,
   amount,

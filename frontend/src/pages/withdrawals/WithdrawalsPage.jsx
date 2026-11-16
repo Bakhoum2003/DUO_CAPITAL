@@ -21,11 +21,6 @@ import { availableBalanceOf, availableForEdit, buildCreateValues, buildEditValue
 const TITLE = 'Retraits'
 const DESCRIPTION = "Retraits d'argent effectués par les associés sur la trésorerie commune : chaque retrait diminue le solde disponible et reste tracé."
 
-/**
- * Page « Retraits » : indicateurs, derniers retraits, liste filtrable, création, modification et suppression logique.
- * Toutes les données viennent de l'API (le serveur calcule et contrôle tout) ; aucune donnée fictive ; une écriture
- * n'est affichée comme réussie qu'après la confirmation du serveur, puis tout est relu.
- */
 function WithdrawalsPage() {
   const { user } = useAuth()
   const withdrawalsModule = useWithdrawalsModule()
@@ -85,7 +80,6 @@ function WithdrawalsPage() {
     </div>
   )
 
-  // Première lecture : aucune donnée du serveur n'est encore disponible.
   if (!summaryData) {
     return (
       <div className="space-y-6">

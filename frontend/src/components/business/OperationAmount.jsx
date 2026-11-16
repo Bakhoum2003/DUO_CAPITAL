@@ -6,13 +6,6 @@ const TYPE_STYLES = {
   revenue: { sign: '+', className: 'text-brand-700' },
 }
 
-/**
- * Montant d'une opération avec son signe et sa couleur : investissement (bleu), dépense (rouge), recette (vert).
- *
- * Props :
- * - type : 'investment', 'expense' ou 'revenue'
- * - amount : montant (FCFA)
- */
 function OperationAmount({ type, amount }) {
   const style = TYPE_STYLES[type]
 

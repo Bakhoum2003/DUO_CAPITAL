@@ -6,7 +6,6 @@ import ActionButton from '../common/ActionButton'
  * Réinitialisation des paramètres. Ne concerne jamais les cotisations, les business ni les opérations.
  *
  * Props :
- * - onReset : fonction appelée au clic (ouvre la fenêtre de confirmation)
  * - isDisabled : désactive le bouton (enregistrement en cours)
  */
 function ResetSection({ onReset, isDisabled = false }) {

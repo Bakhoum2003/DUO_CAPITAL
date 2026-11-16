@@ -1,5 +1,3 @@
-// Routes /api/auth contre une VRAIE base MongoDB de test (en mémoire ou TEST_DATABASE_URL) : jamais DATABASE_URL, jamais Atlas.
-// Si aucune base de test n'est disponible, ces tests sont ignorés (voir tests/setup/globalSetup.js).
 
 import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose'

@@ -1,4 +1,3 @@
-// Filtres de l'Historique : fonctions PURES. La période réutilise les intervalles du Dashboard (resolvePeriodRange).
 
 import { resolvePeriodRange } from '../../utils/businessDates.js'
 
@@ -13,7 +12,6 @@ export function resolveHistoryRange({ period = 'all', from, to }, today) {
   return { from: lower, to: upper }
 }
 
-/** Requête de l'Historique (limit) -> requête du registre de trésorerie (pageSize), avec la période résolue. */
 export function toLedgerQuery(query, today) {
   const { from, to } = resolveHistoryRange(query, today)
   return {

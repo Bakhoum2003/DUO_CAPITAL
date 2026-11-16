@@ -23,7 +23,6 @@ const BackLink = () => (
   </Link>
 )
 
-/** Contenu de la page détail pour une activité donnée (remonté à chaque changement d'identifiant). */
 function ActivityDetails({ activityId }) {
   const detail = useActivityDetail(activityId)
   const { activity, mutation } = detail
@@ -118,7 +117,6 @@ function ActivityDetails({ activityId }) {
   )
 }
 
-/** Page « Détail d'une activité » (adresse /activites/:activityId). */
 function ActivityDetailsPage() {
   const { activityId } = useParams()
   return <ActivityDetails key={activityId} activityId={activityId} />

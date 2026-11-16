@@ -9,12 +9,6 @@ export const RemindersContext = createContext(null)
 
 const EMPTY_VIEW = buildReminderView(null)
 
-/**
- * Rappels de cotisation réels (GET /settings/contribution-reminders), partagés par la cloche de l'en-tête et la bannière
- * du Dashboard. Route « layout » sous PreferencesProvider.
- * - rechargés à chaque changement de page (les cotisations ont pu changer) ;
- * - aucun appel si l'associé a désactivé les rappels (aucune cotisation n'est jamais modifiée ici).
- */
 function RemindersProvider() {
   const { preferences, status } = usePreferences()
   const { pathname } = useLocation()

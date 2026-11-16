@@ -12,6 +12,5 @@ export const activitiesApi = {
   get: (id) => apiClient.request(activityPath(id)),
   create: (payload) => apiClient.request('/api/v1/activities', { method: 'POST', body: payload }),
   update: (id, payload) => apiClient.request(activityPath(id), { method: 'PATCH', body: payload }),
-  /** action : 'suspend' | 'reactivate' | 'complete' | 'reopen' | 'archive' */
   transition: (id, action, input) => apiClient.request(`${activityPath(id)}/${action}`, { method: 'POST', body: buildActionBody(action, input) }),
 }

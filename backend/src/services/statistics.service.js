@@ -1,5 +1,3 @@
-// Statistiques financières : CONSULTATION SEULE (aucune écriture, aucun nouveau modèle, aucune collection parallèle).
-// Une seule lecture des enregistrements actifs (la même que la Trésorerie et l'Historique : `readSnapshot`), puis des calculs
 // purs (services/statistics/calculator.js) bâtis sur le calculateur du Dashboard. Le frontend n'additionne jamais rien.
 
 import { MONTHLY_CONTRIBUTION_PER_PARTNER } from '../config/constants.js'

@@ -1,12 +1,5 @@
 import { UserIcon } from '../../icons'
 
-/**
- * Bloc utilisateur en bas de la barre latérale (avatar, nom, rôle).
- *
- * Props :
- * - userName : nom complet de l'utilisateur connecté
- * - userRole : rôle affiché sous le nom (ex. « Administrateur »)
- */
 function SidebarUserCard({ userName, userRole }) {
   return (
     <div className="flex items-center gap-3">

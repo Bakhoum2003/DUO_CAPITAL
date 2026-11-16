@@ -1,6 +1,4 @@
-// Logique PURE du module Retraits (sans React ni réseau) : filtres, validation, corps des requêtes, messages, cartes.
 // Le backend reste la source de vérité : montants, soldes et totaux viennent de l'API ; ici, uniquement de la
-// présentation et un contrôle de saisie (qui ne remplace jamais celui du serveur).
 
 import { formatShortDate } from './formatters'
 import { parseAmountInput } from './contributionsViewModel'
@@ -20,7 +18,6 @@ export const SORT_OPTIONS = [
 
 export const hasActiveFilters = (filters) => ['search', 'beneficiaryId', 'authorId', 'from', 'to'].some((key) => Boolean(filters[key]))
 
-/** Message d'erreur si la période est incohérente (la requête n'est alors pas envoyée), sinon null. */
 export function validateFilters(filters) {
   if (filters.from && !DATE.test(filters.from)) return 'La date de début est invalide.'
   if (filters.to && !DATE.test(filters.to)) return 'La date de fin est invalide.'
@@ -28,7 +25,6 @@ export function validateFilters(filters) {
   return null
 }
 
-/** Adresse de la liste : paramètres exactement ceux attendus par le backend. */
 export function buildWithdrawalsPath(filters = DEFAULT_FILTERS) {
   const params = new URLSearchParams()
   for (const key of ['search', 'beneficiaryId', 'authorId', 'from', 'to']) {
@@ -42,14 +38,11 @@ export function buildWithdrawalsPath(filters = DEFAULT_FILTERS) {
 
 export const withdrawalPath = (id) => `/api/v1/withdrawals/${encodeURIComponent(id)}`
 
-/* ------------------------------- Formulaire ------------------------------- */
 
 export const EMPTY_FORM = Object.freeze({ beneficiaryId: '', amount: '', withdrawalDate: '', reason: '' })
 
-/** Valeurs initiales de création : la date du jour ; AUCUN bénéficiaire par défaut (il n'est jamais déduit de l'auteur). */
 export const buildCreateValues = (todayIso) => ({ ...EMPTY_FORM, withdrawalDate: todayIso })
 
-/** Valeurs initiales de modification, à partir du retrait renvoyé par l'API. */
 export const buildEditValues = (withdrawal) => ({
   beneficiaryId: withdrawal.beneficiary.id,
   amount: String(withdrawal.amount),
@@ -112,7 +105,6 @@ const CODE_MESSAGES = {
   WITHDRAWAL_NOT_FOUND: "Ce retrait n'existe plus ou a déjà été supprimé.",
 }
 
-/** Transforme une erreur d'API en { message, fieldErrors } affichables (jamais de détail technique). */
 export function describeWithdrawalError(error) {
   const fieldErrors = {}
   for (const item of Array.isArray(error?.fields) ? error.fields : []) {
@@ -122,9 +114,7 @@ export function describeWithdrawalError(error) {
   return { message: CODE_MESSAGES[error?.code] ?? error?.message ?? "L'opération a échoué. Réessayez.", fieldErrors }
 }
 
-/* ------------------------------- Présentation ------------------------------ */
 
-/** Cartes d'indicateurs : valeurs de l'API (jamais recalculées). « — » tant que la synthèse n'est pas chargée. */
 export function buildSummaryCards(summary) {
   const byId = new Map((summary?.byBeneficiary ?? []).map((row) => [row.partner.id, row]))
   const partnerCards = (summary?.partners ?? []).map((partner) => {

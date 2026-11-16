@@ -4,17 +4,6 @@ import ActionButton from '../common/ActionButton'
 import SearchInput from '../common/SearchInput'
 import SelectField from '../common/SelectField'
 
-/**
- * Barre de recherche, filtres (associé, mois) et tri de l'historique.
- *
- * Props :
- * - filters : { search, associateId, monthKey, sortOrder }
- * - onFilterChange : fonction (nom, valeur) appelée à chaque changement
- * - onReset : fonction appelée au clic sur « Réinitialiser »
- * - hasActiveFilters : affiche le bouton « Réinitialiser » quand un filtre est actif
- * - associateOptions : tableau { value, label } (la première option « tous » a la valeur '')
- * - monthOptions : tableau { value, label } (la première option « tous » a la valeur '')
- */
 function ContributionFilters({ filters, onFilterChange, onReset, hasActiveFilters, associateOptions, monthOptions }) {
   return (
     <div className="mb-4 space-y-3">

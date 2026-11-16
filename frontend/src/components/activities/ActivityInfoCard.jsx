@@ -13,7 +13,7 @@ function Row({ label, value }) {
   )
 }
 
-/** Informations générales et historique de l'activité (uniquement ce que l'API fournit). Props : activity. */
+/** Informations générales et historique de l'activité (uniquement ce que l'API fournit). */
 function ActivityInfoCard({ activity }) {
   const person = (value) => value?.name ?? '—'
   return (

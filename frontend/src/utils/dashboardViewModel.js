@@ -1,5 +1,3 @@
-// Logique PURE du dashboard (sans React, testable en environnement node) : requêtes, validation du filtre,
-// cartes d'indicateurs et libellés. Aucun total n'est recalculé ici : tout montant vient du serveur.
 
 import { formatCurrency, formatNumber, formatSignedAmount } from './formatters'
 
@@ -18,7 +16,6 @@ const MAX_RANGE_DAYS = 3660
 
 const toUtc = (date) => Date.UTC(...date.split('-').map((part, index) => Number(part) - (index === 1 ? 1 : 0)))
 
-/** Message d'erreur du filtre personnalisé, ou null s'il est valide. */
 export function validateCustomRange(from, to) {
   if (!DATE_PATTERN.test(from ?? '') || !DATE_PATTERN.test(to ?? '')) return 'Renseignez une date de début et une date de fin.'
   if (from > to) return 'La date de fin ne peut pas précéder la date de début.'
@@ -26,7 +23,6 @@ export function validateCustomRange(from, to) {
   return null
 }
 
-/** Un filtre est « prêt » s'il peut être envoyé au serveur (le personnalisé exige des dates valides). */
 export const isFilterReady = (filter) => filter.period !== 'custom' || validateCustomRange(filter.from, filter.to) === null
 
 export function buildDashboardPath({ period = 'all', from = '', to = '' } = {}) {
@@ -41,7 +37,6 @@ export function buildDashboardPath({ period = 'all', from = '', to = '' } = {}) 
 const PERCENT = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 })
 export const formatPercent = (value) => `${PERCENT.format(value)} %`
 
-/** Cartes d'indicateurs : une valeur absente reste « Non calculable », jamais un faux 0. */
 export function buildKpiCards(data) {
   const { treasury, capital, investments, expenses, revenues, result, contributions } = data
   const resultLabel =
@@ -90,7 +85,6 @@ export const SITUATION_LABELS = {
   NOT_AVAILABLE: { label: 'Non calculable', tone: 'blue' },
 }
 
-/** « 12 000 FCFA » pour une entrée, « −12 000 FCFA » pour une sortie. */
 export function formatActivityAmount(activity) {
   return activity.direction === 'IN' ? `+${formatCurrency(activity.amount)}` : `−${formatCurrency(activity.amount)}`
 }
@@ -99,7 +93,6 @@ export function formatActivityAmount(activity) {
 export const hasPoints = (points) => Array.isArray(points) && points.length > 0
 export const hasAmounts = (rows) => Array.isArray(rows) && rows.some((row) => row.amount > 0)
 
-/** Libellé court d'un point d'axe : « 05/11 » (jour) ou « nov. 26 » (mois). */
 export function formatAxisKey(key, granularity) {
   if (granularity === 'day') {
     const [, month, day] = key.split('-')

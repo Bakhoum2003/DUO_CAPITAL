@@ -28,10 +28,6 @@ const STATUS_OPTIONS = [{ value: '', label: 'Tous les statuts' }, ...BUSINESS_ST
 const CATEGORY_LABELS = Object.fromEntries(BUSINESS_CATEGORIES.map((category) => [category.value, category.label]))
 const ASSOCIATE_NAMES = Object.fromEntries(BUSINESS_ASSOCIATES.map((associate) => [associate.id, associate.name]))
 
-/**
- * Page « Business » : récapitulatif, liste filtrable des activités et ajout d'un business.
- * Tous les chiffres sont calculés à partir des business et de leurs opérations.
- */
 function BusinessPage() {
   const { businesses, operations, errorMessage, addBusiness } = useBusinessStore()
   const { filters, setFilter, resetFilters, hasActiveFilters } = useBusinessFilters()

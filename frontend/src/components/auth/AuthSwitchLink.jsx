@@ -1,14 +1,6 @@
 import { ArrowRightIcon } from '../../icons'
 import { Link } from 'react-router-dom'
 
-/**
- * Ligne de bascule entre connexion et inscription (« Déjà un compte ? Se connecter → »).
- *
- * Props :
- * - promptText : question affichée (ex. « Déjà un compte ? »)
- * - linkLabel : texte du lien (ex. « Se connecter »)
- * - to : chemin de destination
- */
 function AuthSwitchLink({ promptText, linkLabel, to }) {
   return (
     <div className="flex items-center gap-3">

@@ -5,7 +5,6 @@ const json = (status, body) => ({ ok: status >= 200 && status < 300, status, jso
 const ok = (data) => json(200, { data })
 const fail = (status, code, message = 'Erreur') => json(status, { error: { code, message } })
 
-/** Faux fetch : réponses successives par chemin ; enregistre les appels. */
 function fakeFetch(routes) {
   const calls = []
   const queues = Object.fromEntries(Object.entries(routes).map(([path, list]) => [path, [...list]]))

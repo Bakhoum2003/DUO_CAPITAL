@@ -1,11 +1,6 @@
-// Rappels de cotisation : fonction PURE bâtie sur le résumé existant des cotisations (services/contributions/summary.js).
-// Aucun calcul de cotisation n'est refait ici : montants réels cumulés (jamais plafonnés), mois dus depuis FUND_START_PERIOD,
-// cotisations supprimées ou futures déjà exclues en amont. Rien n'est inventé : un mois sans versement n'est « à compléter »
-// que s'il est réellement dû. Aucune cotisation n'est jamais créée pour produire un rappel.
 
 export const REMINDER_STATUSES = Object.freeze({ ACHIEVED: 'ACHIEVED', TO_COMPLETE: 'TO_COMPLETE' })
 
-// Pourcentage de progression : jamais au-dessus de 100 % (le montant versé, lui, n'est jamais plafonné).
 const progressPercent = (paid, target) => (target > 0 ? Math.min(100, Math.round((paid / target) * 1000) / 10) : 0)
 
 /**

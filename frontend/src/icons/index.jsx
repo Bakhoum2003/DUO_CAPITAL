@@ -88,9 +88,6 @@ import {
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 
-// Icônes de DUO CAPITAL : exclusivement Font Awesome Free (style Solid).
-// Le CSS de Font Awesome n'est pas injecté automatiquement : les quelques règles utiles sont dans styles/index.css
-// (couche « base »), afin que les classes Tailwind de taille (h-4 w-4…) restent prioritaires.
 config.autoAddCss = false
 
 /**

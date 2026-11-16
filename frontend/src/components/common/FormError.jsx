@@ -1,14 +1,5 @@
 import { CircleExclamationIcon, CircleInfoIcon } from '../../icons'
 
-/**
- * Message d'erreur (ou d'information) de formulaire. N'affiche rien si `message` est vide.
- *
- * Props :
- * - message : texte à afficher
- * - id : identifiant (pour aria-describedby du champ concerné)
- * - variant : 'field' (petit texte sous un champ) ou 'banner' (encadré pour tout le formulaire)
- * - tone : 'error' (rouge) ou 'info' (vert), utile surtout avec le variant 'banner'
- */
 function FormError({ message, id, variant = 'field', tone = 'error' }) {
   if (!message) return null
 

@@ -2,16 +2,6 @@ import { UsersIcon } from '../../icons'
 import AssociateInfoCard from './AssociateInfoCard'
 import SettingsSection from './SettingsSection'
 
-/**
- * Les deux associés du fonds (lecture seule : pas de troisième associé, pas de gestion d'utilisateurs).
- *
- * Props :
- * - associates : [{ id, name, initials, avatarTone }]
- * - roleLabel : rôle affiché pour chacun
- * - participationPercent : part de chaque associé (en %)
- * - monthlyTarget : objectif mensuel individuel (FCFA)
- * - errorMessages : liste d'anomalies détectées dans les données des associés (vide = tout est cohérent)
- */
 function AssociatesSection({ associates, roleLabel, participationPercent, monthlyTarget, errorMessages }) {
   return (
     <SettingsSection

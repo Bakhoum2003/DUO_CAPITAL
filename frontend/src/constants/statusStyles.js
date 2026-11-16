@@ -1,4 +1,3 @@
-// Libellé et couleur (tone de StatusBadge) de chaque statut renvoyé par les données.
 
 export const BUSINESS_STATUSES = {
   completed: { label: 'Terminé', tone: 'success' },

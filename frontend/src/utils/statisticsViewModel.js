@@ -1,19 +1,14 @@
-// Logique PURE de la page Statistiques (sans React ni réseau) : paramètres d'API, validation de la période et adaptation de la
-// réponse du serveur aux composants existants. Le backend est la source de vérité : aucun total n'est recalculé ici
-// (seules des mises en forme et la comparaison d'évolution, déjà testée, de statisticsCalculations).
 
 import { getActivitySummary, compareTotals } from './statisticsCalculations'
 import { getResultKind } from './businessCalculations'
 import { formatMonthLabel, formatShortDate } from './formatters'
 
 const DATE = /^\d{4}-\d{2}-\d{2}$/
-// Les clés de l'interface (déjà utilisées par le filtre) vers celles de l'API.
 const API_PERIODS = { '3months': 'last3months', '6months': 'last6months' }
 const ASSOCIATE_TONES = ['green', 'red']
 
 export const toApiPeriod = (periodKey) => API_PERIODS[periodKey] ?? periodKey
 
-/** Message d'erreur si la période est incohérente (la requête n'est alors pas envoyée), sinon ''. */
 export function validatePeriod({ periodKey, customStartDate = '', customEndDate = '' }) {
   if (periodKey !== 'custom') return ''
   if (!customStartDate || !customEndDate) return 'Choisissez une date de début et une date de fin pour la période personnalisée.'
@@ -22,7 +17,6 @@ export function validatePeriod({ periodKey, customStartDate = '', customEndDate 
   return ''
 }
 
-/** Adresse de l'API : exactement les paramètres attendus par le backend. */
 export function buildStatisticsPath({ periodKey, customStartDate = '', customEndDate = '' }) {
   const params = new URLSearchParams({ period: toApiPeriod(periodKey) })
   if (periodKey === 'custom') {
@@ -32,16 +26,10 @@ export function buildStatisticsPath({ periodKey, customStartDate = '', customEnd
   return `/api/v1/statistics?${params.toString()}`
 }
 
-/** Identifie une période : une réponse n'est affichée que pour la période demandée (jamais celle d'avant). */
 export const periodCacheKey = (period) => buildStatisticsPath(period)
 
-/** Réponse conservée pour une période donnée : { key, payload } ; « null » si elle concerne une autre période. */
 export const selectForKey = (stored, key) => (stored && stored.key === key ? stored.payload : null)
 
-/**
- * État affiché : 'idle' (période invalide, rien à lire), 'error', 'loading' (aucune donnée pour CETTE période),
- * 'refreshing' (données de cette période déjà là, relecture en cours) ou 'ready'.
- */
 export function deriveStatus({ periodError, loadStatus, hasData }) {
   if (periodError) return 'idle'
   if (loadStatus === 'error') return 'error'
@@ -62,7 +50,6 @@ const initialsOf = (name) =>
     .join('')
     .toUpperCase()
 
-/** Libellé de la période affichée (« Du 01/12/2026 au 20/12/2026 », « Depuis… », « Toute la période »). */
 export function describePeriod(period) {
   if (!period) return ''
   if (period.key === 'all') return 'Toute la période'

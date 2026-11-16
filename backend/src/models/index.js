@@ -1,6 +1,3 @@
-// Point d'entrée des modèles. Importer ce fichier ENREGISTRE les modèles dans Mongoose.
-// Mongoose crée les index déclarés (autoIndex) à la première connexion qui suit : B1 n'importe pas ce fichier
-// depuis le serveur ; ce sont les futurs services (B2+) qui le feront.
 
 export { AuditLog } from './AuditLog.js'
 export { Business } from './Business.js'

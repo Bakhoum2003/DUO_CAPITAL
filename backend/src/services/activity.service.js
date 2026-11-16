@@ -1,10 +1,4 @@
-// Activités commerciales du fonds commun (mêmes droits pour les deux associés).
-//
-// Principes :
 // - aucune suppression, jamais : une activité s'archive (le modèle interdit la suppression physique) ;
-// - modifier une activité ou changer son statut ne touche AUCUNE opération financière (investissement, dépense, recette) ;
-//   les montants ne sont ni lus pour être modifiés, ni écrits ici : le service ne manipule que la collection Business ;
-// - une activité ARCHIVÉE est figée ; les transitions suivent services/activities/rules.js ;
 // - chaque écriture est tracée dans AuditLog, dans la même transaction que la modification.
 
 import { Business } from '../models/Business.js'
@@ -45,7 +39,6 @@ function assertValidId(id) {
   if (!isObjectId(id)) throw fail(400, 'INVALID_ID', "L'identifiant de l'activité est invalide.")
 }
 
-// Une écriture simultanée (version modifiée entre la lecture et l'enregistrement) devient une erreur claire.
 function mapConflict(error) {
   if (error?.name === 'VersionError') {
     throw fail(409, 'ACTIVITY_CONFLICT', "Cette activité vient d'être modifiée ailleurs. Actualisez la page puis recommencez.")
@@ -97,7 +90,6 @@ export function createActivityService({ clock = () => new Date() } = {}) {
     recordAudit({ actor: actor.userId, actorName: actor.name, action, resourceType: 'BUSINESS', resourceId: activity._id, ...details, meta }, { dbSession })
 
   return {
-    /** Liste filtrée, triée et paginée + compteurs par statut (sur toutes les activités, filtres ignorés). */
     async list(query) {
       const filter = {}
       filter.status = query.status ?? { $ne: 'ARCHIVED' } // les archivées ne s'affichent que si on les demande
@@ -161,7 +153,6 @@ export function createActivityService({ clock = () => new Date() } = {}) {
       return viewOf(created, { operationsCount: 0 })
     },
 
-    /** Modification des informations autorisées (jamais le statut, jamais les opérations). */
     async update({ id, actor, body, meta = {} }) {
       assertValidId(id)
       try {
@@ -210,7 +201,6 @@ export function createActivityService({ clock = () => new Date() } = {}) {
       }
     },
 
-    /** Changement de statut : suspend, reactivate, complete, reopen, archive. Aucun montant n'est touché. */
     async transition({ id, action, actor, body = {}, meta = {} }) {
       assertValidId(id)
       const now = clock()

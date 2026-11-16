@@ -14,12 +14,6 @@ import useStatistics from '../../hooks/useStatistics'
 import useStatisticsPeriod from '../../hooks/useStatisticsPeriod'
 import { formatDateTime } from '../../utils/activitiesViewModel'
 
-/**
- * Page « Statistiques » : indicateurs, graphiques et analyse des activités de la période choisie.
- * Toutes les données viennent de l'API (le serveur calcule tout, à partir des opérations réelles) ; aucune donnée fictive.
- * Chargement, erreur, période invalide et absence d'opération sont distincts, et une erreur n'est jamais remplacée par des
- * zéros. Les chiffres d'une ancienne période ne restent jamais affichés après un changement de filtre.
- */
 function StatisticsPage() {
   const period = useStatisticsPeriod()
   const { status, stats, errorMessage, periodError, refresh } = useStatistics(period)

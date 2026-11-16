@@ -1,14 +1,3 @@
-/**
- * Interrupteur (activé / désactivé) avec libellé et explication.
- *
- * Props :
- * - id : identifiant du champ
- * - label : nom de la préférence
- * - description : phrase d'explication sous le libellé (optionnel)
- * - checked : état activé
- * - onChange : fonction (nouvelle valeur booléenne) appelée au changement
- * - disabled : désactive l'interrupteur (préférence pas encore disponible)
- */
 function ToggleSwitch({ id, label, description, checked, onChange, disabled = false }) {
   return (
     <div className="flex items-center justify-between gap-4 py-3">

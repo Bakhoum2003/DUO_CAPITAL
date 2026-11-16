@@ -12,6 +12,5 @@ export const withdrawalsApi = {
   /** L'Idempotency-Key évite qu'un double envoi crée deux retraits. */
   create: (payload, idempotencyKey) => apiClient.request(BASE, { method: 'POST', body: payload, headers: { 'Idempotency-Key': idempotencyKey } }),
   update: (id, changes) => apiClient.request(withdrawalPath(id), { method: 'PATCH', body: changes }),
-  /** Suppression logique ; motif facultatif. */
   remove: (id, reason) => apiClient.request(withdrawalPath(id), { method: 'DELETE', ...(reason ? { body: { reason } } : {}) }),
 }

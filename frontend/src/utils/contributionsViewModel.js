@@ -1,5 +1,3 @@
-// Logique PURE du module Cotisations (sans React ni réseau) : filtres, validation du formulaire, mise en forme.
-// Les montants viennent du serveur ; ici on ne fait que de la présentation et de la validation de saisie.
 
 import { formatCurrency, formatMonthLabel } from './formatters'
 
@@ -9,14 +7,12 @@ export const MAX_NOTE_LENGTH = 300
 const DATE = /^\d{4}-\d{2}-\d{2}$/
 const PERIOD = /^\d{4}-(0[1-9]|1[0-2])$/
 
-/** Date du jour « AAAA-MM-JJ » à Dakar (le fonds raisonne en Africa/Dakar, pas dans le fuseau du navigateur). */
 export function todayInDakar(now = new Date()) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Dakar', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now)
 }
 
 export const hasActiveFilters = (filters) => ['partnerId', 'period', 'year', 'from', 'to'].some((key) => Boolean(filters[key]))
 
-/** Erreur de saisie des filtres (dates incohérentes), ou null. */
 export function validateFilters(filters) {
   if (filters.from && !DATE.test(filters.from)) return 'La date de début est invalide.'
   if (filters.to && !DATE.test(filters.to)) return 'La date de fin est invalide.'
@@ -25,7 +21,6 @@ export function validateFilters(filters) {
   return null
 }
 
-/** URL de la liste : seuls les filtres renseignés sont envoyés (jamais d'identité d'utilisateur). */
 export function buildContributionsPath(filters = DEFAULT_FILTERS) {
   const params = new URLSearchParams()
   for (const key of ['partnerId', 'period', 'year', 'from', 'to']) {
@@ -36,7 +31,6 @@ export function buildContributionsPath(filters = DEFAULT_FILTERS) {
   return `/api/v1/contributions?${params.toString()}`
 }
 
-/** « 2026-12 » … jusqu'au mois courant, du plus récent au plus ancien (liste du mois concerné). */
 export function buildPeriodOptions(fundStartPeriod, currentPeriod) {
   if (!fundStartPeriod || !PERIOD.test(fundStartPeriod) || !PERIOD.test(currentPeriod) || fundStartPeriod > currentPeriod) return []
   const options = []
@@ -54,7 +48,6 @@ export function buildPeriodOptions(fundStartPeriod, currentPeriod) {
   return options.reverse()
 }
 
-/** « 15 000 » ou « 15000 » -> 15000 ; null si ce n'est pas un entier positif écrit en chiffres. */
 export function parseAmountInput(raw) {
   const digits = String(raw ?? '').replace(/[\s  ]/g, '')
   return /^\d{1,15}$/.test(digits) ? Number(digits) : null
@@ -89,7 +82,6 @@ export function validateRecordForm(values, { todayIso, fundStartPeriod, partnerI
   return errors
 }
 
-/** Corps de la requête : montant en NOMBRE, note omise si vide. */
 export function buildCreatePayload(values, { confirmDuplicate = false } = {}) {
   const payload = {
     partnerId: values.partnerId,
@@ -105,7 +97,6 @@ export function buildCreatePayload(values, { confirmDuplicate = false } = {}) {
 
 const FIELD_MAP = { partnerId: 'partnerId', amount: 'amount', contributionDate: 'contributionDate', period: 'period', note: 'note' }
 
-/** Transforme une erreur d'API en { message, fieldErrors, needsDuplicateConfirmation } affichables. */
 export function describeCreateError(error) {
   const fieldErrors = {}
   for (const item of error?.fields ?? []) {
@@ -121,7 +112,6 @@ export function describeCreateError(error) {
 
 export const percentLabel = (value) => (value == null ? '—' : `${new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 }).format(value)} %`)
 
-/** Six cartes de statistiques ; une valeur non calculable reste « Non calculable », jamais un faux 0. */
 export function buildStatCards(summary) {
   const { collective, partners, expectedAvailable } = summary
   const names = (index) => partners[index]?.name ?? `Associé ${index + 1}`
@@ -136,7 +126,6 @@ export function buildStatCards(summary) {
   ]
 }
 
-/** Suivi individuel d'un associé (objectif mensuel, versé, restant, progression). */
 export function buildPartnerProgress(partner) {
   const available = partner.expected != null
   const rate = partner.realizationRate
@@ -159,7 +148,6 @@ export function buildPartnerProgress(partner) {
 
 export const MONTH_STATUS_LABELS = { PAID: 'Réglé', PARTIAL: 'Partiel', UNPAID: 'Non réglé' }
 
-/** Ligne du suivi mensuel : statut collectif (réglé / en cours / en retard) et statut par associé. */
 export function buildMonthRows(summary) {
   return [...summary.months].reverse().map((month) => ({
     period: month.period,

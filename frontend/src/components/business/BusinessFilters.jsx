@@ -4,17 +4,6 @@ import ActionButton from '../common/ActionButton'
 import SearchInput from '../common/SearchInput'
 import SelectField from '../common/SelectField'
 
-/**
- * Barre de recherche, filtres (catégorie, statut) et tri de la liste des business.
- *
- * Props :
- * - filters : { search, category, status, sortOrder }
- * - onFilterChange : fonction (nom, valeur) appelée à chaque changement
- * - onReset : fonction appelée au clic sur « Réinitialiser »
- * - hasActiveFilters : affiche le bouton « Réinitialiser » quand un filtre est actif
- * - categoryOptions : tableau { value, label } (la première option « toutes » a la valeur '')
- * - statusOptions : tableau { value, label } (la première option « tous » a la valeur '')
- */
 function BusinessFilters({ filters, onFilterChange, onReset, hasActiveFilters, categoryOptions, statusOptions }) {
   return (
     <div className="mb-4 space-y-3">

@@ -1,7 +1,3 @@
-// DONNÉES TEMPORAIRES du Dashboard (aucune API, aucune base de données).
-// La forme de cet objet est celle que renverra le backend MongoDB : seul
-// services/dashboardService.js devra changer pour la brancher.
-// Montants en FCFA (nombres entiers), dates au format ISO « AAAA-MM-JJ ».
 
 export const dashboardMockData = {
   summary: {
@@ -11,7 +7,6 @@ export const dashboardMockData = {
     cumulativeProfit: { amount: 65000, monthlyChange: 15000 },
   },
 
-  // Évolution du capital sur les 6 derniers mois.
   capitalHistory: [
     { month: 'Juin', capital: 180000 },
     { month: 'Juil', capital: 210000 },
@@ -22,7 +17,6 @@ export const dashboardMockData = {
   ],
   capitalPeriodLabel: '6 derniers mois',
 
-  // Répartition du capital (cotisations + bénéfices conservés dans le capital).
   revenueDistribution: [
     { id: 'contributions', label: 'Cotisations', amount: 360000, color: 'green' },
     { id: 'profits', label: 'Bénéfices', amount: 50000, color: 'red' },

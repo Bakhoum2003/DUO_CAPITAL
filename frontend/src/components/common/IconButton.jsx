@@ -3,17 +3,6 @@ const TONE_CLASSES = {
   danger: 'text-danger-500 hover:bg-danger-50',
 }
 
-/**
- * Bouton rond qui ne contient qu'une icône (modifier, supprimer, fermer, mois précédent…).
- *
- * Props :
- * - icon : composant d'icône Font Awesome (voir src/icons)
- * - label : description accessible (lue par les lecteurs d'écran, affichée au survol)
- * - onClick : fonction appelée au clic
- * - tone : 'neutral' ou 'danger'
- * - hasBorder : ajoute une bordure grise autour du bouton
- * - disabled : désactive le bouton
- */
 function IconButton({ icon: Icon, label, onClick, tone = 'neutral', hasBorder = false, disabled = false }) {
   return (
     <button

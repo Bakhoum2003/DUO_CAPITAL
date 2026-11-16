@@ -7,17 +7,6 @@ import ActionButton from '../common/ActionButton'
 import StatusBadge from '../common/StatusBadge'
 import BusinessCategoryIcon from './BusinessCategoryIcon'
 
-/**
- * En-tête de la page de détails : retour à la liste, nom, catégorie, statut,
- * et boutons « Modifier » / « Supprimer ».
- *
- * Props :
- * - name : nom du business
- * - category : valeur de catégorie
- * - status : 'ongoing' ou 'completed'
- * - onEdit : fonction appelée au clic sur « Modifier »
- * - onDelete : fonction appelée au clic sur « Supprimer »
- */
 function BusinessDetailsHeader({ name, category, status, onEdit, onDelete }) {
   const statusStyle = BUSINESS_STATUSES[status]
 
