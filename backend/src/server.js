@@ -35,7 +35,7 @@ function listen(server, port) {
 export async function startServer({ config, logger, database = defaultDatabase }) {
   logger.info({ env: config.env, database: config.database.name }, 'Démarrage de l’API DUO CAPITAL')
 
-  await database.connect({ url: config.database.url, requireReplicaSet: config.database.requireReplicaSet, logger })
+  await database.connect({ url: config.database.url, requireReplicaSet: config.database.requireReplicaSet, maxPoolSize: config.database.maxPoolSize, logger })
   logger.info({ database: config.database.name }, 'MongoDB connecté')
 
   const app = createApp({ config, logger, database })

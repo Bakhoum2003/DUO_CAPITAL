@@ -30,6 +30,9 @@ export const LOG_LEVELS = ['fatal', 'error', 'warn', 'info', 'debug', 'trace', '
 
 const DEFAULT_FRONTEND_URL = 'http://localhost:5173'
 const DEFAULT_PORT = 4000
+const DEFAULT_MONGO_MAX_POOL_SIZE = 10
+const MAX_MONGO_POOL_SIZE = 100
+const MAX_TRUSTED_PROXIES = 5
 
 export class ConfigError extends Error {
   /** @param {Array<{variable: string, message: string}>} issues */
@@ -216,6 +219,8 @@ const ENV_KEYS = [
   'REFRESH_TOKEN_TTL_DAYS',
   'COOKIE_SAME_SITE',
   'FUND_START_PERIOD',
+  'TRUST_PROXY',
+  'MONGO_MAX_POOL_SIZE',
 ]
 
 const envSchema = z.object({
@@ -230,6 +235,8 @@ const envSchema = z.object({
   REFRESH_TOKEN_TTL_DAYS: z.coerce.number().int().min(1).max(90).default(DEFAULT_REFRESH_TOKEN_TTL_DAYS),
   COOKIE_SAME_SITE: z.enum(COOKIE_SAME_SITE_VALUES).default('lax'),
   FUND_START_PERIOD: z.string().optional(),
+  TRUST_PROXY: z.coerce.number().int().min(0).max(MAX_TRUSTED_PROXIES).default(0),
+  MONGO_MAX_POOL_SIZE: z.coerce.number().int().min(1).max(MAX_MONGO_POOL_SIZE).default(DEFAULT_MONGO_MAX_POOL_SIZE),
 })
 
 const SCHEMA_MESSAGES = {
@@ -239,6 +246,8 @@ const SCHEMA_MESSAGES = {
   ACCESS_TOKEN_TTL_MINUTES: 'doit être un nombre entier de minutes entre 1 et 60.',
   REFRESH_TOKEN_TTL_DAYS: 'doit être un nombre entier de jours entre 1 et 90.',
   COOKIE_SAME_SITE: `doit valoir ${COOKIE_SAME_SITE_VALUES.join(', ')}.`,
+  TRUST_PROXY: `doit être le nombre de proxys de confiance devant l'API : un entier entre 0 et ${MAX_TRUSTED_PROXIES} (0 = aucun).`,
+  MONGO_MAX_POOL_SIZE: `doit être un nombre entier entre 1 et ${MAX_MONGO_POOL_SIZE}.`,
 }
 
 function pickEnv(source) {
@@ -355,6 +364,8 @@ export function parseEnv(source) {
     isTest,
     isDevelopment: env.NODE_ENV === 'development',
     port: env.PORT,
+    // Nombre de proxys inverses de confiance (0 = aucun) : seul ce réglage permet de lire l'adresse IP réelle du client.
+    trustProxy: env.TRUST_PROXY,
     logLevel: env.LOG_LEVEL ?? (isTest ? 'silent' : isProduction ? 'info' : 'debug'),
     frontendOrigins: Object.freeze(frontendOrigins),
     database: Object.freeze({
@@ -363,6 +374,7 @@ export function parseEnv(source) {
       redactedUrl: redactMongoUri(databaseUrl),
       // Les transactions exigent un replica set : refus de démarrer sans lui en production.
       requireReplicaSet: isProduction,
+      maxPoolSize: env.MONGO_MAX_POOL_SIZE,
     }),
     rateLimit: Object.freeze({ windowMs: RATE_LIMIT_WINDOW_MS, max: RATE_LIMIT_MAX_REQUESTS }),
     auth: Object.freeze(auth),

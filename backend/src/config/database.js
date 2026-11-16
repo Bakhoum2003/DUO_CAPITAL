@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 const CONNECTION_STATES = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' }
 const SERVER_SELECTION_TIMEOUT_MS = 5000
 const HEALTH_PING_TIMEOUT_MS = 2000
+const DEFAULT_MAX_POOL_SIZE = 10
 
 let transactionsSupported = null
 let listenersAttached = false
@@ -36,9 +37,10 @@ function attachConnectionLogging(logger) {
  * @param {object} options
  * @param {string} options.url adresse de la base (DATABASE_URL, ou TEST_DATABASE_URL en test)
  * @param {boolean} [options.requireReplicaSet] refuse une base qui ne supporte pas les transactions
+ * @param {number} [options.maxPoolSize] connexions simultanées maximales de ce processus (10 par défaut)
  * @param {import('pino').Logger} [options.logger]
  */
-export async function connectDatabase({ url, requireReplicaSet = false, logger }) {
+export async function connectDatabase({ url, requireReplicaSet = false, maxPoolSize = DEFAULT_MAX_POOL_SIZE, logger }) {
   const state = mongoose.connection.readyState
   if (state === 1) return mongoose.connection
   if (state === 2) {
@@ -48,7 +50,7 @@ export async function connectDatabase({ url, requireReplicaSet = false, logger }
 
   attachConnectionLogging(logger)
   mongoose.set('strictQuery', true)
-  await mongoose.connect(url, { serverSelectionTimeoutMS: SERVER_SELECTION_TIMEOUT_MS, maxPoolSize: 10 })
+  await mongoose.connect(url, { serverSelectionTimeoutMS: SERVER_SELECTION_TIMEOUT_MS, maxPoolSize })
 
   transactionsSupported = await detectTransactionSupport()
   if (!transactionsSupported) {

@@ -11,6 +11,7 @@ import { requireTrustedOrigin } from './middlewares/requireTrustedOrigin.js'
 import { createHealthRouter } from './routes/health.routes.js'
 import { createAuthRouter } from './routes/auth.routes.js'
 import { createApiV1Router } from './routes/index.js'
+import { createServerlessEntry } from './serverless.js'
 import { createAuthService } from './services/auth.service.js'
 import { createActivityService } from './services/activity.service.js'
 import { createTreasuryService } from './services/treasury.service.js'
@@ -36,6 +37,8 @@ export function createApp({ config, logger, database, clock }) {
   const app = express()
 
   app.disable('x-powered-by')
+  // Derrière un proxy (Vercel), req.ip vient de X-Forwarded-For : lu seulement si le nombre de proxys de confiance est configuré.
+  if (config.trustProxy > 0) app.set('trust proxy', config.trustProxy)
   app.use(createRequestLogger(logger))
   app.use(helmet())
   app.use(cors(createCorsOptions(config.frontendOrigins)))
@@ -71,3 +74,12 @@ export function createApp({ config, logger, database, clock }) {
 
   return app
 }
+
+/**
+ * Point d'entrée des hébergements serverless (Vercel détecte `src/app.js` et exige un export par défaut) :
+ * une application Express légère qui, à la première requête seulement, lit la configuration, ouvre MongoDB
+ * (une fois, connexion réutilisée) et construit l'application complète avec `createApp`.
+ * L'import de ce module ne lit aucune variable d'environnement et n'ouvre aucune connexion.
+ * Le démarrage local passe toujours par `src/server.js`.
+ */
+export default createServerlessEntry({ createApp })
